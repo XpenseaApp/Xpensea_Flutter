@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppTextStyle {
+  static const String kFamilyName = "Unna";
   static const kDisplayTitleR = TextStyle(
-    // fontFamily: kFamilyName,
+    fontFamily: kFamilyName,
     fontWeight: FontWeight.w400,
     color: Colors.white,
     fontSize: 44,
