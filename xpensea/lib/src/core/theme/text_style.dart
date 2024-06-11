@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
 
 class AppTextStyle {
   static const String kUnnaFamily = "Unna";
@@ -23,5 +24,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     color: Colors.black,
     fontSize: 14,
+  );
+
+  static const kBodySB = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: AppPalette.kPrimaryColor,
+    fontSize: 12,
   );
 }
