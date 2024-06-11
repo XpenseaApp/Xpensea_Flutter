@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:xpensea/src/presentation/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/routes/routes.dart';
 import 'package:xpensea/src/presentation/screens/otp_page.dart';
-import 'package:xpensea/src/presentation/theme/palette.dart';
-import 'package:xpensea/src/presentation/theme/text_style.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
+import 'package:xpensea/src/core/theme/text_style.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

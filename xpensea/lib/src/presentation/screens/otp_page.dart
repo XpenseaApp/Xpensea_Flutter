@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
-import 'package:xpensea/src/presentation/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/theme/palette.dart';
-import 'package:xpensea/src/presentation/theme/text_style.dart';
+import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
+import 'package:xpensea/src/core/theme/text_style.dart';
 
 class OtpPage extends StatelessWidget {
   const OtpPage({super.key});
