@@ -17,7 +17,9 @@ class MenuCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 120,
-      decoration: const BoxDecoration(color: AppPalette.kSeaShell),
+      decoration: const BoxDecoration(
+          color: AppPalette.kSeaShell,
+          borderRadius: BorderRadius.all(Radius.circular(8))),
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       child: Column(
         children: [
