@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
@@ -21,6 +22,32 @@ class HomePage extends StatelessWidget {
     MenuItems("Upload Bill", AppIcons.event),
   ];
 
+  static final List<Activity> activities = [
+    Activity(
+      title: 'Onam purchases',
+      amount: 'Rs 1,401',
+      expenses: '3 expenses',
+      date: 'Nov 19 2023',
+      status: 'Reimbursed',
+      statusColor: AppPalette.kLGreen,
+    ),
+    Activity(
+      title: 'Maintains',
+      amount: 'Rs 601',
+      expenses: '25 expenses',
+      date: 'Nov 19 2023',
+      status: 'Approved',
+      statusColor: AppPalette.kLGreen,
+    ),
+    Activity(
+      title: 'Shop purchases',
+      amount: 'Rs 2,601',
+      expenses: '68 expenses',
+      date: 'Nov 19 2023',
+      status: 'Rejected',
+      statusColor: AppPalette.kLOrange,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +96,14 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: activities.length,
+                  itemBuilder: (context, index) => ActivityCard(
+                    activity: activities[index],
+                  ),
+                ),
+              )
             ],
           ),
         ),

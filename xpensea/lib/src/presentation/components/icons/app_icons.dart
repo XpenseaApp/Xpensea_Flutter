@@ -5,4 +5,5 @@ class AppIcons {
   static const String uploadDoc = "assets/svg/upload.svg";
   static const String scanDoc = "assets/svg/scan_doc.svg";
   static const String event = "assets/svg/event.svg";
+  static const String eventOrange = "assets/svg/event_orange.svg";
 }

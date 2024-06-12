@@ -16,6 +16,7 @@ class MenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 120,
       decoration: const BoxDecoration(color: AppPalette.kSeaShell),
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       child: Column(
@@ -26,7 +27,7 @@ class MenuCard extends StatelessWidget {
           ),
           Text(
             text,
-            style: AppTextStyle.kBodySB,
+            style: AppTextStyle.kSmallBodySB,
           )
         ],
       ),

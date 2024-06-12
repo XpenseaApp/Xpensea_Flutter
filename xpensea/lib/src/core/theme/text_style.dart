@@ -26,10 +26,28 @@ class AppTextStyle {
     fontSize: 14,
   );
 
-  static const kBodySB = TextStyle(
+  static const kLargeBodySB = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+    fontSize: 18,
+  );
+  static const kMediumBodyM = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w500,
+    color: AppPalette.kGray1,
+    fontSize: 16,
+  );
+  static const kSmallBodySB = TextStyle(
     fontFamily: kInterFamily,
     fontWeight: FontWeight.w600,
     color: AppPalette.kPrimaryColor,
+    fontSize: 12,
+  );
+  static const kSmallBodyR = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w400,
+    color: AppPalette.kGray2,
     fontSize: 12,
   );
 }
