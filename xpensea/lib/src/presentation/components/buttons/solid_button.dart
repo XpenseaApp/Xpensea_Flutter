@@ -3,8 +3,12 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 
 class SolidButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String text;
   const SolidButton({
     super.key,
+    required this.onPressed,
+    required this.text,
   });
 
   @override
@@ -17,9 +21,9 @@ class SolidButton extends StatelessWidget {
               backgroundColor: AppPalette.kPrimaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5))),
-          onPressed: () {},
+          onPressed: onPressed,
           child: Text(
-            'GENERATE OTP',
+            text,
             style: AppTextStyle.kSmallTitleR.copyWith(color: Colors.white),
           )),
     );
