@@ -103,8 +103,8 @@ class _OtpPageState extends State<OtpPage> {
           initialValue: number,
           textFieldController: controller,
           formatInput: true,
-          keyboardType: const TextInputType.numberWithOptions(
-              signed: true, decimal: true),
+          maxLength: 10,
+          keyboardType: TextInputType.none,
           inputBorder: const OutlineInputBorder(),
           onSaved: (PhoneNumber number) {
             print('On Saved: $number');
@@ -183,6 +183,7 @@ class _OtpPageState extends State<OtpPage> {
             controller: pinController,
             focusNode: focusNode,
             defaultPinTheme: defaultPinTheme,
+            keyboardType: TextInputType.none,
             separatorBuilder: (index) => const SizedBox(width: 8),
             validator: (value) {
               return value == '2222' ? null : 'Pin is incorrect';
