@@ -29,7 +29,8 @@ class HomePage extends StatelessWidget {
       expenses: '3 expenses',
       date: 'Nov 19 2023',
       status: 'Reimbursed',
-      statusColor: AppPalette.kLGreen,
+      statusColor: AppPalette.iconBg,
+      statusTextColor: AppPalette.kPrimaryColor,
     ),
     Activity(
       title: 'Maintains',
@@ -38,6 +39,7 @@ class HomePage extends StatelessWidget {
       date: 'Nov 19 2023',
       status: 'Approved',
       statusColor: AppPalette.kLGreen,
+      statusTextColor: AppPalette.kLGreen.withOpacity(1),
     ),
     Activity(
       title: 'Shop purchases',
@@ -46,6 +48,7 @@ class HomePage extends StatelessWidget {
       date: 'Nov 19 2023',
       status: 'Rejected',
       statusColor: AppPalette.kLOrange,
+      statusTextColor: AppPalette.kLOrange.withOpacity(1),
     ),
   ];
   @override

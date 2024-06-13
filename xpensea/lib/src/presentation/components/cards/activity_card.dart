@@ -11,6 +11,7 @@ class Activity {
   final String date;
   final String status;
   final Color statusColor;
+  final Color statusTextColor;
 
   Activity({
     required this.title,
@@ -19,6 +20,7 @@ class Activity {
     required this.date,
     required this.status,
     required this.statusColor,
+    required this.statusTextColor,
   });
 }
 
@@ -80,7 +82,13 @@ class ActivityCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: activity.statusColor,
                 borderRadius: BorderRadius.circular(4)),
-            child: Center(child: Text(activity.status)),
+            child: Center(
+                child: Text(
+              activity.status,
+              style: AppTextStyle.kSmallBodyR.copyWith(
+                color: activity.statusTextColor,
+              ),
+            )),
           )
         ],
       ),
