@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
   static final List<MenuItems> _menuCards = [
     MenuItems("Create Events", AppIcons.event),
     MenuItems("Capture Bill", AppIcons.scanDoc),
-    MenuItems("Upload Bill", AppIcons.event),
+    MenuItems("Upload Bill", AppIcons.uploadDoc),
   ];
 
   static final List<Activity> activities = [
@@ -49,6 +49,15 @@ class HomePage extends StatelessWidget {
       status: 'Rejected',
       statusColor: AppPalette.kLOrange,
       statusTextColor: AppPalette.kLOrange.withOpacity(1),
+    ),
+    Activity(
+      title: 'Staff Expenses',
+      amount: 'Rs 5,401',
+      expenses: '03 expenses',
+      date: 'Nov 19 2023',
+      status: 'Submitted',
+      statusColor: AppPalette.kLPeach,
+      statusTextColor: AppPalette.kLDarkOrange,
     ),
   ];
   @override
@@ -99,9 +108,21 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 40,
+              ),
+              Text(
+                'Recent Activities',
+                style: AppTextStyle.kMediumBodyM
+                    .copyWith(color: AppPalette.kGray3),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
               Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
                   itemCount: activities.length,
+                  separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) => ActivityCard(
                     activity: activities[index],
                   ),

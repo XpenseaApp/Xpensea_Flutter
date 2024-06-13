@@ -34,61 +34,91 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 16),
-      child: Row(
+      margin: const EdgeInsets.only(top: 16, bottom: 8),
+      child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: AppPalette.kOrange,
-                borderRadius: BorderRadius.circular(12)),
-            child: SvgPicture.asset(AppIcons.eventOrange),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  activity.title,
-                  style: AppTextStyle.kMediumBodyM,
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Row(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // icon
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: AppPalette.kOrange,
+                    borderRadius: BorderRadius.circular(12)),
+                child: SvgPicture.asset(AppIcons.eventOrange),
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      activity.amount,
-                      style: AppTextStyle.kLargeBodySB,
+                      activity.title,
+                      style: AppTextStyle.kMediumBodyM,
                     ),
                     const SizedBox(
-                      width: 8,
+                      height: 8,
                     ),
-                    Text(
-                      activity.expenses,
-                      style: AppTextStyle.kSmallBodyR,
+                    Row(
+                      children: [
+                        Text(
+                          activity.amount,
+                          style: AppTextStyle.kLargeBodySB,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          activity.expenses,
+                          style: AppTextStyle.kSmallBodyR,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          Container(
-            width: 100,
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            decoration: BoxDecoration(
-                color: activity.statusColor,
-                borderRadius: BorderRadius.circular(4)),
-            child: Center(
-                child: Text(
-              activity.status,
-              style: AppTextStyle.kSmallBodyR.copyWith(
-                color: activity.statusTextColor,
               ),
-            )),
+              // status
+              Container(
+                width: 100,
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                decoration: BoxDecoration(
+                    color: activity.statusColor,
+                    borderRadius: BorderRadius.circular(4)),
+                child: Center(
+                    child: Text(
+                  activity.status,
+                  style: AppTextStyle.kSmallBodyR.copyWith(
+                    color: activity.statusTextColor,
+                  ),
+                )),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                  child: Text(
+                activity.date,
+                style: AppTextStyle.kSmallTitleR
+                    .copyWith(color: AppPalette.kGray3),
+              )),
+              Text(
+                'View More',
+                style: AppTextStyle.kSmallBodySB
+                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              SvgPicture.asset(AppIcons.arrowForward)
+            ],
           )
         ],
       ),
