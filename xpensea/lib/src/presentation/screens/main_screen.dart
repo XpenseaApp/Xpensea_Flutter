@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
+import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/expense_page.dart';
 import 'package:xpensea/src/presentation/screens/home_page.dart';
 import 'package:xpensea/src/presentation/screens/profile_page.dart';
@@ -26,27 +30,35 @@ class _MainScreenState extends State<MainScreen> {
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
+          unselectedLabelStyle:
+              AppTextStyle.kSmallBodyR.copyWith(color: AppPalette.kGray4),
+          selectedLabelStyle: AppTextStyle.kSmallBodyR.copyWith(
+              color: AppPalette.kPrimaryColor, fontWeight: FontWeight.w500),
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
               _currentIndex = index;
             });
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: SvgPicture.asset(AppIcons.home),
+              activeIcon: SvgPicture.asset(AppIcons.homeFilled),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: SvgPicture.asset(AppIcons.expense),
+              activeIcon: SvgPicture.asset(AppIcons.expenseFilled),
               label: 'Expense',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: SvgPicture.asset(AppIcons.report),
+              activeIcon: SvgPicture.asset(AppIcons.reportFilled),
               label: 'Report',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: SvgPicture.asset(AppIcons.profile),
+              activeIcon: SvgPicture.asset(AppIcons.profileFilled),
               label: 'Profile',
             ),
           ]),
