@@ -62,76 +62,49 @@ class HomePage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppPalette.kPrimaryColor,
-        foregroundColor: Colors.white,
-        child: const Icon(
-          Icons.add,
-          size: 40,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Hi, lets manage expenses',
+          style: AppTextStyle.kDisplayTitleM,
         ),
-        onPressed: () {},
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SvgPicture.asset(AppIcons.starFilled),
-                  SvgPicture.asset(AppIcons.notificationBell),
-                ],
+        const SizedBox(
+          height: 28,
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Wrap(
+            spacing: 8,
+            children: List.generate(
+              _menuCards.length,
+              (index) => MenuCard(
+                text: _menuCards[index].text,
+                iconPath: _menuCards[index].iconPath,
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              const Text(
-                'Hi, lets manage expenses',
-                style: AppTextStyle.kDisplayTitleM,
-              ),
-              const SizedBox(
-                height: 28,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Wrap(
-                  spacing: 8,
-                  children: List.generate(
-                    _menuCards.length,
-                    (index) => MenuCard(
-                      text: _menuCards[index].text,
-                      iconPath: _menuCards[index].iconPath,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Text(
-                'Recent Activities',
-                style: AppTextStyle.kMediumBodyM
-                    .copyWith(color: AppPalette.kGray3),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Expanded(
-                child: ListView.separated(
-                  itemCount: activities.length,
-                  separatorBuilder: (context, index) => const Divider(),
-                  itemBuilder: (context, index) => ActivityCard(
-                    activity: activities[index],
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
         ),
-      ),
+        const SizedBox(
+          height: 40,
+        ),
+        Text(
+          'Recent Activities',
+          style: AppTextStyle.kMediumBodyM.copyWith(color: AppPalette.kGray3),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: activities.length,
+            separatorBuilder: (context, index) => const Divider(),
+            itemBuilder: (context, index) => ActivityCard(
+              activity: activities[index],
+            ),
+          ),
+        )
+      ],
     );
   }
 }

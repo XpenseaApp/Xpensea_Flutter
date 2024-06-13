@@ -27,7 +27,48 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppPalette.kPrimaryColor,
+        foregroundColor: Colors.white,
+        child: const Icon(
+          Icons.add,
+          size: 40,
+        ),
+        onPressed: () {
+          switch (_currentIndex) {
+            case 0:
+              // Action for Home page
+              break;
+            case 1:
+              // Action for Expense page
+              break;
+            case 2:
+              // Action for Report page
+              break;
+            case 3:
+              // Action for Profile page
+              break;
+          }
+        },
+      ),
+      body: SafeArea(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset(AppIcons.starFilled),
+                      SvgPicture.asset(AppIcons.notificationBell),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Expanded(child: _pages[_currentIndex]),
+                ],
+              ))),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           unselectedLabelStyle:
