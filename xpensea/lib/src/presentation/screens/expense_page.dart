@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/components/textfields/search_field.dart';
 
 class ExpensePage extends StatelessWidget {
   const ExpensePage({super.key});
@@ -40,6 +41,7 @@ class ExpensePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const CustomSearchField(),
         Expanded(
           child: ListView.separated(
             itemCount: expenses.length,

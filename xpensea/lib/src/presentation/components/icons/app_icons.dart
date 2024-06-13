@@ -20,4 +20,5 @@ class AppIcons {
   static const String checkWait = "assets/svg/check_wait.svg";
   static const String maintenance = "assets/svg/maintenance.svg";
   static const String person = "assets/svg/person.svg";
+  static const String search = "assets/svg/search.svg";
 }
