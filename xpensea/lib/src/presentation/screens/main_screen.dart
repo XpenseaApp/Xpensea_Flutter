@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/presentation/components/appbar/appbar.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/expense_page.dart';
 import 'package:xpensea/src/presentation/screens/home_page.dart';
@@ -56,13 +57,7 @@ class _MainScreenState extends State<MainScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset(AppIcons.starFilled),
-                      SvgPicture.asset(AppIcons.notificationBell),
-                    ],
-                  ),
+                  CommonAppBar(index: _currentIndex),
                   const SizedBox(
                     height: 16,
                   ),
