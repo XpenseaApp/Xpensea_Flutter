@@ -15,4 +15,9 @@ class AppIcons {
   static const String reportFilled = "assets/svg/report_filled.svg";
   static const String profile = "assets/svg/profile.svg";
   static const String profileFilled = "assets/svg/profile_filled.svg";
+  static const String airplane = "assets/svg/airplane.svg";
+  static const String checkOk = "assets/svg/check_ok.svg";
+  static const String checkWait = "assets/svg/check_wait.svg";
+  static const String maintenance = "assets/svg/maintenance.svg";
+  static const String person = "assets/svg/person.svg";
 }
