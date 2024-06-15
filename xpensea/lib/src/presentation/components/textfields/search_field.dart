@@ -20,9 +20,7 @@ class CustomSearchField extends StatelessWidget {
         hintStyle: AppTextStyle.kSmallTitleR
             .copyWith(fontSize: 16, color: AppPalette.kGray4),
         suffixIcon: Container(
-          padding: const EdgeInsets.all(8),
-          height: 32,
-          width: 32,
+          padding: const EdgeInsets.all(16),
           child: SvgPicture.asset(
             AppIcons.search,
           ),
@@ -33,8 +31,6 @@ class CustomSearchField extends StatelessWidget {
         focusedBorder: _border,
         filled: true,
         fillColor: Colors.white, // Fill color of the TextField
-        // contentPadding: const EdgeInsets.symmetric(
-        //     vertical: 20, horizontal: 20), // Padding inside the TextField
       ),
     );
   }

@@ -5,7 +5,7 @@ class AppIcons {
   static const String uploadDoc = "assets/svg/upload.svg";
   static const String scanDoc = "assets/svg/scan_doc.svg";
   static const String event = "assets/svg/event.svg";
-  static const String eventOrange = "assets/svg/event_orange.svg";
+  static const String eventFilled = "assets/svg/event_filled.svg";
   static const String arrowForward = "assets/svg/arrow_insert.svg";
   static const String home = "assets/svg/home.svg";
   static const String homeFilled = "assets/svg/home_filled.svg";
@@ -21,4 +21,6 @@ class AppIcons {
   static const String maintenance = "assets/svg/maintenance.svg";
   static const String person = "assets/svg/person.svg";
   static const String search = "assets/svg/search.svg";
+  static const String sort = "assets/svg/sort.svg";
+  static const String docFilled = "assets/svg/doc_filled.svg";
 }

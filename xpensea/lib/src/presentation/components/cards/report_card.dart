@@ -4,31 +4,33 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
-class Activity {
+class Reports {
   final String title;
   final String amount;
   final String expenses;
   final String date;
-  final String status;
-  final Color statusColor;
-  final Color statusTextColor;
+  final String leadingIconPath;
+  String? status;
+  Color? statusColor;
+  Color? statusTextColor;
 
-  Activity({
+  Reports({
     required this.title,
     required this.amount,
     required this.expenses,
     required this.date,
-    required this.status,
-    required this.statusColor,
-    required this.statusTextColor,
+    required this.leadingIconPath,
+    this.status,
+    this.statusColor,
+    this.statusTextColor,
   });
 }
 
-class ActivityCard extends StatelessWidget {
-  final Activity activity;
-  const ActivityCard({
+class ReportCard extends StatelessWidget {
+  final Reports report;
+  const ReportCard({
     super.key,
-    required this.activity,
+    required this.report,
   });
 
   @override
@@ -41,7 +43,7 @@ class ActivityCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // icon
-              SvgPicture.asset(AppIcons.eventFilled),
+              SvgPicture.asset(report.leadingIconPath),
 
               const SizedBox(
                 width: 12,
@@ -51,7 +53,7 @@ class ActivityCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      activity.title,
+                      report.title,
                       style: AppTextStyle.kMediumBodyM,
                     ),
                     const SizedBox(
@@ -60,14 +62,14 @@ class ActivityCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          activity.amount,
+                          report.amount,
                           style: AppTextStyle.kLargeBodySB,
                         ),
                         const SizedBox(
                           width: 8,
                         ),
                         Text(
-                          activity.expenses,
+                          report.expenses,
                           style: AppTextStyle.kSmallBodyR,
                         ),
                       ],
@@ -76,20 +78,21 @@ class ActivityCard extends StatelessWidget {
                 ),
               ),
               // status
-              Container(
-                width: 100,
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                decoration: BoxDecoration(
-                    color: activity.statusColor,
-                    borderRadius: BorderRadius.circular(4)),
-                child: Center(
-                    child: Text(
-                  activity.status,
-                  style: AppTextStyle.kSmallBodyR.copyWith(
-                    color: activity.statusTextColor,
-                  ),
-                )),
-              )
+              if (report.status != null)
+                Container(
+                  width: 100,
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  decoration: BoxDecoration(
+                      color: report.statusColor ?? Colors.grey,
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Center(
+                      child: Text(
+                    report.status!,
+                    style: AppTextStyle.kSmallBodyR.copyWith(
+                      color: report.statusTextColor ?? Colors.black,
+                    ),
+                  )),
+                )
             ],
           ),
           const SizedBox(
@@ -100,7 +103,7 @@ class ActivityCard extends StatelessWidget {
             children: [
               Expanded(
                   child: Text(
-                activity.date,
+                report.date,
                 style: AppTextStyle.kSmallTitleR
                     .copyWith(color: AppPalette.kGray3),
               )),
