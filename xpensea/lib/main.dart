@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:xpensea/src/presentation/routes/routes.dart';
-import 'package:xpensea/src/presentation/screens/splash_screen.dart';
 
 void main() {
   runApp(const MainApp());
