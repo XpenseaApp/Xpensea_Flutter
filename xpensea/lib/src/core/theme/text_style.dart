@@ -25,6 +25,12 @@ class AppTextStyle {
     color: Colors.black,
     fontSize: 14,
   );
+  static const kLargeBodyB = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w700,
+    color: Colors.black,
+    fontSize: 18,
+  );
 
   static const kLargeBodySB = TextStyle(
     fontFamily: kInterFamily,

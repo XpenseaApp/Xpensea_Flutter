@@ -24,6 +24,7 @@ flutter:
 
   assets:
     - assets/svg/
+    - assets/images/
 
   fonts:
     - family: Unna

@@ -23,4 +23,8 @@ class AppIcons {
   static const String search = "assets/svg/search.svg";
   static const String sort = "assets/svg/sort.svg";
   static const String docFilled = "assets/svg/doc_filled.svg";
+  static const String logout = "assets/svg/logout.svg";
+  static const String warning = "assets/svg/warning.svg";
+  static const String lock = "assets/svg/lock.svg";
+  static const String arrowRight = "assets/svg/arrow_right.svg";
 }
