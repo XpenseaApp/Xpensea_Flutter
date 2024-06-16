@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
 
 class CustomStepper extends StatelessWidget {
   final int percentage;
@@ -27,7 +28,7 @@ class CustomStepper extends StatelessWidget {
               width: width * (percentage / 100),
               height: 10,
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: AppPalette.kPrimaryColor,
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
@@ -36,12 +37,13 @@ class CustomStepper extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(4, (index) {
                   return Container(
-                    width: 15,
-                    height: 15,
+                    width: 12,
+                    height: 12,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.red, width: 2),
+                      border:
+                          Border.all(color: AppPalette.kPrimaryColor, width: 2),
                     ),
                   );
                 }),
