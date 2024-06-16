@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
+import 'package:xpensea/src/presentation/components/cards/event_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
@@ -85,6 +86,10 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(
+          height: 16,
+        ),
+        const EventCard(),
         const SizedBox(
           height: 40,
         ),

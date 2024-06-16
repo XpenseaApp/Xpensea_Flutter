@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/cards/setting_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/components/steppers/cutsom_stepper.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -74,7 +75,7 @@ class ProfilePage extends StatelessWidget {
               style: AppTextStyle.kLargeBodySB.copyWith(fontSize: 14),
             )
           ],
-        )
+        ),
       ],
     );
   }
