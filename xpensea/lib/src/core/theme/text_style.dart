@@ -56,4 +56,11 @@ class AppTextStyle {
     color: AppPalette.kGray2,
     fontSize: 12,
   );
+
+  static const kPrimaryColorText = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: AppPalette.kPrimaryColor,
+    fontSize: 26,
+  );
 }

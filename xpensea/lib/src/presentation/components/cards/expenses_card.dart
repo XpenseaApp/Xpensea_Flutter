@@ -22,9 +22,12 @@ class Expenses {
 
 class ExpensesCard extends StatelessWidget {
   final Expenses expenses;
+
+  final VoidCallback? onTap;
   const ExpensesCard({
     super.key,
     required this.expenses,
+    required this.onTap,
   });
 
   @override
@@ -76,10 +79,13 @@ class ExpensesCard extends StatelessWidget {
                 style: AppTextStyle.kSmallTitleR
                     .copyWith(color: AppPalette.kGray3),
               )),
-              Text(
-                'View More',
-                style: AppTextStyle.kSmallBodySB
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+              GestureDetector(
+                onTap: onTap,
+                child: Text(
+                  'View More',
+                  style: AppTextStyle.kSmallBodySB
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
               ),
               const SizedBox(
                 width: 4,
