@@ -4,6 +4,7 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
+import 'package:xpensea/src/presentation/components/dialogs/filter_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/components/textfields/search_field.dart';
 
@@ -103,7 +104,14 @@ class ExpensePage extends StatelessWidget {
               const SizedBox(
                 width: 28,
               ),
-              SvgPicture.asset(AppIcons.sort)
+              GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => FilterDialog(),
+                    );
+                  },
+                  child: SvgPicture.asset(AppIcons.sort))
             ],
           ),
           const SizedBox(
