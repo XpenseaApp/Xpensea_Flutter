@@ -48,7 +48,7 @@ class _DescriptionTextfieldState extends State<DescriptionTextfield> {
   Widget build(BuildContext context) {
     return TextField(
       controller: _controller,
-      maxLines: 10,
+      maxLines: 7,
       decoration: InputDecoration(
         hintText: "Write a description in less than 500 words",
         hintStyle: AppTextStyle.kSmallTitleR

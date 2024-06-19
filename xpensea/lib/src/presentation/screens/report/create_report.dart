@@ -4,6 +4,7 @@ import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/components/steppers/report_stepper.dart';
 import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
 import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
 import 'package:xpensea/src/presentation/components/textfields/regular_textfield.dart';
@@ -34,19 +35,32 @@ class CreateReport extends StatelessWidget {
               'Create\nExpense Report',
               style: AppTextStyle.kDisplayTitleM,
             ),
-            Text(
-              'Basic Report',
-              style: AppTextStyle.kLargeBodyB.copyWith(
-                fontSize: 16,
-                decoration: TextDecoration.underline,
-                decorationThickness: 2,
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Basic Details',
+                style: AppTextStyle.kLargeBodyB.copyWith(
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 2,
+                ),
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             const RegularTextfield(
               hintText: 'Report Title',
             ),
+            const SizedBox(
+              height: 20,
+            ),
             const CustomDateField(),
+            const SizedBox(
+              height: 20,
+            ),
             const DescriptionTextfield(),
+            const Spacer(),
             Row(
               children: [
                 Expanded(
@@ -57,7 +71,7 @@ class CreateReport extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 8,
+                  width: 12,
                 ),
                 Expanded(
                     flex: 1, child: SolidButton(onPressed: () {}, text: 'Next'))
