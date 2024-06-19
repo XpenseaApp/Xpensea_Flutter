@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xpensea/src/presentation/screens/main_screen.dart';
+import 'package:xpensea/src/presentation/screens/navigation/main_screen.dart';
 import 'package:xpensea/src/presentation/screens/otp_page.dart';
+import 'package:xpensea/src/presentation/screens/report/create_report.dart';
 
 class AppRoutes {
   static const String splash = "/";
@@ -8,7 +9,7 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
-      splash: (context) => const MainScreen(),
+      splash: (context) => const CreateReport(),
       otp: (context) => const OtpPage()
     };
   }
