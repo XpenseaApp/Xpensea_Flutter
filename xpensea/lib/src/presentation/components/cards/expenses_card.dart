@@ -81,16 +81,20 @@ class ExpensesCard extends StatelessWidget {
               )),
               GestureDetector(
                 onTap: onTap,
-                child: Text(
-                  'View More',
-                  style: AppTextStyle.kSmallBodySB
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                child: Row(
+                  children: [
+                    Text(
+                      'View More',
+                      style: AppTextStyle.kSmallBodySB
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    SvgPicture.asset(AppIcons.arrowForward)
+                  ],
                 ),
               ),
-              const SizedBox(
-                width: 4,
-              ),
-              SvgPicture.asset(AppIcons.arrowForward)
             ],
           )
         ],
