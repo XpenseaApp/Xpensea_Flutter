@@ -1,85 +1,185 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/components/steppers/report_stepper.dart';
-import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
-import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
-import 'package:xpensea/src/presentation/components/textfields/regular_textfield.dart';
+import 'package:xpensea/src/presentation/screens/report/basic_detail_page.dart';
+import 'package:xpensea/src/presentation/screens/report/expenses_list_page.dart';
+import 'package:xpensea/src/presentation/screens/report/preview_report.dart';
 
-class CreateReport extends StatelessWidget {
+import 'success_report_page.dart';
+
+class CreateReport extends StatefulWidget {
   const CreateReport({super.key});
+
+  @override
+  State<CreateReport> createState() => _CreateReportState();
+}
+
+class _CreateReportState extends State<CreateReport> {
+  final PageController _pageController = PageController(initialPage: 0);
+  int _currentPage = 0;
+
+  List<Widget> pages = [
+    const BasicDetailPage(),
+    const ExpensesListPage(),
+    const PreviewReport(),
+    const SuccessReportPage(),
+  ];
+
+  final List<String> pageTitles = ['Basic Details', 'Expenses', 'Preview'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(AppIcons.starFilled),
+                  SvgPicture.asset(AppIcons.notificationBell),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Text(
+                'Create\nExpense Report',
+                style: AppTextStyle.kDisplayTitleM,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                    (pages.length - 1), (index) => buildIndicator(index)),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: pages.length,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentPage = index;
+                      });
+                    },
+                    itemBuilder: (_, index) => pages[index]),
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Row(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset(AppIcons.starFilled),
-                SvgPicture.asset(AppIcons.notificationBell),
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const Text(
-              'Create\nExpense Report',
-              style: AppTextStyle.kDisplayTitleM,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Basic Details',
-                style: AppTextStyle.kLargeBodyB.copyWith(
-                  fontSize: 16,
-                  decoration: TextDecoration.underline,
-                  decorationThickness: 2,
-                ),
+            Expanded(
+              flex: 1,
+              child: CustomOutLineButton(
+                text: 'Home',
+                onPressed: () {},
               ),
             ),
             const SizedBox(
-              height: 20,
+              width: 12,
             ),
-            const RegularTextfield(
-              hintText: 'Report Title',
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const CustomDateField(),
-            const SizedBox(
-              height: 20,
-            ),
-            const DescriptionTextfield(),
-            const Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: CustomOutLineButton(
-                    text: 'Home',
-                    onPressed: () {},
-                  ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                    flex: 1, child: SolidButton(onPressed: () {}, text: 'Next'))
-              ],
-            )
+            Expanded(
+                flex: 1, child: SolidButton(onPressed: () {}, text: 'Next'))
           ],
         ),
-      )),
+      ),
+    );
+  }
+
+  Widget buildIndicator(int index) {
+    bool isPastOrCurrent = index <= _currentPage;
+    EdgeInsets margin =
+        index == 0 ? EdgeInsets.zero : const EdgeInsets.only(left: 24);
+    return Container(
+        margin: margin,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            isPastOrCurrent ? const CustomBarWithCircle() : const CustomBar(),
+            const SizedBox(
+              height: 2,
+            ),
+            Text(
+              pageTitles[index],
+              style: AppTextStyle.kSmallBodySB.copyWith(
+                  fontSize: 13,
+                  color: isPastOrCurrent ? Colors.black : Colors.grey),
+            )
+          ],
+        ));
+  }
+}
+
+class CustomBarWithCircle extends StatelessWidget {
+  const CustomBarWithCircle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: <Widget>[
+        Container(
+          width: 100,
+          height: 8,
+          decoration: BoxDecoration(
+            color: AppPalette.kPrimaryColor,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        Positioned(
+          right: -15,
+          top: -7,
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              color: AppPalette.kPrimaryColor,
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white,
+                width: 1,
+              ),
+            ),
+            child: const Icon(
+              Icons.check,
+              color: Colors.white,
+              size: 12,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CustomBar extends StatelessWidget {
+  const CustomBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      height: 8,
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.circular(4),
+      ),
     );
   }
 }
