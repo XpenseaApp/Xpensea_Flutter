@@ -28,4 +28,5 @@ class AppIcons {
   static const String lock = "assets/svg/lock.svg";
   static const String arrowRight = "assets/svg/arrow_right.svg";
   static const String edit = "assets/svg/edit.svg";
+  static const String successCheck = "assets/svg/success_check.svg";
 }

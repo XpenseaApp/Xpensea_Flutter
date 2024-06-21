@@ -31,6 +31,24 @@ class _CreateReportState extends State<CreateReport> {
 
   final List<String> pageTitles = ['Basic Details', 'Expenses', 'Preview'];
 
+  Map<int, String> buttonTexts = {};
+
+  String getButtonText() {
+    return buttonTexts.containsKey(_currentPage)
+        ? buttonTexts[_currentPage]!
+        : 'Next';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    buttonTexts = {
+      0: 'Home',
+      (pages.length - 1): 'Save as Draft',
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,11 +75,12 @@ class _CreateReportState extends State<CreateReport> {
               const SizedBox(
                 height: 16,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                    (pages.length - 1), (index) => buildIndicator(index)),
-              ),
+              if (_currentPage < pageTitles.length)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                      (pages.length - 1), (index) => buildIndicator(index)),
+                ),
               const SizedBox(
                 height: 20,
               ),
@@ -87,7 +106,7 @@ class _CreateReportState extends State<CreateReport> {
             Expanded(
               flex: 1,
               child: CustomOutLineButton(
-                text: 'Home',
+                text: getButtonText(),
                 onPressed: () {},
               ),
             ),
@@ -95,7 +114,11 @@ class _CreateReportState extends State<CreateReport> {
               width: 12,
             ),
             Expanded(
-                flex: 1, child: SolidButton(onPressed: () {}, text: 'Next'))
+                flex: 1,
+                child: SolidButton(
+                    onPressed: () {},
+                    text:
+                        _currentPage < (pages.length - 1) ? 'Next' : 'Submit'))
           ],
         ),
       ),
