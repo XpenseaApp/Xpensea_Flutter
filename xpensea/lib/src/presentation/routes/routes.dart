@@ -9,7 +9,7 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
-      splash: (context) => const CreateReport(),
+      splash: (context) => const MainScreen(),
       otp: (context) => const OtpPage()
     };
   }
