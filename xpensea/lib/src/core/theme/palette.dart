@@ -16,4 +16,5 @@ class AppPalette {
   static const Color kLDarkOrange = Color.fromRGBO(255, 166, 41, 1);
   static const Color kLSelectedColor = Color.fromRGBO(255, 247, 243, 1);
   static const Color kWhiteBtn = Color.fromRGBO(242, 242, 242, 1);
+  static const Color kSuccess = Color(0xFF14AE5C);
 }

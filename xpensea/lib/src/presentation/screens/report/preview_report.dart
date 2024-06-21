@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
@@ -48,13 +50,31 @@ class PreviewReport extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Basic Details',
-            style: AppTextStyle.kLargeBodyB.copyWith(
-              fontSize: 16,
-              decoration: TextDecoration.underline,
-              decorationThickness: 2,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Basic Details',
+                style: AppTextStyle.kLargeBodyB.copyWith(
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 2,
+                ),
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(AppIcons.edit),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text(
+                    'Edit',
+                    style: AppTextStyle.kMediumBodyM
+                        .copyWith(color: AppPalette.kSuccess),
+                  )
+                ],
+              )
+            ],
           ),
           const SizedBox(
             height: 20,
