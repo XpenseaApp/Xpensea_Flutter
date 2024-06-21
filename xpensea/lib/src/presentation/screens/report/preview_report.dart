@@ -6,6 +6,7 @@ import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
 import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
 import 'package:xpensea/src/presentation/components/textfields/regular_textfield.dart';
+import 'package:xpensea/src/presentation/components/textfields/title_textfield.dart';
 
 class PreviewReport extends StatelessWidget {
   const PreviewReport({super.key});
@@ -54,6 +55,12 @@ class PreviewReport extends StatelessWidget {
               decoration: TextDecoration.underline,
               decorationThickness: 2,
             ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const TitleTextField(
+            labelText: 'Report ID*',
           ),
           const SizedBox(
             height: 20,
