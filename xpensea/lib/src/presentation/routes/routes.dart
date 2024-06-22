@@ -8,11 +8,13 @@ class AppRoutes {
   static const String splash = "/";
   static const String otp = "/otp";
   static const String createReport = "/createReport";
+  static const String createEvent = "/createEvent";
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
-      splash: (context) => const CreateEvent(),
+      splash: (context) => const MainScreen(),
       otp: (context) => const OtpPage(),
+      createEvent: (context) => const CreateEvent(),
       createReport: (context) => const CreateReport()
     };
   }

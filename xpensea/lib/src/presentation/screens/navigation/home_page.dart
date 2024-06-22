@@ -6,21 +6,23 @@ import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
 import 'package:xpensea/src/presentation/components/cards/event_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/routes/routes.dart';
 
 class MenuItems {
   final String text;
   final String iconPath;
+  final VoidCallback? onTap;
 
-  MenuItems(this.text, this.iconPath);
+  MenuItems(this.text, this.iconPath, this.onTap);
 }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   static final List<MenuItems> _menuCards = [
-    MenuItems("Create Events", AppIcons.event),
-    MenuItems("Capture Bill", AppIcons.scanDoc),
-    MenuItems("Upload Bill", AppIcons.uploadDoc),
+    MenuItems("Create Events", AppIcons.event, () {}),
+    MenuItems("Capture Bill", AppIcons.scanDoc, null),
+    MenuItems("Upload Bill", AppIcons.uploadDoc, null),
   ];
 
   static final List<Activity> activities = [
@@ -61,8 +63,21 @@ class HomePage extends StatelessWidget {
       statusTextColor: AppPalette.kLDarkOrange,
     ),
   ];
+
+  void navigateTo(BuildContext context, String path) {
+    Navigator.pushNamed(context, path);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<MenuItems> menuCards = [
+      MenuItems("Create Events", AppIcons.event, () {
+        navigateTo(context, AppRoutes.createEvent);
+      }),
+      MenuItems("Capture Bill", AppIcons.scanDoc, null),
+      MenuItems("Upload Bill", AppIcons.uploadDoc, null),
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -78,10 +93,11 @@ class HomePage extends StatelessWidget {
           child: Wrap(
             spacing: 8,
             children: List.generate(
-              _menuCards.length,
+              menuCards.length,
               (index) => MenuCard(
-                text: _menuCards[index].text,
-                iconPath: _menuCards[index].iconPath,
+                text: menuCards[index].text,
+                iconPath: menuCards[index].iconPath,
+                onTap: menuCards[index].onTap,
               ),
             ),
           ),
