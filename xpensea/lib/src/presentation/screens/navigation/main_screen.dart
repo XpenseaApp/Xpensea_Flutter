@@ -4,6 +4,7 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/appbar/appbar.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/routes/routes.dart';
 import 'package:xpensea/src/presentation/screens/navigation/expense_page.dart';
 import 'package:xpensea/src/presentation/screens/navigation/home_page.dart';
 import 'package:xpensea/src/presentation/screens/navigation/profile_page.dart';
@@ -45,6 +46,8 @@ class _MainScreenState extends State<MainScreen> {
               break;
             case 2:
               // Action for Report page
+              Navigator.pushNamed(context, AppRoutes.createReport);
+
               break;
             case 3:
               // Action for Profile page

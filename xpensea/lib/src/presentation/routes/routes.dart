@@ -6,11 +6,13 @@ import 'package:xpensea/src/presentation/screens/report/create_report.dart';
 class AppRoutes {
   static const String splash = "/";
   static const String otp = "/otp";
+  static const String createReport = "/createReport";
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       splash: (context) => const MainScreen(),
-      otp: (context) => const OtpPage()
+      otp: (context) => const OtpPage(),
+      createReport: (context) => const CreateReport()
     };
   }
 }
