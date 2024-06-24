@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
-import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
 class CustomDateField extends StatefulWidget {
-  const CustomDateField({super.key});
+  final String? hintText;
+  const CustomDateField({
+    super.key,
+    this.hintText = 'Date',
+  });
 
   static final _border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(4.0), // Rounded corners
@@ -27,7 +29,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
     return TextField(
       controller: dateController,
       decoration: InputDecoration(
-        hintText: 'Date',
+        hintText: widget.hintText,
         hintStyle: AppTextStyle.kSmallTitleR
             .copyWith(fontSize: 16, color: AppPalette.kGray4),
 

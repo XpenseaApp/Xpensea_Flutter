@@ -63,4 +63,20 @@ class AppTextStyle {
     color: AppPalette.kPrimaryColor,
     fontSize: 26,
   );
+
+  static const kItalicTitleM = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+    fontStyle: FontStyle.italic,
+    fontSize: 20,
+  );
+
+  static const kItalicSmallTitleM = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+    fontStyle: FontStyle.italic,
+    fontSize: 14,
+  );
 }
