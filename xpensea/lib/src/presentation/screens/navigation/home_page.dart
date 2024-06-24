@@ -19,12 +19,6 @@ class MenuItems {
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static final List<MenuItems> _menuCards = [
-    MenuItems("Create Events", AppIcons.event, () {}),
-    MenuItems("Capture Bill", AppIcons.scanDoc, null),
-    MenuItems("Upload Bill", AppIcons.uploadDoc, null),
-  ];
-
   static final List<Activity> activities = [
     Activity(
       title: 'Onam purchases',
@@ -74,7 +68,9 @@ class HomePage extends StatelessWidget {
       MenuItems("Create Events", AppIcons.event, () {
         navigateTo(context, AppRoutes.createEvent);
       }),
-      MenuItems("Capture Bill", AppIcons.scanDoc, null),
+      MenuItems("Capture Bill", AppIcons.scanDoc, () {
+        navigateTo(context, AppRoutes.captureBill);
+      }),
       MenuItems("Upload Bill", AppIcons.uploadDoc, null),
     ];
 

@@ -29,4 +29,7 @@ class AppIcons {
   static const String arrowRight = "assets/svg/arrow_right.svg";
   static const String edit = "assets/svg/edit.svg";
   static const String successCheck = "assets/svg/success_check.svg";
+  static const String iosBack = "assets/svg/ios_back.svg";
+  static const String flashOff = "assets/svg/flash_off.svg";
+  static const String captureIcon = "assets/svg/capture_icon.svg";
 }
