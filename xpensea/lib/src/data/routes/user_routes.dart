@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String baseUrl = 'http://your_api_base_url_here';
+  final String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
 
   // Send OTP
   Future<Map<String, dynamic>> sendOtp(String mobile) async {
