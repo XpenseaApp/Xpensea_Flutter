@@ -25,6 +25,12 @@ class AppTextStyle {
     color: Colors.black,
     fontSize: 14,
   );
+  static const kLargeBodyB = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w700,
+    color: Colors.black,
+    fontSize: 18,
+  );
 
   static const kLargeBodySB = TextStyle(
     fontFamily: kInterFamily,
@@ -49,5 +55,28 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     color: AppPalette.kGray2,
     fontSize: 12,
+  );
+
+  static const kPrimaryColorText = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: AppPalette.kPrimaryColor,
+    fontSize: 26,
+  );
+
+  static const kItalicTitleM = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+    fontStyle: FontStyle.italic,
+    fontSize: 20,
+  );
+
+  static const kItalicSmallTitleM = TextStyle(
+    fontFamily: kInterFamily,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+    fontStyle: FontStyle.italic,
+    fontSize: 14,
   );
 }
