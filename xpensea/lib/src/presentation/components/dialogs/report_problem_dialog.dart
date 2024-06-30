@@ -61,7 +61,7 @@ class _ReportProblemDialogState extends State<ReportProblemDialog> {
             const SizedBox(
               height: 4,
             ),
-            const SimpleDropdownWidget(),
+            SimpleDropdownWidget(),
             const SizedBox(
               height: 16,
             ),

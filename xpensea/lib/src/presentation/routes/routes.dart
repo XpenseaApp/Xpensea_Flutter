@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xpensea/src/presentation/screens/bills/capture_bill.dart';
+import 'package:xpensea/src/presentation/screens/expense/capture_bill.dart';
 import 'package:xpensea/src/presentation/screens/events/create_event.dart';
 import 'package:xpensea/src/presentation/screens/main_screen.dart';
 import 'package:xpensea/src/presentation/screens/otp_page.dart';

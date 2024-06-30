@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 
 class SimpleDropdownWidget extends StatefulWidget {
-  const SimpleDropdownWidget({super.key});
+  final List<String>? items;
+  final String? hint;
+  SimpleDropdownWidget({super.key, this.items, this.hint});
 
   static final _border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(4.0), // Rounded corners
@@ -15,11 +17,11 @@ class SimpleDropdownWidget extends StatefulWidget {
 }
 
 class _SimpleDropdownWidgetState extends State<SimpleDropdownWidget> {
-  String? _selectedApprover;
-  final List<String> _approvers = ['John Doe', 'Jane Smith', 'Alex Johnson'];
-
   @override
   Widget build(BuildContext context) {
+    String? _selectedApprover;
+    final List<String> _approvers =
+        widget.items ?? ['John Doe', 'Jane Smith', 'Alex Johnson'];
     return DropdownButtonFormField<String>(
       isExpanded: true,
       decoration: InputDecoration(
@@ -28,7 +30,7 @@ class _SimpleDropdownWidgetState extends State<SimpleDropdownWidget> {
         focusedBorder: SimpleDropdownWidget._border,
       ),
       value: _selectedApprover,
-      hint: const Text('Approver'),
+      hint: Text(' ${widget.hint}') ?? Text('Approver'),
       onChanged: (String? newValue) {
         setState(() {
           _selectedApprover = newValue;

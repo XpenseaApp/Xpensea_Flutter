@@ -13,7 +13,9 @@ class CameraNotifier extends StateNotifier<CameraState> {
   Future<void> _initializeCamera() async {
     try {
       final cameras = await availableCameras();
-      final firstCamera = cameras.first;
+      final firstCamera = cameras.firstWhere(
+        (camera) => camera.lensDirection == CameraLensDirection.back,
+      );
       final cameraController = CameraController(
         firstCamera,
         ResolutionPreset.medium,

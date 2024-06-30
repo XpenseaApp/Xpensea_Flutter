@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/providers/camera_provider.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/screens/events/create_event.dart';
+import 'package:xpensea/src/presentation/screens/expense/create_expense.dart';
 
 class CaptureBillPage extends ConsumerWidget {
   const CaptureBillPage({super.key});
@@ -70,6 +72,9 @@ class CaptureBillPage extends ConsumerWidget {
                       // Handle error
                     }
                   }
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CreateExpense();
+                  }));
                 },
                 child: SvgPicture.asset(AppIcons.captureIcon)),
           ],
