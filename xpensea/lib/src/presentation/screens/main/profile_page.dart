@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/cards/setting_card.dart';
-import 'package:xpensea/src/presentation/components/dialogs/filter_dialoge.dart';
 import 'package:xpensea/src/presentation/components/dialogs/report_problem_dialog.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/components/steppers/cutsom_stepper.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

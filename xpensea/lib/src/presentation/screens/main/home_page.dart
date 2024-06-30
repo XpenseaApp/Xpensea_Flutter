@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
@@ -106,7 +105,7 @@ class HomePage extends StatelessWidget {
           height: 40,
         ),
         Text(
-          'Recent Activities',
+          'Recent Events',
           style: AppTextStyle.kMediumBodyM.copyWith(color: AppPalette.kGray3),
         ),
         const SizedBox(

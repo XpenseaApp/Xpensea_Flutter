@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/report.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/routes/user_routes.dart' as userRoutes;
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
@@ -36,7 +40,7 @@ class _CreateReportState extends State<CreateReport> {
   String getButtonText() {
     return buttonTexts.containsKey(_currentPage)
         ? buttonTexts[_currentPage]!
-        : 'Next';
+        : 'Back';
   }
 
   @override
@@ -51,77 +55,127 @@ class _CreateReportState extends State<CreateReport> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Consumer(
+      builder: (context, ref, child) {
+        return Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(AppIcons.starFilled),
-                  SvgPicture.asset(AppIcons.notificationBell),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset(AppIcons.starFilled),
+                      SvgPicture.asset(AppIcons.notificationBell),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Text(
+                    'Create\nExpense Report',
+                    style: AppTextStyle.kDisplayTitleM,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  if (_currentPage < pageTitles.length)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                          (pages.length - 1), (index) => buildIndicator(index)),
+                    ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: pages.length,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentPage = index;
+                          });
+                        },
+                        itemBuilder: (_, index) => pages[index]),
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              const Text(
-                'Create\nExpense Report',
-                style: AppTextStyle.kDisplayTitleM,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              if (_currentPage < pageTitles.length)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                      (pages.length - 1), (index) => buildIndicator(index)),
-                ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: pages.length,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _currentPage = index;
-                      });
-                    },
-                    itemBuilder: (_, index) => pages[index]),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: CustomOutLineButton(
-                text: getButtonText(),
-                onPressed: () {},
-              ),
+          bottomNavigationBar: BottomAppBar(
+            color: Colors.transparent,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: CustomOutLineButton(
+                    text: getButtonText(),
+                    onPressed: () {
+                      if (_currentPage == 0) {
+                        ref.read(expensesProvider.notifier).removeAllExpense();
+                        ref.read(reportProvider.notifier).removeReport();
+                        Navigator.pop(context);
+                      } else {
+                        if (_currentPage < (pages.length - 1)) {
+                          _pageController.previousPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn);
+                        } else {
+                          //TODO: Save as Draft
+
+                          ref
+                              .read(expensesProvider.notifier)
+                              .removeAllExpense();
+                          ref.read(reportProvider.notifier).removeReport();
+
+                          Navigator.pop(context);
+                        }
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                    flex: 1,
+                    child: SolidButton(
+                        onPressed: () async {
+                          if (_currentPage < (pages.length - 1)) {
+                            _pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeIn);
+                          } else {
+                            //TODO: add location functionality
+                            ref
+                                .read(reportProvider.notifier)
+                                .updateReportLocation('Test Location');
+                            ref
+                                .read(reportProvider.notifier)
+                                .updateReportType('Other');
+                            ref
+                                .read(reportProvider.notifier)
+                                .updateReportStatus('Submitted');
+                            ref
+                                .read(reportProvider.notifier)
+                                .updateReportEvent('6673f805cb67f6f4d2ef4b34');
+                            final Report report = ref.read(reportProvider);
+                            final respose = await userRoutes.ApiService()
+                                .createReport(report.toJson(), token);
+                            print(respose.toString());
+                          }
+                        },
+                        text: _currentPage < (pages.length - 1)
+                            ? 'Next'
+                            : 'Submit'))
+              ],
             ),
-            const SizedBox(
-              width: 12,
-            ),
-            Expanded(
-                flex: 1,
-                child: SolidButton(
-                    onPressed: () {},
-                    text:
-                        _currentPage < (pages.length - 1) ? 'Next' : 'Submit'))
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 

@@ -5,10 +5,10 @@ import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/appbar/appbar.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/routes/routes.dart';
-import 'package:xpensea/src/presentation/screens/navigation/expense_page.dart';
-import 'package:xpensea/src/presentation/screens/navigation/home_page.dart';
-import 'package:xpensea/src/presentation/screens/navigation/profile_page.dart';
-import 'package:xpensea/src/presentation/screens/report/report_page.dart';
+import 'package:xpensea/src/presentation/screens/main/expense_page.dart';
+import 'package:xpensea/src/presentation/screens/main/home_page.dart';
+import 'package:xpensea/src/presentation/screens/main/profile_page.dart';
+import 'package:xpensea/src/presentation/screens/main/report_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

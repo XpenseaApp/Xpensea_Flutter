@@ -15,7 +15,7 @@ class CaptureBillPage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -27,18 +27,18 @@ class CaptureBillPage extends ConsumerWidget {
                       Navigator.pop(context);
                     },
                     child: SvgPicture.asset(AppIcons.iosBack)),
-                Text(
+                const Text(
                   'Capture Bill',
                   style: AppTextStyle.kDisplayTitleM,
                 ),
                 GestureDetector(child: SvgPicture.asset(AppIcons.flashOff)),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
-            Divider(),
-            SizedBox(
+            const Divider(),
+            const SizedBox(
               height: 40,
             ),
             cameraState.controller != null
@@ -52,14 +52,14 @@ class CaptureBillPage extends ConsumerWidget {
                         child: CameraPreview(cameraState.controller!)))
                 : cameraState.error != null
                     ? Text("Error: ${cameraState.error}")
-                    : CircularProgressIndicator(),
-            Spacer(),
-            Text(
+                    : const CircularProgressIndicator(),
+            const Spacer(),
+            const Text(
               'Tap the button to\ncapture the bill',
               style: AppTextStyle.kDisplayTitleM,
               textAlign: TextAlign.center,
             ),
-            Spacer(),
+            const Spacer(),
             GestureDetector(
                 onTap: () async {
                   if (cameraState.controller != null) {

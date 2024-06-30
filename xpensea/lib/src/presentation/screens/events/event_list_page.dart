@@ -9,6 +9,7 @@ class EventListPage extends StatelessWidget {
 
   static final List<Expenses> expenses = [
     Expenses(
+      id: '1',
       title: "Accommodation",
       amount: 'Rs 1,401',
       date: 'Nov 19 2023',
@@ -16,6 +17,7 @@ class EventListPage extends StatelessWidget {
       trailingIconPath: AppIcons.checkOk,
     ),
     Expenses(
+      id: '1',
       title: "Travel bill",
       amount: 'Rs 6,665',
       date: 'Nov 19 2023',
@@ -23,6 +25,7 @@ class EventListPage extends StatelessWidget {
       trailingIconPath: AppIcons.checkOk,
     ),
     Expenses(
+      id: '1',
       title: "Accommodation",
       amount: 'Rs 1,401',
       date: 'Nov 19 2023',
@@ -30,6 +33,7 @@ class EventListPage extends StatelessWidget {
       trailingIconPath: AppIcons.checkOk,
     ),
     Expenses(
+      id: '1',
       title: "Maintenance",
       amount: 'Rs 1,401',
       date: 'Nov 19 2023',

@@ -24,6 +24,19 @@ class Reports {
     this.statusColor,
     this.statusTextColor,
   });
+
+  factory Reports.fromJson(Map<String, dynamic> json) {
+    return Reports(
+      title: json['title'],
+      amount: json['totalAmount'].toString(),
+      expenses: json['expenseCount'].toString(),
+      date: json['date'],
+      leadingIconPath: json['leadingIconPath'] ?? AppIcons.person,
+      status: json['status'],
+      statusColor: json['statusColor'] ?? Colors.grey,
+      statusTextColor: json['statusTextColor'] ?? Colors.black,
+    );
+  }
 }
 
 class ReportCard extends StatelessWidget {

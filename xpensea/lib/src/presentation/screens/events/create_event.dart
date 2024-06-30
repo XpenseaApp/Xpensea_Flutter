@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
@@ -89,7 +88,9 @@ class _CreateEventState extends State<CreateEvent> {
                     flex: 1,
                     child: CustomOutLineButton(
                       text: 'Cancel',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -97,10 +98,20 @@ class _CreateEventState extends State<CreateEvent> {
                   ),
                   Expanded(
                       flex: 1,
-                      child: SolidButton(onPressed: () {}, text: 'Next'))
+                      child: SolidButton(
+                          onPressed: () {
+                            _pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeIn);
+                          },
+                          text: 'Next'))
                 ],
               )
-            : SolidButton(onPressed: () {}, text: 'Add Expense'),
+            : SolidButton(
+                onPressed: () {
+                  //TODO: Add expense to server
+                },
+                text: 'Add Expense'),
       ),
     );
   }

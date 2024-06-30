@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:onscreen_num_keyboard/onscreen_num_keyboard.dart';
@@ -9,7 +8,6 @@ import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import '../routes/routes.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpPage extends StatefulWidget {
   const OtpPage({super.key});
@@ -159,7 +157,7 @@ class _OtpPageState extends State<OtpPage> {
           initialValue: number,
           textFieldController: phoneController,
           formatInput: true,
-          maxLength: 10,
+          maxLength: 11,
           keyboardType: TextInputType.none,
           inputBorder: const OutlineInputBorder(),
           onSaved: (PhoneNumber number) {

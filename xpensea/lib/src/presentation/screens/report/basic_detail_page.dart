@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
-import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
-import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
 import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
 import 'package:xpensea/src/presentation/components/textfields/regular_textfield.dart';
+
+TextEditingController controller = TextEditingController();
 
 class BasicDetailPage extends StatelessWidget {
   const BasicDetailPage({super.key});
@@ -27,7 +28,7 @@ class BasicDetailPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const RegularTextfield(
+        RegularTextfield(
           hintText: 'Report Title',
         ),
         const SizedBox(
