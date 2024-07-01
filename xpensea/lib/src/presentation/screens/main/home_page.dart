@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
+import 'package:xpensea/src/presentation/components/cards/event_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/routes/routes.dart';
 
 class MenuItems {
   final String text;
   final String iconPath;
+  final VoidCallback? onTap;
 
-  MenuItems(this.text, this.iconPath);
+  MenuItems(this.text, this.iconPath, this.onTap);
 }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  static final List<MenuItems> _menuCards = [
-    MenuItems("Create Events", AppIcons.event),
-    MenuItems("Capture Bill", AppIcons.scanDoc),
-    MenuItems("Upload Bill", AppIcons.uploadDoc),
-  ];
 
   static final List<Activity> activities = [
     Activity(
@@ -60,8 +56,23 @@ class HomePage extends StatelessWidget {
       statusTextColor: AppPalette.kLDarkOrange,
     ),
   ];
+
+  void navigateTo(BuildContext context, String path) {
+    Navigator.pushNamed(context, path);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<MenuItems> menuCards = [
+      MenuItems("Create Events", AppIcons.event, () {
+        navigateTo(context, AppRoutes.createEvent);
+      }),
+      MenuItems("Capture Bill", AppIcons.scanDoc, () {
+        navigateTo(context, AppRoutes.captureBill);
+      }),
+      MenuItems("Upload Bill", AppIcons.uploadDoc, null),
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -77,19 +88,24 @@ class HomePage extends StatelessWidget {
           child: Wrap(
             spacing: 8,
             children: List.generate(
-              _menuCards.length,
+              menuCards.length,
               (index) => MenuCard(
-                text: _menuCards[index].text,
-                iconPath: _menuCards[index].iconPath,
+                text: menuCards[index].text,
+                iconPath: menuCards[index].iconPath,
+                onTap: menuCards[index].onTap,
               ),
             ),
           ),
         ),
         const SizedBox(
+          height: 16,
+        ),
+        const EventCard(),
+        const SizedBox(
           height: 40,
         ),
         Text(
-          'Recent Activities',
+          'Recent Events',
           style: AppTextStyle.kMediumBodyM.copyWith(color: AppPalette.kGray3),
         ),
         const SizedBox(

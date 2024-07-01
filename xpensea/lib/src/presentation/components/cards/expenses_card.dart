@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
@@ -5,6 +6,7 @@ import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
 class Expenses {
+  final String id;
   final String title;
   final String amount;
   final String date;
@@ -12,19 +14,40 @@ class Expenses {
   final String trailingIconPath;
 
   Expenses({
+    required this.id,
     required this.title,
     required this.amount,
     required this.date,
     required this.leadingIconPath,
     required this.trailingIconPath,
   });
+
+  factory Expenses.fromJson(Map<String, dynamic> json) {
+    return Expenses(
+      id: json['_id'],
+      title: json['title'],
+      amount: json['amount'].toString(),
+      date: json['date'],
+      leadingIconPath: json['category'] == 'Food'
+          ? AppIcons.expense
+          : json['category'] == 'Travel'
+              ? AppIcons.airplane
+              : AppIcons.person,
+      trailingIconPath:
+          json['status'] == 'mapped' ? AppIcons.checkOk : AppIcons.checkWait,
+    );
+  }
 }
 
 class ExpensesCard extends StatelessWidget {
   final Expenses expenses;
+  final VoidCallback? onSelect;
+  final VoidCallback? onTap;
   const ExpensesCard({
     super.key,
     required this.expenses,
+    this.onSelect,
+    required this.onTap,
   });
 
   @override
@@ -61,7 +84,10 @@ class ExpensesCard extends StatelessWidget {
                 ),
               ),
               // status
-              SvgPicture.asset(expenses.trailingIconPath),
+              InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  onTap: onSelect,
+                  child: SvgPicture.asset(expenses.trailingIconPath)),
             ],
           ),
           const SizedBox(
@@ -76,15 +102,22 @@ class ExpensesCard extends StatelessWidget {
                 style: AppTextStyle.kSmallTitleR
                     .copyWith(color: AppPalette.kGray3),
               )),
-              Text(
-                'View More',
-                style: AppTextStyle.kSmallBodySB
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+              GestureDetector(
+                onTap: onTap,
+                child: Row(
+                  children: [
+                    Text(
+                      'View More',
+                      style: AppTextStyle.kSmallBodySB
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    SvgPicture.asset(AppIcons.arrowForward)
+                  ],
+                ),
               ),
-              const SizedBox(
-                width: 4,
-              ),
-              SvgPicture.asset(AppIcons.arrowForward)
             ],
           )
         ],

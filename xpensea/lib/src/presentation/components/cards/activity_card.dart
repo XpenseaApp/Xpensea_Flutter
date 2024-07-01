@@ -41,13 +41,8 @@ class ActivityCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // icon
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: AppPalette.kOrange,
-                    borderRadius: BorderRadius.circular(12)),
-                child: SvgPicture.asset(AppIcons.eventOrange),
-              ),
+              SvgPicture.asset(AppIcons.eventFilled),
+
               const SizedBox(
                 width: 12,
               ),

@@ -4,10 +4,11 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/appbar/appbar.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/screens/expense_page.dart';
-import 'package:xpensea/src/presentation/screens/home_page.dart';
-import 'package:xpensea/src/presentation/screens/profile_page.dart';
-import 'package:xpensea/src/presentation/screens/report_page.dart';
+import 'package:xpensea/src/presentation/routes/routes.dart';
+import 'package:xpensea/src/presentation/screens/main/expense_page.dart';
+import 'package:xpensea/src/presentation/screens/main/home_page.dart';
+import 'package:xpensea/src/presentation/screens/main/profile_page.dart';
+import 'package:xpensea/src/presentation/screens/main/report_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -45,6 +46,8 @@ class _MainScreenState extends State<MainScreen> {
               break;
             case 2:
               // Action for Report page
+              Navigator.pushNamed(context, AppRoutes.createReport);
+
               break;
             case 3:
               // Action for Profile page
