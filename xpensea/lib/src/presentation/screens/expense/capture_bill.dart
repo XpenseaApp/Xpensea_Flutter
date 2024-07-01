@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/providers/camera_provider.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/screens/events/create_event.dart';
+import 'package:xpensea/src/presentation/screens/expense/create_expense.dart';
 
 class CaptureBillPage extends ConsumerWidget {
   const CaptureBillPage({super.key});
@@ -15,7 +17,7 @@ class CaptureBillPage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -27,18 +29,18 @@ class CaptureBillPage extends ConsumerWidget {
                       Navigator.pop(context);
                     },
                     child: SvgPicture.asset(AppIcons.iosBack)),
-                Text(
+                const Text(
                   'Capture Bill',
                   style: AppTextStyle.kDisplayTitleM,
                 ),
                 GestureDetector(child: SvgPicture.asset(AppIcons.flashOff)),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
-            Divider(),
-            SizedBox(
+            const Divider(),
+            const SizedBox(
               height: 40,
             ),
             cameraState.controller != null
@@ -52,14 +54,14 @@ class CaptureBillPage extends ConsumerWidget {
                         child: CameraPreview(cameraState.controller!)))
                 : cameraState.error != null
                     ? Text("Error: ${cameraState.error}")
-                    : CircularProgressIndicator(),
-            Spacer(),
-            Text(
+                    : const CircularProgressIndicator(),
+            const Spacer(),
+            const Text(
               'Tap the button to\ncapture the bill',
               style: AppTextStyle.kDisplayTitleM,
               textAlign: TextAlign.center,
             ),
-            Spacer(),
+            const Spacer(),
             GestureDetector(
                 onTap: () async {
                   if (cameraState.controller != null) {
@@ -70,6 +72,9 @@ class CaptureBillPage extends ConsumerWidget {
                       // Handle error
                     }
                   }
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CreateExpense();
+                  }));
                 },
                 child: SvgPicture.asset(AppIcons.captureIcon)),
           ],

@@ -37,7 +37,9 @@ class BasicEventDetailPage extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        DescriptionTextfield(),
+        DescriptionTextfield(
+          type: 'event',
+        ),
       ],
     );
   }

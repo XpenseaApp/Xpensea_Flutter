@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';

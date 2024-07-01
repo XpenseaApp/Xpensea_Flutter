@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xpensea/src/presentation/screens/bills/capture_bill.dart';
+import 'package:xpensea/src/presentation/screens/expense/capture_bill.dart';
 import 'package:xpensea/src/presentation/screens/events/create_event.dart';
-import 'package:xpensea/src/presentation/screens/navigation/main_screen.dart';
+import 'package:xpensea/src/presentation/screens/main_screen.dart';
 import 'package:xpensea/src/presentation/screens/otp_page.dart';
 import 'package:xpensea/src/presentation/screens/report/create_report.dart';
 import 'package:xpensea/src/presentation/screens/splash_screen.dart';
@@ -17,7 +17,7 @@ class AppRoutes {
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       splash: (context) => const SplashScreen(),
-      otp: (context) => const OtpPage(),
+      otp: (context) => const MainScreen(),
       mainpage: (context) => const MainScreen(),
       createEvent: (context) => const CreateEvent(),
       createReport: (context) => const CreateReport(),

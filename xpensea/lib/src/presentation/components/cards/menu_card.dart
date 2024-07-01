@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
-import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
 class MenuCard extends StatelessWidget {
   final String text;

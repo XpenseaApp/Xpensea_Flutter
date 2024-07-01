@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/report.dart';
 
-class CustomDateField extends StatefulWidget {
+// Define the reportProvider and its associated methods
+
+class CustomDateField extends ConsumerStatefulWidget {
   final String? hintText;
+  final bool? isEditable;
   const CustomDateField({
-    super.key,
+    Key? key,
     this.hintText = 'Date',
-  });
+    this.isEditable = true,
+  }) : super(key: key);
 
   static final _border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(4.0), // Rounded corners
@@ -17,10 +23,10 @@ class CustomDateField extends StatefulWidget {
   );
 
   @override
-  State<CustomDateField> createState() => _CustomDateFieldState();
+  ConsumerState<CustomDateField> createState() => _CustomDateFieldState();
 }
 
-class _CustomDateFieldState extends State<CustomDateField> {
+class _CustomDateFieldState extends ConsumerState<CustomDateField> {
   DateTime? selectedDate;
   TextEditingController dateController = TextEditingController();
 
@@ -28,11 +34,11 @@ class _CustomDateFieldState extends State<CustomDateField> {
   Widget build(BuildContext context) {
     return TextField(
       controller: dateController,
+      enabled: widget.isEditable,
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: AppTextStyle.kSmallTitleR
             .copyWith(fontSize: 16, color: AppPalette.kGray4),
-
         suffixIcon: IconButton(
           onPressed: _presentDatePicker,
           icon: const Icon(
@@ -40,12 +46,11 @@ class _CustomDateFieldState extends State<CustomDateField> {
             color: Colors.grey,
           ),
         ),
-        // Search icon on the left
         border: CustomDateField._border,
         enabledBorder: CustomDateField._border,
         focusedBorder: CustomDateField._border,
         filled: true,
-        fillColor: Colors.white, // Fill color of the TextField
+        fillColor: Colors.white,
       ),
     );
   }
@@ -61,7 +66,11 @@ class _CustomDateFieldState extends State<CustomDateField> {
       setState(() {
         selectedDate = picked;
         dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate!);
+        print(dateController.text);
       });
+      ref
+          .read(reportProvider.notifier)
+          .updateReportReportDate(dateController.text);
     }
   }
 }
