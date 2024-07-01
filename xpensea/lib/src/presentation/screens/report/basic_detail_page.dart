@@ -38,7 +38,9 @@ class BasicDetailPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const DescriptionTextfield(),
+        const DescriptionTextfield(
+          type: 'report',
+        ),
       ],
     );
   }

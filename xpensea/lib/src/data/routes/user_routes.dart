@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:xpensea/src/data/models/expense.dart';
 
 class ApiService {
   final String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
@@ -36,14 +37,14 @@ class ApiService {
 
   // Create Expense
   Future<Map<String, dynamic>> createExpense(
-      Map<String, dynamic> expenseData, String token) async {
+      Expense expenseData, String token) async {
     final response = await http.post(
       Uri.parse('$baseUrl/expense'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       },
-      body: jsonEncode(expenseData),
+      body: jsonEncode(expenseData.toJson()),
     );
     return _handleResponse(response);
   }

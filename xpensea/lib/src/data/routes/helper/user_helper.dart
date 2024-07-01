@@ -42,14 +42,14 @@ class Helper {
   }
 
   // Create Expense
-  Future<Map<String, dynamic>> createExpense(
-      Map<String, dynamic> expenseData, String token) async {
-    try {
-      return await _apiService.createExpense(expenseData, token);
-    } catch (e) {
-      return {"success": false, "message": e.toString()};
-    }
-  }
+  // Future<Map<String, dynamic>> createExpense(
+  //     Map<String, dynamic> expenseData, String token) async {
+  //   try {
+  //     return await _apiService.createExpense(expenseData, token);
+  //   } catch (e) {
+  //     return {"success": false, "message": e.toString()};
+  //   }
+  // }
 
   // Create Report
   Future<Map<String, dynamic>> createReport(

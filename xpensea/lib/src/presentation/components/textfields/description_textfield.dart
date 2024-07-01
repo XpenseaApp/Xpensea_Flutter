@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/models/report.dart';
 
 class DescriptionTextfield extends StatefulWidget {
   final bool? isEditable; // Add the isEditable parameter
   final String? hintText;
+  final String? type;
 
-  const DescriptionTextfield({Key? key, this.isEditable, this.hintText})
+  const DescriptionTextfield(
+      {Key? key, this.isEditable, this.hintText, required this.type})
       : super(key: key);
 
   static final _border = OutlineInputBorder(
@@ -42,7 +45,20 @@ class _DescriptionTextfieldState extends State<DescriptionTextfield> {
         return TextField(
           enabled: isEditable,
           onChanged: (value) {
-            ref.read(reportProvider.notifier).updateReportDescription(value);
+            switch (widget.type) {
+              case 'expense':
+                ref
+                    .read(expenseProvider.notifier)
+                    .updateExpenseDescription(value);
+                break;
+              case 'report':
+                ref
+                    .read(reportProvider.notifier)
+                    .updateReportDescription(value);
+                break;
+              default:
+                break;
+            }
           },
           maxLines: 7,
           decoration: InputDecoration(

@@ -75,7 +75,9 @@ class _ReportProblemDialogState extends State<ReportProblemDialog> {
             const SizedBox(
               height: 4,
             ),
-            const DescriptionTextfield(),
+            const DescriptionTextfield(
+              type: 'problem',
+            ),
             const SizedBox(
               height: 32,
             ),

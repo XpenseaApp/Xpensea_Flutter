@@ -19,11 +19,20 @@ class BasicExpenseDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 4),
-            TitleTextField(labelText: 'Time'),
+            TitleTextField(
+              labelText: 'Time',
+              isEditable: false,
+            ),
             SizedBox(height: 12),
-            TitleTextField(labelText: 'Date'),
+            TitleTextField(
+              labelText: 'Date',
+              isEditable: false,
+            ),
             SizedBox(height: 12),
-            TitleTextField(labelText: 'Location'),
+            TitleTextField(
+              labelText: 'Location',
+              isEditable: false,
+            ),
             SizedBox(height: 12),
             TitleTextField(labelText: 'Expense Title'),
             SizedBox(height: 12),
@@ -44,7 +53,9 @@ class BasicExpenseDetailPage extends StatelessWidget {
             SizedBox(height: 12),
             TitleTextField(labelText: 'Amount'),
             SizedBox(height: 20),
-            DescriptionTextfield(),
+            DescriptionTextfield(
+              type: 'expense',
+            ),
           ],
         ),
       ),

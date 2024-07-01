@@ -73,6 +73,7 @@ class PreviewReport extends StatelessWidget {
                 height: 20,
               ),
               DescriptionTextfield(
+                type: 'report',
                 hintText: description,
                 isEditable: false,
               ),

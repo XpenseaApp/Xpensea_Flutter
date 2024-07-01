@@ -6,7 +6,7 @@ class Report {
   final String description;
   final String location;
   final String type;
-  final String event;
+  final String? event;
   final String status;
   final List<String> expenses;
 
@@ -16,7 +16,7 @@ class Report {
     required this.description,
     required this.location,
     required this.type,
-    required this.event,
+    this.event,
     required this.status,
     required this.expenses,
   });
@@ -41,7 +41,7 @@ class Report {
       'description': description,
       'location': location,
       'type': type,
-      'event': event,
+      if (event != '') 'event': event,
       'status': status,
       'expenses': expenses,
     };
