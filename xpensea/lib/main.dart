@@ -12,8 +12,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    globals.token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InJvbGVJZCI6InN1Ym1pdHRlciIsInVzZXJJZCI6IjY2NzExNDA2YmIwZjI3N2MyODk0MWNiNCJ9LCJpYXQiOjE3MTk1NTYwNDB9.iDSztRead_YJta6OuAL2gsrUVwk_cx_ERNZznp7OfaU';
+    // globals.token =
+    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InJvbGVJZCI6InN1Ym1pdHRlciIsInVzZXJJZCI6IjY2NzExNDA2YmIwZjI3N2MyODk0MWNiNCJ9LCJpYXQiOjE3MTk1NTYwNDB9.iDSztRead_YJta6OuAL2gsrUVwk_cx_ERNZznp7OfaU';
     return MaterialApp(
       initialRoute: AppRoutes.splash,
       routes: AppRoutes.getRoutes(),

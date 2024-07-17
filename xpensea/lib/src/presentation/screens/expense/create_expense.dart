@@ -122,7 +122,7 @@ class _CreateExpenseState extends State<CreateExpense> {
                                     .updateExpenseLocation('Added Location');
                                 ref
                                     .read(expenseProvider.notifier)
-                                    .updateExpenseImage('Added image url');
+                                    .updateExpenseImage("imageUrl");
                                 print(ref.read(expenseProvider).toJson());
                                 final Response = await ApiService()
                                     .createExpense(
@@ -131,6 +131,9 @@ class _CreateExpenseState extends State<CreateExpense> {
                                 if (Response['success']) {
                                   Navigator.pop(context);
                                   Navigator.pop(context);
+                                  Navigator.pop(context);
+
+                                  imageUrl = '';
                                 } else {}
                                 // _pageController.nextPage(
                                 //     duration: const Duration(milliseconds: 300),

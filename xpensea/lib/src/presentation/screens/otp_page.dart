@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:onscreen_num_keyboard/onscreen_num_keyboard.dart';
 import 'package:pinput/pinput.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
@@ -94,8 +96,29 @@ class _OtpPageState extends State<OtpPage> {
   Future<void> handleMpin() async {
     final response =
         await _helper.mpinHandler(phoneController.text, mpinController.text);
+    if (!response['success']) {
+      showCupertinoDialog(
+          context: context,
+          builder: (context) {
+            final res = response.toString();
+            return CupertinoAlertDialog(
+              title: const Text('Debug'),
+              content: Text(res),
+              actions: [
+                CupertinoDialogAction(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
+    }
+
     if (response['success']) {
       print(response['data']);
+      token = response['data']['data'].toString();
 
       Navigator.pushReplacementNamed(context, AppRoutes.mainpage);
       // Save response data in shared preferences

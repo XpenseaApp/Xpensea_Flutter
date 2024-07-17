@@ -4,9 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/providers/camera_provider.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/events/create_event.dart';
 import 'package:xpensea/src/presentation/screens/expense/create_expense.dart';
+import 'package:aws_s3_upload_lite/aws_s3_upload_lite.dart';
+import 'dart:io';
 
 class CaptureBillPage extends ConsumerWidget {
   const CaptureBillPage({super.key});
@@ -68,13 +71,42 @@ class CaptureBillPage extends ConsumerWidget {
                     try {
                       final image = await cameraState.controller!.takePicture();
                       // Handle captured image
+
+                      final url = await AwsS3.uploadFile(
+                          accessKey: "AKIAZQ3DOONQDAAR44TK",
+                          secretKey: "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",
+                          file: File(image.path),
+                          bucket: "xpensea",
+                          region: "ap-south-1",
+                          metadata: {} // optional
+                          );
+
+                      await Future.delayed(Duration(seconds: 2));
+                      print(url);
+                      imageUrl = url!;
                     } catch (e) {
-                      // Handle error
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: Text('An error occurred: $e'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
                     }
                   }
+                  // if (imageUrl.isNotEmpty) {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return CreateExpense();
                   }));
+                  // }
                 },
                 child: SvgPicture.asset(AppIcons.captureIcon)),
           ],

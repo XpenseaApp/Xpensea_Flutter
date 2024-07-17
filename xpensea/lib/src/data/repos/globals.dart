@@ -3,4 +3,5 @@
 library data;
 
 String token = '';
+String imageUrl = '';
 // Rest of your code goes here

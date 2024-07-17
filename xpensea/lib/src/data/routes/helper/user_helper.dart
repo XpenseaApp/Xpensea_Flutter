@@ -35,7 +35,11 @@ class Helper {
   // MPIN Handler
   Future<Map<String, dynamic>> mpinHandler(String mobile, String mpin) async {
     try {
-      return await _apiService.mpinHandler(mobile, mpin);
+      final result = await _apiService.mpinHandler(mobile, mpin);
+      if (result == null) {
+        return {"success": false, "message": "Error: Received null response"};
+      }
+      return result;
     } catch (e) {
       return {"success": false, "message": e.toString()};
     }

@@ -11,15 +11,17 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.5.1
-  flutter_svg: ^2.0.10+1
+  flutter_svg: 2.0.9
   intl: ^0.19.0
   intl_phone_number_input: ^0.7.4
   onscreen_num_keyboard: ^1.0.4
   pinput: ^5.0.0
   riverpod_annotation: ^2.3.5
   shared_preferences: ^2.2.3
+  aws_s3_upload: ^1.5.0
 
   http: any
+  aws_s3_upload_lite: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
