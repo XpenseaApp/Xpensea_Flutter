@@ -72,18 +72,9 @@ class CaptureBillPage extends ConsumerWidget {
                       final image = await cameraState.controller!.takePicture();
                       // Handle captured image
 
-                      final url = await AwsS3.uploadFile(
-                          accessKey: "AKIAZQ3DOONQDAAR44TK",
-                          secretKey: "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",
-                          file: File(image.path),
-                          bucket: "xpensea",
-                          region: "ap-south-1",
-                          metadata: {} // optional
-                          );
-
                       await Future.delayed(Duration(seconds: 2));
-                      print(url);
-                      imageUrl = url!;
+                      // print(url);
+                      // imageUrl = url!;
                     } catch (e) {
                       showDialog(
                         context: context,
