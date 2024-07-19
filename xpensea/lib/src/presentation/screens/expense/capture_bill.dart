@@ -1,21 +1,30 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/providers/camera_provider.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/repos/location.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/events/create_event.dart';
 import 'package:xpensea/src/presentation/screens/expense/create_expense.dart';
-import 'package:aws_s3_upload_lite/aws_s3_upload_lite.dart';
 import 'dart:io';
+import 'package:minio_flutter/io.dart';
+import 'package:minio_flutter/minio.dart';
 
 class CaptureBillPage extends ConsumerWidget {
   const CaptureBillPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Minio.init(
+      endPoint: 's3.amazonaws.com',
+      accessKey: dotenv.env['AWS_ACCESS_KEY_ID']!,
+      secretKey: dotenv.env['AWS_SECRET_ACCESS_KEY']!,
+      region: 'ap-south-1',
+    );
     final cameraState = ref.watch(cameraProvider);
     return Scaffold(
       body: SafeArea(
@@ -72,9 +81,15 @@ class CaptureBillPage extends ConsumerWidget {
                       final image = await cameraState.controller!.takePicture();
                       // Handle captured image
 
+                      await Minio.shared
+                          .fPutObject('xpensea', image.name, image.path);
+
                       await Future.delayed(Duration(seconds: 2));
-                      // print(url);
-                      // imageUrl = url!;
+                      print("https://xpensea.s3.ap-south-1.amazonaws.com/" +
+                          image.name);
+                      imageUrl =
+                          "https://xpensea.s3.ap-south-1.amazonaws.com/" +
+                              image.name;
                     } catch (e) {
                       showDialog(
                         context: context,
@@ -94,6 +109,8 @@ class CaptureBillPage extends ConsumerWidget {
                     }
                   }
                   // if (imageUrl.isNotEmpty) {
+                  location = await determinePosition();
+
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return CreateExpense();
                   }));

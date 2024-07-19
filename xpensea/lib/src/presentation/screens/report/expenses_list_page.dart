@@ -75,9 +75,11 @@ class ExpensesListPage extends StatelessWidget {
                         expenses: draftExpenses[index],
                         onTap: null,
                         onSelect: () {
+                          Expenses expense = draftExpenses[index];
+                          expense.trailingIconPath = AppIcons.checkOk;
                           ref
                               .read(expensesProvider.notifier)
-                              .addExpense(draftExpenses[index]);
+                              .addExpense(expense);
                         },
                       ),
                     ),
@@ -86,6 +88,13 @@ class ExpensesListPage extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ExpensesCard(
                         expenses: expenses[index],
+                        onSelect: () {
+                          Expenses expense = expenses[index];
+                          expense.trailingIconPath = AppIcons.checkWait;
+                          ref
+                              .read(expensesProvider.notifier)
+                              .removeExpense(expense);
+                        },
                         onTap: () {
                           showDialog(
                             context: context,

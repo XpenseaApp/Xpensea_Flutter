@@ -100,7 +100,7 @@ class _OtpPageState extends State<OtpPage> {
       showCupertinoDialog(
           context: context,
           builder: (context) {
-            final res = response.toString();
+            final res = response['message'].toString();
             return CupertinoAlertDialog(
               title: const Text('Debug'),
               content: Text(res),
@@ -118,7 +118,10 @@ class _OtpPageState extends State<OtpPage> {
 
     if (response['success']) {
       print(response['data']);
-      token = response['data']['data'].toString();
+      token = response['data']['data']['token'].toString();
+      approver = response['data']['data']['userType'].toString() == 'approver'
+          ? true
+          : false;
 
       Navigator.pushReplacementNamed(context, AppRoutes.mainpage);
       // Save response data in shared preferences

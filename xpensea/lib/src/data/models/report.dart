@@ -137,10 +137,8 @@ class ReportNotifier extends StateNotifier<Report> {
     state = state.copyWith(status: status);
   }
 
-  void updateReportExpenses(String expenses) {
-    if (!state.expenses.contains(expenses)) {
-      state = state.copyWith(expenses: [...state.expenses, expenses]);
-    }
+  void updateReportExpenses(List<String> expenses) {
+    state = state.copyWith(expenses: expenses);
   }
 }
 

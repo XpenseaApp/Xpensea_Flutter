@@ -159,6 +159,11 @@ class _CreateReportState extends State<CreateReport> {
                             ref
                                 .read(reportProvider.notifier)
                                 .updateReportStatus('pending');
+                            final expenses = ref.watch(expensesProvider);
+                            ref
+                                .read(reportProvider.notifier)
+                                .updateReportExpenses(
+                                    expenses.map((e) => e.id).toList());
                             // ref
                             //     .read(reportProvider.notifier)
                             //     .updateReportEvent('6673f805cb67f6f4d2ef4b34');
@@ -167,7 +172,28 @@ class _CreateReportState extends State<CreateReport> {
                             final respose = await userRoutes.ApiService()
                                 .createReport(report.toJson(), token);
                             print(respose.toString());
-                            Navigator.pop(context);
+                            if (respose['success']) {
+                              ref
+                                  .read(expensesProvider.notifier)
+                                  .removeAllExpense();
+                              ref.read(reportProvider.notifier).removeReport();
+                              Navigator.pop(context);
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        title: const Text('Error'),
+                                        content: Text(respose['message']),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      ));
+                            }
                           }
                         },
                         text: _currentPage < (pages.length - 1)

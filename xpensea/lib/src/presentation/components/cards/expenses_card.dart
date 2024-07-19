@@ -11,7 +11,7 @@ class Expenses {
   final String amount;
   final String date;
   final String leadingIconPath;
-  final String trailingIconPath;
+  late String trailingIconPath;
 
   Expenses({
     required this.id,
@@ -20,6 +20,7 @@ class Expenses {
     required this.date,
     required this.leadingIconPath,
     required this.trailingIconPath,
+    required status,
   });
 
   factory Expenses.fromJson(Map<String, dynamic> json) {
@@ -28,6 +29,7 @@ class Expenses {
       title: json['title'],
       amount: json['amount'].toString(),
       date: json['date'],
+      status: json['status'],
       leadingIconPath: json['category'] == 'Food'
           ? AppIcons.expense
           : json['category'] == 'Travel'

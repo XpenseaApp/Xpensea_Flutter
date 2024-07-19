@@ -15,6 +15,7 @@ class EventListPage extends StatelessWidget {
       date: 'Nov 19 2023',
       leadingIconPath: AppIcons.person,
       trailingIconPath: AppIcons.checkOk,
+      status: 'mapped',
     ),
     Expenses(
       id: '1',
@@ -23,6 +24,7 @@ class EventListPage extends StatelessWidget {
       date: 'Nov 19 2023',
       leadingIconPath: AppIcons.airplane,
       trailingIconPath: AppIcons.checkOk,
+      status: 'mapped',
     ),
     Expenses(
       id: '1',
@@ -31,6 +33,7 @@ class EventListPage extends StatelessWidget {
       date: 'Nov 19 2023',
       leadingIconPath: AppIcons.person,
       trailingIconPath: AppIcons.checkOk,
+      status: 'mapped',
     ),
     Expenses(
       id: '1',
@@ -39,6 +42,7 @@ class EventListPage extends StatelessWidget {
       date: 'Nov 19 2023',
       leadingIconPath: AppIcons.maintenance,
       trailingIconPath: AppIcons.checkOk,
+      status: 'mapped',
     ),
   ];
 

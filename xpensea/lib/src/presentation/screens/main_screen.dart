@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/appbar/appbar.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/routes/routes.dart';
+import 'package:xpensea/src/presentation/screens/main/approver_page.dart';
 import 'package:xpensea/src/presentation/screens/main/expense_page.dart';
 import 'package:xpensea/src/presentation/screens/main/home_page.dart';
 import 'package:xpensea/src/presentation/screens/main/profile_page.dart';
@@ -20,12 +22,54 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomePage(),
-    const ExpensePage(),
-    const ReportPage(),
-    const ProfilePage(),
-  ];
+  List<Widget> get _pages {
+    List<Widget> pages = [
+      const HomePage(),
+      const ExpensePage(),
+      const ReportPage(),
+      const ProfilePage(),
+    ];
+    if (approver) {
+      pages.insert(2, const ApproverPage());
+    }
+    return pages;
+  }
+
+  List<BottomNavigationBarItem> get _bottomNavItems {
+    List<BottomNavigationBarItem> items = [
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(AppIcons.home),
+        activeIcon: SvgPicture.asset(AppIcons.homeFilled),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(AppIcons.expense),
+        activeIcon: SvgPicture.asset(AppIcons.expenseFilled),
+        label: 'Expense',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(AppIcons.report),
+        activeIcon: SvgPicture.asset(AppIcons.reportFilled),
+        label: 'Report',
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(AppIcons.profile),
+        activeIcon: SvgPicture.asset(AppIcons.profileFilled),
+        label: 'Profile',
+      ),
+    ];
+    if (approver) {
+      items.insert(
+          2,
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(AppIcons.report),
+            activeIcon: SvgPicture.asset(AppIcons.reportFilled),
+            label: 'Approver',
+          ));
+    }
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +89,22 @@ class _MainScreenState extends State<MainScreen> {
               // Action for Expense page
               break;
             case 2:
-              // Action for Report page
+              if (approver) {
+                // Action for Approver page
+                break;
+              }
               Navigator.pushNamed(context, AppRoutes.createReport);
-
+              // Action for Report page
               break;
             case 3:
+              if (approver) {
+                Navigator.pushNamed(context, AppRoutes.createReport);
+                // Action for Report page
+                break;
+              }
+              // Action for Profile page
+              break;
+            case 4:
               // Action for Profile page
               break;
           }
@@ -79,28 +134,7 @@ class _MainScreenState extends State<MainScreen> {
               _currentIndex = index;
             });
           },
-          items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.home),
-              activeIcon: SvgPicture.asset(AppIcons.homeFilled),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.expense),
-              activeIcon: SvgPicture.asset(AppIcons.expenseFilled),
-              label: 'Expense',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.report),
-              activeIcon: SvgPicture.asset(AppIcons.reportFilled),
-              label: 'Report',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.profile),
-              activeIcon: SvgPicture.asset(AppIcons.profileFilled),
-              label: 'Profile',
-            ),
-          ]),
+          items: _bottomNavItems),
     );
   }
 }

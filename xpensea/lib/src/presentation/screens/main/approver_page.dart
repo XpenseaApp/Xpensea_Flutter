@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
-import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
-import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
-import 'package:xpensea/src/presentation/components/dialogs/filter_dialoge.dart';
+import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/components/textfields/search_field.dart';
 import 'package:xpensea/src/data/repos/globals.dart' as globals;
 
-class ExpensePage extends StatelessWidget {
-  const ExpensePage({super.key});
+class ApproverPage extends StatelessWidget {
+  const ApproverPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final List<Expenses> mappedExpenses =
-            ref.watch(expenseListProvider(globals.token, 'mapped')).value ?? [];
-
-        final List<Expenses> approvedExpenses =
-            ref.watch(expenseListProvider(globals.token, 'accepted')).value ??
+        final List<Reports> approved =
+            ref.watch(reportListProvider(globals.token, 'approved')).value ??
                 [];
+        final List<Reports> rejected =
+            ref.watch(reportListProvider(globals.token, 'rejected')).value ??
+                [];
+        final List<Reports> pending =
+            ref.watch(reportListProvider(globals.token, 'pending')).value ?? [];
 
-        final List<Expenses> expenses =
-            [mappedExpenses, approvedExpenses].expand((x) => x).toList();
-        ;
-        final List<Expenses> draftExpenses =
-            ref.watch(expenseListProvider(globals.token, 'draft')).value ?? [];
+        final List<Reports> all =
+            [approved, rejected, pending].expand((x) => x).toList();
 
         return DefaultTabController(
-          length: 2,
+          length: 4, // Updated from 2 to 4
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -45,10 +42,16 @@ class ExpensePage extends StatelessWidget {
                 labelStyle: AppTextStyle.kSmallBodySB.copyWith(fontSize: 14),
                 tabs: const [
                   Tab(
-                    text: 'Mapped',
+                    text: 'All',
                   ),
                   Tab(
-                    text: 'Draft',
+                    text: 'Pending',
+                  ),
+                  Tab(
+                    text: 'Approved',
+                  ),
+                  Tab(
+                    text: 'Rejected',
                   ),
                 ],
               ),
@@ -61,14 +64,7 @@ class ExpensePage extends StatelessWidget {
                   const SizedBox(
                     width: 28,
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const FilterDialog(),
-                        );
-                      },
-                      child: SvgPicture.asset(AppIcons.sort))
+                  SvgPicture.asset(AppIcons.sort)
                 ],
               ),
               const SizedBox(
@@ -78,24 +74,31 @@ class ExpensePage extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     ListView.separated(
-                      itemCount: expenses!.length,
+                      itemCount: all.length,
                       separatorBuilder: (context, index) => const Divider(),
-                      itemBuilder: (context, index) => ExpensesCard(
-                        expenses: expenses[index],
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const ExpenseDialog(),
-                          );
-                        },
+                      itemBuilder: (context, index) => ReportCard(
+                        report: all[index],
                       ),
                     ),
                     ListView.separated(
-                      itemCount: draftExpenses.length,
+                      itemCount: pending.length,
                       separatorBuilder: (context, index) => const Divider(),
-                      itemBuilder: (context, index) => ExpensesCard(
-                        expenses: draftExpenses[index],
-                        onTap: null,
+                      itemBuilder: (context, index) => ReportCard(
+                        report: pending[index],
+                      ),
+                    ),
+                    ListView.separated(
+                      itemCount: approved.length,
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemBuilder: (context, index) => ReportCard(
+                        report: approved[index],
+                      ),
+                    ),
+                    ListView.separated(
+                      itemCount: rejected.length,
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemBuilder: (context, index) => ReportCard(
+                        report: rejected[index],
                       ),
                     ),
                   ],

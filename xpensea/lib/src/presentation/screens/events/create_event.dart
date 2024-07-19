@@ -6,6 +6,7 @@ import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/events/basic_event_detail_page.dart';
 import 'package:xpensea/src/presentation/screens/events/event_list_page.dart';
+import 'package:xpensea/src/presentation/screens/events/success_event_page.dart';
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
@@ -18,9 +19,9 @@ class _CreateEventState extends State<CreateEvent> {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
-  List<Widget> pages = [const BasicEventDetailPage(), const EventListPage()];
+  List<Widget> pages = [const BasicEventDetailPage(), const SuccessEventPage()];
 
-  final List<String> pageTitles = ['Create\nEvent Report', 'Event'];
+  final List<String> pageTitles = ['Create\nEvent', 'Event'];
 
   Map<int, String> buttonTexts = {};
 
@@ -104,14 +105,16 @@ class _CreateEventState extends State<CreateEvent> {
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeIn);
                           },
-                          text: 'Next'))
+                          text: 'Save'))
                 ],
               )
             : SolidButton(
                 onPressed: () {
-                  //TODO: Add expense to server
+                  //TODO: Add event to server
+                  Navigator.pop(context);
                 },
-                text: 'Add Expense'),
+                text: 'Save',
+              ),
       ),
     );
   }
