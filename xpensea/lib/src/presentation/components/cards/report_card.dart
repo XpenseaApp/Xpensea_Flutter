@@ -13,6 +13,16 @@ class Reports {
   String? status;
   Color? statusColor;
   Color? statusTextColor;
+  String? reportId;
+  String? description;
+  List<String>? expenseIds;
+  String? userId;
+  String? type;
+  String? location;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  Map<String, dynamic>? userDetails;
+  Map<String, dynamic>? tierDetails;
 
   Reports({
     required this.title,
@@ -23,18 +33,48 @@ class Reports {
     this.status,
     this.statusColor,
     this.statusTextColor,
+    this.reportId,
+    this.description,
+    this.expenseIds,
+    this.userId,
+    this.type,
+    this.location,
+    this.createdAt,
+    this.updatedAt,
+    this.userDetails,
+    this.tierDetails,
   });
 
   factory Reports.fromJson(Map<String, dynamic> json) {
     return Reports(
-      title: json['title'],
-      amount: json['totalAmount'].toString(),
-      expenses: json['expenseCount'].toString(),
-      date: json['date'],
+      title: json['title'] ?? json['reportId'] ?? 'Unknown Title',
+      amount: json.containsKey('totalAmount')
+          ? json['totalAmount'].toString()
+          : json['tierDetails']?['totalAmount']?.toString() ?? '0',
+      expenses: json.containsKey('expenseCount')
+          ? json['expenseCount'].toString()
+          : json['expenses']?.length.toString() ?? '0',
+      date: json['date'] ?? json['reportDate'] ?? 'Unknown Date',
       leadingIconPath: json['leadingIconPath'] ?? AppIcons.person,
       status: json['status'],
-      statusColor: json['statusColor'] ?? Colors.grey,
-      statusTextColor: json['statusTextColor'] ?? Colors.black,
+      statusColor: json['status'] == 'approved'
+          ? Color.fromARGB(255, 227, 245, 235)
+          : Colors.grey,
+      statusTextColor:
+          json['status'] == 'approved' ? Colors.green : Colors.black,
+      reportId: json['_id'],
+      description: json['description'],
+      expenseIds:
+          json['expenses'] != null ? List<String>.from(json['expenses']) : null,
+      userId: json['user'],
+      type: json['type'],
+      location: json['location'],
+      createdAt:
+          json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      updatedAt:
+          json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
+      userDetails: json['userDetails'],
+      tierDetails: json['tierDetails'],
     );
   }
 }
@@ -96,13 +136,13 @@ class ReportCard extends StatelessWidget {
                   width: 100,
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   decoration: BoxDecoration(
-                      color: report.statusColor ?? Colors.grey,
+                      color: report.statusColor,
                       borderRadius: BorderRadius.circular(4)),
                   child: Center(
                       child: Text(
                     report.status!,
                     style: AppTextStyle.kSmallBodyR.copyWith(
-                      color: report.statusTextColor ?? Colors.black,
+                      color: report.statusTextColor,
                     ),
                   )),
                 )
@@ -116,7 +156,7 @@ class ReportCard extends StatelessWidget {
             children: [
               Expanded(
                   child: Text(
-                report.date,
+                report.date.split('T').first,
                 style: AppTextStyle.kSmallTitleR
                     .copyWith(color: AppPalette.kGray3),
               )),

@@ -64,6 +64,19 @@ class ApiService {
     return _handleResponse(response);
   }
 
+  Future<Map<String, dynamic>> createEvent(
+      Map<String, dynamic> eventData, String token) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/event'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode(eventData),
+    );
+    return _handleResponse(response);
+  }
+
   // List Controller
   Future<Map<String, dynamic>> listController(
       String type, int pageNo, String token) async {

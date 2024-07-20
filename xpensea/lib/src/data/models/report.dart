@@ -23,14 +23,14 @@ class Report {
 
   factory Report.fromJson(Map<String, dynamic> json) {
     return Report(
-      title: json['title'],
-      reportDate: json['reportDate'],
-      description: json['description'],
-      location: json['location'],
-      type: json['type'],
-      event: json['event'],
-      status: json['status'],
-      expenses: List<String>.from(json['expenses']),
+      title: json['title'] ?? '',
+      reportDate: json['reportDate'] ?? '',
+      description: json['description'] ?? '',
+      location: json['location'] ?? '',
+      type: json['type'] ?? '',
+      event: json['event'] ?? '',
+      status: json['status'] ?? '',
+      expenses: List<String>.from(json['expenses'] ?? []),
     );
   }
 

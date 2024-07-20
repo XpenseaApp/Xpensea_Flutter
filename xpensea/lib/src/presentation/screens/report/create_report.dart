@@ -5,7 +5,7 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/report.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
-import 'package:xpensea/src/data/routes/user_routes.dart' as userRoutes;
+import 'package:xpensea/src/data/routes/user_api_routes.dart' as userRoutes;
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';

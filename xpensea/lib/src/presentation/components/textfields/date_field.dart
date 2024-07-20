@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/data/models/report.dart';
 
 // Define the reportProvider and its associated methods
@@ -42,7 +43,8 @@ class _CustomDateFieldState extends ConsumerState<CustomDateField> {
         hintStyle: AppTextStyle.kSmallTitleR
             .copyWith(fontSize: 16, color: AppPalette.kGray4),
         suffixIcon: IconButton(
-          onPressed: () => _presentDatePicker(widget.isdate!),
+          onPressed: () => _presentDatePicker(
+              widget.isEditable!, widget.isdate!, widget.hintText!),
           icon: const Icon(
             Icons.calendar_month,
             color: Colors.grey,
@@ -59,7 +61,7 @@ class _CustomDateFieldState extends ConsumerState<CustomDateField> {
     );
   }
 
-  void _presentDatePicker(bool isdate) async {
+  void _presentDatePicker(bool isEditable, bool isdate, String hintText) async {
     if (isdate) {
       final pickedDate = await showDatePicker(
         context: context,
@@ -73,9 +75,25 @@ class _CustomDateFieldState extends ConsumerState<CustomDateField> {
           selectedDate = pickedDate;
           dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate!);
         });
-        ref
-            .read(reportProvider.notifier)
-            .updateReportReportDate(dateController.text);
+        switch (hintText) {
+          case 'Start date':
+            if (isEditable) {
+              ref
+                  .read(eventProvider.notifier)
+                  .updateEventStartDate(dateController.text);
+            }
+            break;
+          case 'End date':
+            ref
+                .read(eventProvider.notifier)
+                .updateEventEndDate(dateController.text);
+            break;
+          case 'Report Date':
+            ref
+                .read(reportProvider.notifier)
+                .updateReportReportDate(dateController.text);
+            break;
+        }
       }
     } else {
       final pickedTime = await showTimePicker(
@@ -89,6 +107,25 @@ class _CustomDateFieldState extends ConsumerState<CustomDateField> {
           final pickedDateTime = DateTime(
               now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
           dateController.text = DateFormat('HH:mm').format(pickedDateTime);
+          print('Picked Time: ${dateController.text}');
+          switch (hintText) {
+            case 'Start Time':
+              if (isEditable) {
+                ref
+                    .read(eventProvider.notifier)
+                    .updateEventStartTime(pickedDateTime.toString());
+              }
+
+              break;
+            case 'End time':
+              print('End Time ${dateController.text}');
+              ref
+                  .read(eventProvider.notifier)
+                  .updateEventEndTime(pickedDateTime.toString());
+              break;
+            default:
+              break;
+          }
         });
       }
     }

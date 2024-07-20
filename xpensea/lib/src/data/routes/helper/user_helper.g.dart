@@ -318,6 +318,296 @@ class _ReportListProviderElement
   String get type => (origin as ReportListProvider).type;
 }
 
+String _$approversListHash() => r'eb6f215797988f0a792c6d37b3c0824d8fd83f1c';
+
+/// See also [approversList].
+@ProviderFor(approversList)
+const approversListProvider = ApproversListFamily();
+
+/// See also [approversList].
+class ApproversListFamily extends Family<AsyncValue<List<Reports>>> {
+  /// See also [approversList].
+  const ApproversListFamily();
+
+  /// See also [approversList].
+  ApproversListProvider call(
+    String token,
+    String type,
+  ) {
+    return ApproversListProvider(
+      token,
+      type,
+    );
+  }
+
+  @override
+  ApproversListProvider getProviderOverride(
+    covariant ApproversListProvider provider,
+  ) {
+    return call(
+      provider.token,
+      provider.type,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'approversListProvider';
+}
+
+/// See also [approversList].
+class ApproversListProvider extends AutoDisposeFutureProvider<List<Reports>> {
+  /// See also [approversList].
+  ApproversListProvider(
+    String token,
+    String type,
+  ) : this._internal(
+          (ref) => approversList(
+            ref as ApproversListRef,
+            token,
+            type,
+          ),
+          from: approversListProvider,
+          name: r'approversListProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$approversListHash,
+          dependencies: ApproversListFamily._dependencies,
+          allTransitiveDependencies:
+              ApproversListFamily._allTransitiveDependencies,
+          token: token,
+          type: type,
+        );
+
+  ApproversListProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.token,
+    required this.type,
+  }) : super.internal();
+
+  final String token;
+  final String type;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Reports>> Function(ApproversListRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ApproversListProvider._internal(
+        (ref) => create(ref as ApproversListRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        token: token,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Reports>> createElement() {
+    return _ApproversListProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ApproversListProvider &&
+        other.token == token &&
+        other.type == type;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+    hash = _SystemHash.combine(hash, type.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin ApproversListRef on AutoDisposeFutureProviderRef<List<Reports>> {
+  /// The parameter `token` of this provider.
+  String get token;
+
+  /// The parameter `type` of this provider.
+  String get type;
+}
+
+class _ApproversListProviderElement
+    extends AutoDisposeFutureProviderElement<List<Reports>>
+    with ApproversListRef {
+  _ApproversListProviderElement(super.provider);
+
+  @override
+  String get token => (origin as ApproversListProvider).token;
+  @override
+  String get type => (origin as ApproversListProvider).type;
+}
+
+String _$eventListHash() => r'3a1fcc9ee5a0575151a753d9461cacd8ae33ef41';
+
+/// See also [eventList].
+@ProviderFor(eventList)
+const eventListProvider = EventListFamily();
+
+/// See also [eventList].
+class EventListFamily extends Family<AsyncValue<List<Event>>> {
+  /// See also [eventList].
+  const EventListFamily();
+
+  /// See also [eventList].
+  EventListProvider call(
+    String token,
+    String type,
+  ) {
+    return EventListProvider(
+      token,
+      type,
+    );
+  }
+
+  @override
+  EventListProvider getProviderOverride(
+    covariant EventListProvider provider,
+  ) {
+    return call(
+      provider.token,
+      provider.type,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'eventListProvider';
+}
+
+/// See also [eventList].
+class EventListProvider extends AutoDisposeFutureProvider<List<Event>> {
+  /// See also [eventList].
+  EventListProvider(
+    String token,
+    String type,
+  ) : this._internal(
+          (ref) => eventList(
+            ref as EventListRef,
+            token,
+            type,
+          ),
+          from: eventListProvider,
+          name: r'eventListProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$eventListHash,
+          dependencies: EventListFamily._dependencies,
+          allTransitiveDependencies: EventListFamily._allTransitiveDependencies,
+          token: token,
+          type: type,
+        );
+
+  EventListProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.token,
+    required this.type,
+  }) : super.internal();
+
+  final String token;
+  final String type;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Event>> Function(EventListRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: EventListProvider._internal(
+        (ref) => create(ref as EventListRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        token: token,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Event>> createElement() {
+    return _EventListProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is EventListProvider &&
+        other.token == token &&
+        other.type == type;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+    hash = _SystemHash.combine(hash, type.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin EventListRef on AutoDisposeFutureProviderRef<List<Event>> {
+  /// The parameter `token` of this provider.
+  String get token;
+
+  /// The parameter `type` of this provider.
+  String get type;
+}
+
+class _EventListProviderElement
+    extends AutoDisposeFutureProviderElement<List<Event>> with EventListRef {
+  _EventListProviderElement(super.provider);
+
+  @override
+  String get token => (origin as EventListProvider).token;
+  @override
+  String get type => (origin as EventListProvider).type;
+}
+
 String _$listControllerHash() => r'f863129e2843f65f1d7d2f66cfd275ca902cbe5d';
 
 /// See also [listController].

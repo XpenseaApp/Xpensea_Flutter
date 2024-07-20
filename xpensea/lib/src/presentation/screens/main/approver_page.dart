@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/report.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
@@ -16,14 +17,17 @@ class ApproverPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        print(
+            ref.watch(approversListProvider(globals.token, 'approved')).value);
         final List<Reports> approved =
-            ref.watch(reportListProvider(globals.token, 'approved')).value ??
+            ref.watch(approversListProvider(globals.token, 'approved')).value ??
                 [];
         final List<Reports> rejected =
-            ref.watch(reportListProvider(globals.token, 'rejected')).value ??
+            ref.watch(approversListProvider(globals.token, 'rejected')).value ??
                 [];
         final List<Reports> pending =
-            ref.watch(reportListProvider(globals.token, 'pending')).value ?? [];
+            ref.watch(approversListProvider(globals.token, 'pending')).value ??
+                [];
 
         final List<Reports> all =
             [approved, rejected, pending].expand((x) => x).toList();

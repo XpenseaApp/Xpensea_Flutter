@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:xpensea/src/data/routes/user_routes.dart';
+import 'package:xpensea/src/data/models/report.dart';
+import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/cards/report_card.dart';
@@ -60,6 +62,15 @@ class Helper {
       Map<String, dynamic> reportData, String token) async {
     try {
       return await _apiService.createReport(reportData, token);
+    } catch (e) {
+      return {"success": false, "message": e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> createEvent(
+      Map<String, dynamic> eventData, String token) async {
+    try {
+      return await _apiService.createEvent(eventData, token);
     } catch (e) {
       return {"success": false, "message": e.toString()};
     }
@@ -162,6 +173,59 @@ Future<List<Reports>> reportList(
       List<Reports> data = rawData
           .where((e) => e['status'] == type)
           .map<Reports>((e) => Reports.fromJson(e))
+          .toList();
+      return data;
+    } else {
+      throw Exception(responseBody['message']);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<List<Reports>> approversList(
+    ApproversListRef ref, String token, String type) async {
+  try {
+    final response = await http.get(Uri.parse('$baseUrl/list?type=approvals'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        });
+
+    final responseBody = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      List<dynamic> rawData = responseBody['data'];
+      List<Reports> data = rawData.where((e) {
+        return e['status'] == type;
+      }).map<Reports>((e) {
+        return Reports.fromJson(e);
+      }).toList();
+      return data;
+    } else {
+      throw Exception(responseBody['message']);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<List<Event>> eventList(
+    EventListRef ref, String token, String type) async {
+  try {
+    final response = await http.get(Uri.parse('$baseUrl/list?type=events'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        });
+
+    final responseBody = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      List<dynamic> rawData = responseBody['data'];
+      List<Event> data = rawData
+          .where((e) => e['status'] == type)
+          .map<Event>((e) => Event.fromJson(e))
           .toList();
       return data;
     } else {
