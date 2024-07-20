@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/cards/setting_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/report_problem_dialog.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
@@ -69,18 +71,26 @@ class ProfilePage extends StatelessWidget {
         const SizedBox(
           height: 28,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(AppIcons.logout),
-            const SizedBox(
-              width: 8,
-            ),
-            Text(
-              'Logout',
-              style: AppTextStyle.kLargeBodySB.copyWith(fontSize: 14),
-            )
-          ],
+        InkWell(
+          onTap: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.remove('number');
+            LoggedIn = false;
+            Navigator.pushNamed(context, '/otp');
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(AppIcons.logout),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                'Logout',
+                style: AppTextStyle.kLargeBodySB.copyWith(fontSize: 14),
+              )
+            ],
+          ),
         ),
       ],
     );

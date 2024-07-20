@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/routes/routes.dart';
 
 class Reports {
+  final String id;
   final String title;
   final String amount;
   final String expenses;
@@ -25,6 +27,7 @@ class Reports {
   Map<String, dynamic>? tierDetails;
 
   Reports({
+    required this.id,
     required this.title,
     required this.amount,
     required this.expenses,
@@ -47,6 +50,7 @@ class Reports {
 
   factory Reports.fromJson(Map<String, dynamic> json) {
     return Reports(
+      id: json['_id'],
       title: json['title'] ?? json['reportId'] ?? 'Unknown Title',
       amount: json.containsKey('totalAmount')
           ? json['totalAmount'].toString()
@@ -64,8 +68,11 @@ class Reports {
           json['status'] == 'approved' ? Colors.green : Colors.black,
       reportId: json['_id'],
       description: json['description'],
-      expenseIds:
-          json['expenses'] != null ? List<String>.from(json['expenses']) : null,
+      expenseIds: json['expenses'] != null
+          ? (json['expenses'] as List<dynamic>)
+              .map((expense) => expense.toString())
+              .toList()
+          : null,
       userId: json['user'],
       type: json['type'],
       location: json['location'],
@@ -160,10 +167,16 @@ class ReportCard extends StatelessWidget {
                 style: AppTextStyle.kSmallTitleR
                     .copyWith(color: AppPalette.kGray3),
               )),
-              Text(
-                'View More',
-                style: AppTextStyle.kSmallBodySB
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.reportDetails,
+                      arguments: {'id': report.id});
+                },
+                child: Text(
+                  'View More',
+                  style: AppTextStyle.kSmallBodySB
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
               ),
               const SizedBox(
                 width: 4,

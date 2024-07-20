@@ -9,4 +9,5 @@ bool approver = false;
 String imageUrl = '';
 Position? location;
 bool eventCheckbox = false;
+bool LoggedIn = false;
 // Rest of your code goes here

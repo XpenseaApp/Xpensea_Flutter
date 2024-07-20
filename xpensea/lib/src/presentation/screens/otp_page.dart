@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:onscreen_num_keyboard/onscreen_num_keyboard.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
@@ -58,7 +59,19 @@ class _OtpPageState extends State<OtpPage> {
     super.dispose();
   }
 
+  Future<void> CheckNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedNumber = prefs.getString('number');
+    if (savedNumber != null && savedNumber.isNotEmpty) {
+      LoggedIn = true;
+      phoneController.text = savedNumber;
+      _pageController.jumpToPage(2);
+    }
+  }
+
   Future<void> sendOtp() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('number', phoneController.text);
     final response = await _helper.sendOtp(phoneController.text);
     if (response['success']) {
       _pageController.nextPage(
@@ -67,6 +80,7 @@ class _OtpPageState extends State<OtpPage> {
       );
     } else {
       // handle error
+      //TODO: remove after otp backend finished
       print(response['message']);
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
@@ -156,6 +170,7 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Widget _phoneInputPage() {
+    CheckNumber();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -338,8 +353,8 @@ class _OtpPageState extends State<OtpPage> {
       children: [
         SvgPicture.asset(AppIcons.starFilled),
         const SizedBox(height: 10),
-        const Text(
-          "Create MPIN",
+        Text(
+          LoggedIn ? "Create MPIN" : " MPIN",
           style: AppTextStyle.kDisplayTitleM,
         ),
         const SizedBox(height: 20),

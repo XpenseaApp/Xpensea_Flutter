@@ -99,7 +99,8 @@ class PreviewReport extends StatelessWidget {
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (context) => const ExpenseDialog(),
+                        builder: (context) => ExpenseDialog(
+                            id: expenses.elementAtOrNull(index)!.id!),
                       );
                     },
                   ),

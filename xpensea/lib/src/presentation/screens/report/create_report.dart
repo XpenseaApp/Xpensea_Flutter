@@ -140,7 +140,7 @@ class _CreateReportState extends State<CreateReport> {
                           ref
                               .read(reportProvider.notifier)
                               .updateReportExpenses(
-                                  expenses.map((e) => e.id).toList());
+                                  expenses.map((e) => e.id!).toList());
                           // ref
                           //     .read(reportProvider.notifier)
                           //     .updateReportEvent('6673f805cb67f6f4d2ef4b34');
@@ -200,7 +200,7 @@ class _CreateReportState extends State<CreateReport> {
                             ref
                                 .read(reportProvider.notifier)
                                 .updateReportExpenses(
-                                    expenses.map((e) => e.id).toList());
+                                    expenses.map((e) => e.id!).toList());
                             // ref
                             //     .read(reportProvider.notifier)
                             //     .updateReportEvent('6673f805cb67f6f4d2ef4b34');

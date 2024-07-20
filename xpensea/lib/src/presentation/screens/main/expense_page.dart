@@ -82,12 +82,7 @@ class ExpensePage extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ExpensesCard(
                         expenses: expenses[index],
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const ExpenseDialog(),
-                          );
-                        },
+                        onTap: () {},
                       ),
                     ),
                     ListView.separated(

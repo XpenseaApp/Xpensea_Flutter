@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/models/report.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/data/models/event.dart';
@@ -79,13 +80,6 @@ class Helper {
   // List Controller
 
   // Get Expense
-  Future<Map<String, dynamic>> getExpense(String id, String token) async {
-    try {
-      return await _apiService.getExpense(id, token);
-    } catch (e) {
-      return {"success": false, "message": e.toString()};
-    }
-  }
 
   // Get Report
   Future<Map<String, dynamic>> getReport(String id, String token) async {
@@ -228,6 +222,54 @@ Future<List<Event>> eventList(
           .map<Event>((e) => Event.fromJson(e))
           .toList();
       return data;
+    } else {
+      throw Exception(responseBody['message']);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<Expenses> getExpense(GetExpenseRef ref, String id, String token) async {
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/expense/${id}'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${token}"
+      },
+    );
+
+    final responseBody = jsonDecode(response.body);
+
+    log('responseBody: ${responseBody['data']}');
+    if (response.statusCode == 200) {
+      return Expenses.fromJson(responseBody['data']);
+    } else {
+      throw Exception(responseBody['message']);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<dynamic> getReport(GetReportRef ref, String id, String token) async {
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/report/${id}'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${token}"
+      },
+    );
+
+    final responseBody = jsonDecode(response.body);
+    log('responseBody: ${responseBody['data']}');
+
+    if (response.statusCode == 200) {
+      return responseBody['data'];
     } else {
       throw Exception(responseBody['message']);
     }

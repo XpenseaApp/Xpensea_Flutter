@@ -29,7 +29,7 @@ class EventCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '75% to complete',
+                  '25% to complete',
                   style: AppTextStyle.kSmallBodySB
                       .copyWith(fontWeight: FontWeight.w500),
                 ),

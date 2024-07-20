@@ -14,6 +14,7 @@ class AppRoutes {
   static const String createReport = "/createReport";
   static const String createEvent = "/createEvent";
   static const String captureBill = "/captureBill";
+  static const String reportDetails = "/ReportDetails";
   static const String debug = "/debug";
 
   static Map<String, WidgetBuilder> getRoutes() {
@@ -24,7 +25,8 @@ class AppRoutes {
       createEvent: (context) => const CreateEvent(),
       createReport: (context) => const CreateReport(),
       captureBill: (context) => const CaptureBillPage(),
-      debug: (context) => ExpenseReportScreen(),
+      reportDetails: (context) => ReportDetail(id: ''),
+      debug: (context) => ReportDetail(id: ''),
     };
   }
 }

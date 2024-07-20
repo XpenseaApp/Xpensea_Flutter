@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
 class Expenses {
-  final String id;
+  final String? id;
   final String title;
   final String amount;
   final String date;
@@ -14,7 +15,7 @@ class Expenses {
   late String trailingIconPath;
 
   Expenses({
-    required this.id,
+    this.id,
     required this.title,
     required this.amount,
     required this.date,
@@ -105,7 +106,12 @@ class ExpensesCard extends StatelessWidget {
                     .copyWith(color: AppPalette.kGray3),
               )),
               GestureDetector(
-                onTap: onTap,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => ExpenseDialog(id: expenses.id!),
+                  );
+                },
                 child: Row(
                   children: [
                     Text(
