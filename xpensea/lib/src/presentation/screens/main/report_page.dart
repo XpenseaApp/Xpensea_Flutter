@@ -16,11 +16,28 @@ class ReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final List<Reports> history =
+        final List<Reports> approvedReports =
+            ref.watch(reportListProvider(globals.token, 'approved')).value ??
+                [];
+        final List<Reports> rejectedReports =
             ref.watch(reportListProvider(globals.token, 'rejected')).value ??
                 [];
-        final List<Reports> draftReports =
+
+        final List<Reports> pendingReports =
             ref.watch(reportListProvider(globals.token, 'pending')).value ?? [];
+
+        final List<Reports> draftReports =
+            ref.watch(reportListProvider(globals.token, 'drafted')).value ?? [];
+
+        final List<Reports> draft = [
+          ...draftReports,
+          ...pendingReports,
+        ];
+        final List<Reports> history = [
+          ...approvedReports,
+          ...rejectedReports,
+        ];
+
         return DefaultTabController(
           length: 2,
           child: Column(
@@ -61,10 +78,10 @@ class ReportPage extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     ListView.separated(
-                      itemCount: draftReports.length,
+                      itemCount: draft.length,
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ReportCard(
-                        report: draftReports[index],
+                        report: draft[index],
                       ),
                     ),
                     ListView.separated(

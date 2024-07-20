@@ -42,7 +42,7 @@ class Report {
       'location': location,
       'type': type,
       if (event != '') 'event': event,
-      'status': status,
+      if (status != '') 'status': status,
       'expenses': expenses,
     };
   }

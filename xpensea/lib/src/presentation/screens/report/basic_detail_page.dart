@@ -34,7 +34,9 @@ class BasicDetailPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const CustomDateField(),
+        const CustomDateField(
+          hintText: 'Report Date',
+        ),
         const SizedBox(
           height: 20,
         ),
