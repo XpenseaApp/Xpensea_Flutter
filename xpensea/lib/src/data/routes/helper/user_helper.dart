@@ -279,6 +279,23 @@ Future<dynamic> getReport(GetReportRef ref, String id, String token) async {
 }
 
 @riverpod
+Future<List<String>> getCatagories(GetCatagoriesRef ref, String token) async {
+  final response = await http.get(
+    Uri.parse('$baseUrl/category'),
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
+    },
+  );
+  final responseBody = jsonDecode(response.body);
+  List<String> categories = [];
+  for (var category in responseBody['data']) {
+    categories.add(category['title']);
+  }
+  return categories;
+}
+
+@riverpod
 Future<List<dynamic>> listController(
     ListControllerRef ref, String type, int pageNo, String token) async {
   try {

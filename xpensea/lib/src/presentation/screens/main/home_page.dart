@@ -100,7 +100,17 @@ class HomePage extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        const EventCard(),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(children: [
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: const EventCard()),
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: const EventCard()),
+          ]),
+        ),
         const SizedBox(
           height: 40,
         ),

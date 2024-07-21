@@ -102,6 +102,22 @@ class ApiService {
     return _handleResponse(response);
   }
 
+  Future<List<String>> getCatagories(String token) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/category'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+    final responseBody = jsonDecode(response.body);
+    List<String> categories = [];
+    for (var category in responseBody['data']) {
+      categories.add(category['title']);
+    }
+    return categories;
+  }
+
   // Get Report
   Future<Map<String, dynamic>> getReport(String id, String token) async {
     final response = await http.get(

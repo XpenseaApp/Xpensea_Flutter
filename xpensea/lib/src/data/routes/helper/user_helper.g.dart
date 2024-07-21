@@ -895,6 +895,135 @@ class _GetReportProviderElement
   String get token => (origin as GetReportProvider).token;
 }
 
+String _$getCatagoriesHash() => r'f900c7b7f902d48f92a87b262f64fedae1b1b6c1';
+
+/// See also [getCatagories].
+@ProviderFor(getCatagories)
+const getCatagoriesProvider = GetCatagoriesFamily();
+
+/// See also [getCatagories].
+class GetCatagoriesFamily extends Family<AsyncValue<List<String>>> {
+  /// See also [getCatagories].
+  const GetCatagoriesFamily();
+
+  /// See also [getCatagories].
+  GetCatagoriesProvider call(
+    String token,
+  ) {
+    return GetCatagoriesProvider(
+      token,
+    );
+  }
+
+  @override
+  GetCatagoriesProvider getProviderOverride(
+    covariant GetCatagoriesProvider provider,
+  ) {
+    return call(
+      provider.token,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getCatagoriesProvider';
+}
+
+/// See also [getCatagories].
+class GetCatagoriesProvider extends AutoDisposeFutureProvider<List<String>> {
+  /// See also [getCatagories].
+  GetCatagoriesProvider(
+    String token,
+  ) : this._internal(
+          (ref) => getCatagories(
+            ref as GetCatagoriesRef,
+            token,
+          ),
+          from: getCatagoriesProvider,
+          name: r'getCatagoriesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getCatagoriesHash,
+          dependencies: GetCatagoriesFamily._dependencies,
+          allTransitiveDependencies:
+              GetCatagoriesFamily._allTransitiveDependencies,
+          token: token,
+        );
+
+  GetCatagoriesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.token,
+  }) : super.internal();
+
+  final String token;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<String>> Function(GetCatagoriesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetCatagoriesProvider._internal(
+        (ref) => create(ref as GetCatagoriesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        token: token,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<String>> createElement() {
+    return _GetCatagoriesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetCatagoriesProvider && other.token == token;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetCatagoriesRef on AutoDisposeFutureProviderRef<List<String>> {
+  /// The parameter `token` of this provider.
+  String get token;
+}
+
+class _GetCatagoriesProviderElement
+    extends AutoDisposeFutureProviderElement<List<String>>
+    with GetCatagoriesRef {
+  _GetCatagoriesProviderElement(super.provider);
+
+  @override
+  String get token => (origin as GetCatagoriesProvider).token;
+}
+
 String _$listControllerHash() => r'f863129e2843f65f1d7d2f66cfd275ca902cbe5d';
 
 /// See also [listController].
