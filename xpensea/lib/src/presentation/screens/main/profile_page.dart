@@ -30,12 +30,12 @@ class ProfilePage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Amal Davis T N',
+                Text(
+                  username,
                   style: AppTextStyle.kLargeBodyB,
                 ),
                 Text(
-                  'Employee ID :78946548',
+                  'Employee ID :$employeeID',
                   style:
                       AppTextStyle.kMediumBodyM.copyWith(color: Colors.black),
                 )

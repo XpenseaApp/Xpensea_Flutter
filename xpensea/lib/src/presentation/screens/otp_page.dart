@@ -136,6 +136,8 @@ class _OtpPageState extends State<OtpPage> {
       approver = response['data']['data']['userType'].toString() == 'approver'
           ? true
           : false;
+      username = response['data']['data']['username'].toString();
+      employeeID = response['data']['data']['employeeId'].toString();
 
       Navigator.pushReplacementNamed(context, AppRoutes.mainpage);
       // Save response data in shared preferences

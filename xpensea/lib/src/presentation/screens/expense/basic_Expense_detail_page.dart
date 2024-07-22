@@ -19,6 +19,7 @@ class BasicExpenseDetailPage extends StatelessWidget {
       builder: (context, ref, child) {
         List<String> expenseCategories =
             ref.watch(GetCatagoriesProvider(token)).value ?? [];
+        print(expenseCategories);
         return Scaffold(
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),

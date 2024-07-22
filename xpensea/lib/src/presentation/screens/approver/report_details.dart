@@ -34,6 +34,7 @@ class ReportDetail extends StatelessWidget {
           log('Report: $report');
           final List<dynamic> expenseList = report['expenses'] ?? [];
           expenses = expenseList.map((e) => Expenses.fromJson(e)).toList();
+          log(expenses.first.id.toString());
 
           return Scaffold(
             body: SafeArea(

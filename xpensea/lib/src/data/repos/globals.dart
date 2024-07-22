@@ -10,4 +10,6 @@ String imageUrl = '';
 Position? location;
 bool eventCheckbox = false;
 bool LoggedIn = false;
+String username = 'Username';
+String employeeID = 'employeeID';
 // Rest of your code goes here
