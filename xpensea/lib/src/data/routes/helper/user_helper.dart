@@ -223,7 +223,9 @@ Future<List<Event>> eventList(
           .toList();
       return data;
     } else {
-      throw Exception(responseBody['message']);
+      log(responseBody['message']);
+      List<Event> data = [];
+      return data;
     }
   } catch (e) {
     throw Exception(e.toString());

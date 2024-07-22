@@ -1,8 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/event.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
 import 'package:xpensea/src/presentation/components/cards/event_card.dart';
+import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/routes/routes.dart';
@@ -73,64 +80,85 @@ class HomePage extends StatelessWidget {
       MenuItems("Upload Bill", AppIcons.uploadDoc, null),
     ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Hi, lets manage expenses',
-          style: AppTextStyle.kDisplayTitleM,
-        ),
-        const SizedBox(
-          height: 28,
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Wrap(
-            spacing: 8,
-            children: List.generate(
-              menuCards.length,
-              (index) => MenuCard(
-                text: menuCards[index].text,
-                iconPath: menuCards[index].iconPath,
-                onTap: menuCards[index].onTap,
+    return Consumer(
+      builder: (context, ref, child) {
+        final List<Event> progressEvents =
+            ref.watch(eventListProvider(token, 'progress')).value ?? [];
+        // print(progressEvents.first.toJson().toString());
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Hi, lets manage expenses',
+              style: AppTextStyle.kDisplayTitleM,
+            ),
+            const SizedBox(
+              height: 28,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Wrap(
+                spacing: 8,
+                children: List.generate(
+                  menuCards.length,
+                  (index) => MenuCard(
+                    text: menuCards[index].text,
+                    iconPath: menuCards[index].iconPath,
+                    onTap: menuCards[index].onTap,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(children: [
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: const EventCard()),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: const EventCard()),
-          ]),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        Text(
-          'Recent Events',
-          style: AppTextStyle.kMediumBodyM.copyWith(color: AppPalette.kGray3),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Expanded(
-          child: ListView.separated(
-            itemCount: activities.length,
-            separatorBuilder: (context, index) => const Divider(),
-            itemBuilder: (context, index) => ActivityCard(
-              activity: activities[index],
+            const SizedBox(
+              height: 16,
             ),
-          ),
-        )
-      ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: progressEvents.isNotEmpty
+                  ? Row(
+                      children: List.generate(progressEvents.length, (index) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: EventCard(
+                            startDate: DateTime.parse(
+                              progressEvents[index]
+                                  .startDate
+                                  .replaceAll(' ', '-'),
+                            ),
+                            endDate: DateTime.parse(
+                              progressEvents[index]
+                                  .endDate
+                                  .replaceAll(' ', '-'),
+                            ),
+                          ),
+                        );
+                      }),
+                    )
+                  : SizedBox.shrink(),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Text(
+              'Recent Events',
+              style:
+                  AppTextStyle.kMediumBodyM.copyWith(color: AppPalette.kGray3),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Expanded(
+              child: ListView.separated(
+                itemCount: activities.length,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (context, index) => ActivityCard(
+                  activity: activities[index],
+                ),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

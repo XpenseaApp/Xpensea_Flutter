@@ -5,10 +5,32 @@ import 'package:xpensea/src/presentation/components/buttons/small_button.dart';
 import 'package:xpensea/src/presentation/components/steppers/cutsom_stepper.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({super.key});
+  final DateTime startDate;
+  final DateTime endDate;
+
+  const EventCard({
+    super.key,
+    required this.startDate,
+    required this.endDate,
+  });
+
+  double _calculatePercentage() {
+    final now = DateTime.now();
+    if (now.isBefore(startDate)) {
+      return 0;
+    } else if (now.isAfter(endDate)) {
+      return 100;
+    } else {
+      final totalDuration = endDate.difference(startDate).inMinutes;
+      final elapsedDuration = now.difference(startDate).inMinutes;
+      return (elapsedDuration / totalDuration) * 100;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final percentage = _calculatePercentage().clamp(0, 100).toInt();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: const BoxDecoration(
@@ -29,7 +51,7 @@ class EventCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '25% to complete',
+                  '$percentage% to complete',
                   style: AppTextStyle.kSmallBodySB
                       .copyWith(fontWeight: FontWeight.w500),
                 ),
@@ -38,17 +60,19 @@ class EventCard extends StatelessWidget {
                 Icons.watch_later_outlined,
                 size: 8,
               ),
-              Text('39min',
-                  style: AppTextStyle.kSmallBodySB.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 8,
-                      color: Colors.black))
+              Text(
+                '${(endDate.difference(DateTime.now()).inMinutes).clamp(0, endDate.difference(startDate).inMinutes)}min',
+                style: AppTextStyle.kSmallBodySB.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 8,
+                    color: Colors.black),
+              ),
             ],
           ),
           const SizedBox(
             height: 4,
           ),
-          const CustomStepper(percentage: 25),
+          CustomStepper(percentage: percentage),
           const SizedBox(
             height: 12,
           ),
@@ -64,7 +88,7 @@ class EventCard extends StatelessWidget {
                           fontSize: 8,
                           color: Colors.black)),
                   Text(
-                    '25/08/2024',
+                    '${startDate.day}/${startDate.month}/${startDate.year}',
                     style: AppTextStyle.kLargeBodyB.copyWith(fontSize: 12),
                   ),
                 ],
@@ -78,7 +102,7 @@ class EventCard extends StatelessWidget {
                           fontSize: 8,
                           color: Colors.black)),
                   Text(
-                    '26/08/2024',
+                    '${endDate.day}/${endDate.month}/${endDate.year}',
                     style: AppTextStyle.kLargeBodyB.copyWith(fontSize: 12),
                   ),
                 ],
