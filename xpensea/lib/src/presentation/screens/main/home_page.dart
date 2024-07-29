@@ -119,16 +119,20 @@ class HomePage extends StatelessWidget {
                       children: List.generate(progressEvents.length, (index) {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
-                          child: EventCard(
-                            startDate: DateTime.parse(
-                              progressEvents[index]
-                                  .startDate
-                                  .replaceAll(' ', '-'),
-                            ),
-                            endDate: DateTime.parse(
-                              progressEvents[index]
-                                  .endDate
-                                  .replaceAll(' ', '-'),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: EventCard(
+                              startDate: DateTime.parse(
+                                progressEvents[index]
+                                    .startDate
+                                    .replaceAll(' ', '-'),
+                              ),
+                              endDate: DateTime.parse(
+                                progressEvents[index]
+                                    .endDate
+                                    .replaceAll(' ', '-'),
+                              ),
                             ),
                           ),
                         );

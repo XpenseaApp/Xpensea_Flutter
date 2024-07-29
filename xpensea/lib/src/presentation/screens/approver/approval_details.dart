@@ -15,10 +15,10 @@ import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
-class ReportDetail extends StatelessWidget {
+class ApprovalDetails extends StatelessWidget {
   final String id;
 
-  ReportDetail({Key? key, required this.id}) : super(key: key);
+  ApprovalDetails({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ReportDetail extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         List<Expenses> expenses = [];
-        final report = ref.watch(getReportProvider(id, token)).value;
+        final report = ref.watch(getApprovalProvider(id, token)).value;
 
         if (report != null && report.isNotEmpty) {
           log('Report: $report');
@@ -48,39 +48,39 @@ class ReportDetail extends StatelessWidget {
                         children: [
                           CommonAppBarWback(index: 2),
                           const SizedBox(height: 16),
-                          Container(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 40,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppPalette.kLSelectedColor,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0),
-                                        child: Text(
-                                          'Reimbursed',
-                                          style: AppTextStyle.kMediumBodyM,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    '   Reimburse Amount : Rs 2000',
-                                    style: TextStyle(color: Colors.green),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   child: Column(
+                          //     children: [
+                          //       SizedBox(
+                          //         height: 40,
+                          //         child: Container(
+                          //           decoration: BoxDecoration(
+                          //             color: AppPalette.kLSelectedColor,
+                          //             borderRadius: BorderRadius.circular(4),
+                          //           ),
+                          //           child: Align(
+                          //             alignment: Alignment.centerLeft,
+                          //             child: Padding(
+                          //               padding:
+                          //                   const EdgeInsets.only(left: 8.0),
+                          //               child: Text(
+                          //                 'Reimbursed',
+                          //                 style: AppTextStyle.kMediumBodyM,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       Container(
+                          //         alignment: Alignment.centerLeft,
+                          //         child: Text(
+                          //           '   Reimburse Amount : Rs 2000',
+                          //           style: TextStyle(color: Colors.green),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           const SizedBox(height: 10),
                           Container(
                             child: Column(

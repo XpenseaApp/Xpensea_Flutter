@@ -39,6 +39,14 @@ class ExpenseDialog extends StatelessWidget {
                       ?.trailingIconPath ??
                   '',
               status: '',
+              category:
+                  ref.watch(getExpenseProvider(id, token)).value?.category ??
+                      '',
+              description:
+                  ref.watch(getExpenseProvider(id, token)).value?.description ??
+                      '',
+              image:
+                  ref.watch(getExpenseProvider(id, token)).value?.image ?? '',
             );
 
         return Dialog(
@@ -54,8 +62,8 @@ class ExpenseDialog extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Expense',
+                    Text(
+                      '${expense?.category} Expense',
                       style: AppTextStyle.kLargeBodySB,
                     ),
                     IconButton(
@@ -79,7 +87,7 @@ class ExpenseDialog extends StatelessWidget {
                           color: Colors.black),
                     ),
                     Text(
-                      expense.date,
+                      expense.date ?? '',
                       style: AppTextStyle.kSmallTitleR
                           .copyWith(fontSize: 18, color: AppPalette.kGray3),
                     ),
@@ -98,7 +106,12 @@ class ExpenseDialog extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8)),
                   child: Row(
                     children: [
-                      const Text('image'),
+                      Image.network(
+                          expense.image != ''
+                              ? expense.image
+                              : 'https://via.placeholder.com/150',
+                          width: 50,
+                          height: 50),
                       const SizedBox(
                         width: 8,
                       ),
@@ -125,8 +138,8 @@ class ExpenseDialog extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                const Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                Text(
+                  expense.description ?? '',
                   style: AppTextStyle.kSmallTitleR,
                 ),
                 const SizedBox(

@@ -28,55 +28,63 @@ class CaptureBillPage extends ConsumerWidget {
     final cameraState = ref.watch(cameraProvider);
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: SvgPicture.asset(AppIcons.iosBack)),
-                const Text(
-                  'Capture Bill',
-                  style: AppTextStyle.kDisplayTitleM,
-                ),
-                GestureDetector(child: SvgPicture.asset(AppIcons.flashOff)),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            const Divider(),
-            const SizedBox(
-              height: 40,
-            ),
-            cameraState.controller != null
-                ? Container(
-                    height: 400,
-                    width: double.infinity,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: CameraPreview(cameraState.controller!)))
-                : cameraState.error != null
-                    ? Text("Error: ${cameraState.error}")
-                    : const CircularProgressIndicator(),
-            const Spacer(),
-            const Text(
-              'Tap the button to\ncapture the bill',
-              style: AppTextStyle.kDisplayTitleM,
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            GestureDetector(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: SvgPicture.asset(AppIcons.iosBack)),
+                  const Text(
+                    'Capture Bill',
+                    style: AppTextStyle.kDisplayTitleM,
+                  ),
+                  GestureDetector(child: SvgPicture.asset(AppIcons.flashOff)),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const Divider(),
+              const SizedBox(
+                height: 40,
+              ),
+              cameraState.controller != null
+                  ? Container(
+                      height: 400,
+                      width: double.infinity,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: CameraPreview(cameraState.controller!)))
+                  : cameraState.error != null
+                      ? Text("Error: ${cameraState.error}")
+                      : const CircularProgressIndicator(),
+              const Spacer(),
+              const Text(
+                'Tap the button to\ncapture the bill',
+                style: AppTextStyle.kDisplayTitleM,
+                textAlign: TextAlign.center,
+              ),
+              const Spacer(),
+              GestureDetector(
                 onTap: () async {
                   if (cameraState.controller != null) {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Loading'),
+                        content: const CircularProgressIndicator(),
+                      ),
+                    );
                     try {
                       final image = await cameraState.controller!.takePicture();
                       // Handle captured image
@@ -106,6 +114,8 @@ class CaptureBillPage extends ConsumerWidget {
                           ],
                         ),
                       );
+                    } finally {
+                      Navigator.pop(context); // Close the loading dialog
                     }
                   }
                   // if (imageUrl.isNotEmpty) {
@@ -116,10 +126,12 @@ class CaptureBillPage extends ConsumerWidget {
                   }));
                   // }
                 },
-                child: SvgPicture.asset(AppIcons.captureIcon)),
-          ],
+                child: SvgPicture.asset(AppIcons.captureIcon),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

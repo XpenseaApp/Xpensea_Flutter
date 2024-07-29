@@ -13,7 +13,7 @@ class SuccessEventPage extends StatelessWidget {
       children: [
         SvgPicture.asset(AppIcons.successCheck),
         const Text(
-          'Your Expense Event #EXP123\nSaved Successfully ',
+          'Your Event Report #EXP123\nSaved Successfully ',
           textAlign: TextAlign.center,
           style: AppTextStyle.kLargeBodySB,
         ),

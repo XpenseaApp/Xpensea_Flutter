@@ -10,18 +10,24 @@ class Expenses {
   final String? id;
   final String title;
   final String amount;
-  final String date;
+  final String? date;
   final String leadingIconPath;
   late String trailingIconPath;
+  final String category;
+  final String? description;
+  final String image;
 
   Expenses({
     this.id,
     required this.title,
     required this.amount,
-    required this.date,
+    this.date,
     required this.leadingIconPath,
     required this.trailingIconPath,
     required status,
+    required this.category,
+    this.description,
+    required this.image,
   });
 
   factory Expenses.fromJson(Map<String, dynamic> json) {
@@ -38,6 +44,9 @@ class Expenses {
               : AppIcons.person,
       trailingIconPath:
           json['status'] == 'mapped' ? AppIcons.checkOk : AppIcons.checkWait,
+      category: json['category'],
+      description: json['description'],
+      image: json['image'],
     );
   }
 }
@@ -101,7 +110,7 @@ class ExpensesCard extends StatelessWidget {
             children: [
               Expanded(
                   child: Text(
-                expenses.date,
+                expenses.date ?? '',
                 style: AppTextStyle.kSmallTitleR
                     .copyWith(color: AppPalette.kGray3),
               )),

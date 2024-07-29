@@ -16,6 +16,9 @@ class EventListPage extends StatelessWidget {
       leadingIconPath: AppIcons.person,
       trailingIconPath: AppIcons.checkOk,
       status: 'mapped',
+      category: '',
+      description: '',
+      image: '',
     ),
     Expenses(
       id: '1',
@@ -25,6 +28,9 @@ class EventListPage extends StatelessWidget {
       leadingIconPath: AppIcons.airplane,
       trailingIconPath: AppIcons.checkOk,
       status: 'mapped',
+      category: '',
+      description: '',
+      image: '',
     ),
     Expenses(
       id: '1',
@@ -34,6 +40,9 @@ class EventListPage extends StatelessWidget {
       leadingIconPath: AppIcons.person,
       trailingIconPath: AppIcons.checkOk,
       status: 'mapped',
+      category: '',
+      description: '',
+      image: '',
     ),
     Expenses(
       id: '1',
@@ -43,6 +52,9 @@ class EventListPage extends StatelessWidget {
       leadingIconPath: AppIcons.maintenance,
       trailingIconPath: AppIcons.checkOk,
       status: 'mapped',
+      category: '',
+      description: '',
+      image: '',
     ),
   ];
 

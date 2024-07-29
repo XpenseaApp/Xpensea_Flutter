@@ -9,95 +9,91 @@ import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/components/textfields/search_field.dart';
 import 'package:xpensea/src/data/repos/globals.dart' as globals;
 
-class ReportPage extends StatelessWidget {
+class ReportPage extends ConsumerWidget {
   const ReportPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final List<Reports> approvedReports =
-            ref.watch(reportListProvider(globals.token, 'approved')).value ??
-                [];
-        final List<Reports> rejectedReports =
-            ref.watch(reportListProvider(globals.token, 'rejected')).value ??
-                [];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<Reports> approvedReports =
+        ref.watch(reportListProvider(globals.token, 'approved')).value ?? [];
+    final List<Reports> rejectedReports =
+        ref.watch(reportListProvider(globals.token, 'rejected')).value ?? [];
 
-        final List<Reports> pendingReports =
-            ref.watch(reportListProvider(globals.token, 'pending')).value ?? [];
+    final List<Reports> pendingReports =
+        ref.watch(reportListProvider(globals.token, 'pending')).value ?? [];
 
-        final List<Reports> draftReports =
-            ref.watch(reportListProvider(globals.token, 'drafted')).value ?? [];
+    final List<Reports> draftReports =
+        ref.watch(reportListProvider(globals.token, 'drafted')).value ?? [];
 
-        final List<Reports> draft = [
-          ...draftReports,
-          ...pendingReports,
-        ];
-        final List<Reports> history = [
-          ...approvedReports,
-          ...rejectedReports,
-        ];
+    final List<Reports> draft = [
+      ...draftReports,
+    ];
+    final List<Reports> history = [
+      ...pendingReports,
+      ...approvedReports,
+      ...rejectedReports,
+    ];
 
-        return DefaultTabController(
-          length: 2,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TabBar(
-                isScrollable: true,
-                tabAlignment: TabAlignment.start,
-                dividerColor: Colors.transparent,
-                indicatorColor: AppPalette.kPrimaryColor,
-                indicatorSize: TabBarIndicatorSize.tab,
-                labelStyle: AppTextStyle.kSmallBodySB.copyWith(fontSize: 14),
-                tabs: const [
-                  Tab(
-                    text: 'Drafts',
-                  ),
-                  Tab(
-                    text: 'History',
-                  ),
-                ],
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TabBar(
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
+            dividerColor: Colors.transparent,
+            indicatorColor: AppPalette.kPrimaryColor,
+            indicatorSize: TabBarIndicatorSize.tab,
+            labelStyle: AppTextStyle.kSmallBodySB.copyWith(fontSize: 14),
+            tabs: const [
+              Tab(
+                text: 'Drafts',
               ),
-              const SizedBox(
-                height: 20,
+              Tab(
+                text: 'History',
               ),
-              Row(
-                children: [
-                  const Expanded(child: CustomSearchField()),
-                  const SizedBox(
-                    width: 28,
-                  ),
-                  SvgPicture.asset(AppIcons.sort)
-                ],
-              ),
-              const SizedBox(
-                height: 28,
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    ListView.separated(
-                      itemCount: draft.length,
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemBuilder: (context, index) => ReportCard(
-                        report: draft[index],
-                      ),
-                    ),
-                    ListView.separated(
-                      itemCount: history.length,
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemBuilder: (context, index) => ReportCard(
-                        report: history[index],
-                      ),
-                    ),
-                  ],
-                ),
-              )
             ],
           ),
-        );
-      },
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              const Expanded(child: CustomSearchField()),
+              const SizedBox(
+                width: 28,
+              ),
+              SvgPicture.asset(AppIcons.sort)
+            ],
+          ),
+          const SizedBox(
+            height: 28,
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                ListView.separated(
+                  key: PageStorageKey('drafts'),
+                  itemCount: draft.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) => ReportCard(
+                    report: draft[index],
+                  ),
+                ),
+                ListView.separated(
+                  key: PageStorageKey('history'),
+                  itemCount: history.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) => ReportCard(
+                    report: history[index],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

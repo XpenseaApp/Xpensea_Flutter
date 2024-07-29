@@ -63,9 +63,14 @@ class Reports {
       status: json['status'],
       statusColor: json['status'] == 'approved'
           ? Color.fromARGB(255, 227, 245, 235)
-          : Colors.grey,
-      statusTextColor:
-          json['status'] == 'approved' ? Colors.green : Colors.black,
+          : json['status'] == 'rejected'
+              ? const Color.fromARGB(255, 250, 214, 212)
+              : Colors.grey,
+      statusTextColor: json['status'] == 'approved'
+          ? Colors.green
+          : json['status'] == 'rejected'
+              ? const Color.fromARGB(255, 224, 13, 0)
+              : Colors.black,
       reportId: json['_id'],
       description: json['description'],
       expenseIds: json['expenses'] != null
@@ -88,9 +93,11 @@ class Reports {
 
 class ReportCard extends StatelessWidget {
   final Reports report;
+  final bool isReport;
   const ReportCard({
     super.key,
     required this.report,
+    this.isReport = true,
   });
 
   @override
@@ -147,7 +154,7 @@ class ReportCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4)),
                   child: Center(
                       child: Text(
-                    report.status!,
+                    report.status == 'pending' ? 'Submitted' : report.status!,
                     style: AppTextStyle.kSmallBodyR.copyWith(
                       color: report.statusTextColor,
                     ),
@@ -169,8 +176,13 @@ class ReportCard extends StatelessWidget {
               )),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.reportDetails,
-                      arguments: {'id': report.id});
+                  if (isReport) {
+                    Navigator.pushNamed(context, AppRoutes.reportDetails,
+                        arguments: {'id': report.id});
+                  } else {
+                    Navigator.pushNamed(context, AppRoutes.approvalDetails,
+                        arguments: {'id': report.id});
+                  }
                 },
                 child: Text(
                   'View More',

@@ -82,6 +82,7 @@ class ApproverPage extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ReportCard(
                         report: all[index],
+                        isReport: false,
                       ),
                     ),
                     ListView.separated(
@@ -89,6 +90,7 @@ class ApproverPage extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ReportCard(
                         report: pending[index],
+                        isReport: false,
                       ),
                     ),
                     ListView.separated(
@@ -96,6 +98,7 @@ class ApproverPage extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ReportCard(
                         report: approved[index],
+                        isReport: false,
                       ),
                     ),
                     ListView.separated(
@@ -103,6 +106,7 @@ class ApproverPage extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ReportCard(
                         report: rejected[index],
+                        isReport: false,
                       ),
                     ),
                   ],

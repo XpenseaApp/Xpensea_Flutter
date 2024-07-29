@@ -173,7 +173,7 @@ class _ExpenseListProviderElement
   String get type => (origin as ExpenseListProvider).type;
 }
 
-String _$reportListHash() => r'bdf66f0914d35d6e7bae8650a10512c2aceca0d1';
+String _$reportListHash() => r'c3194f55606e5058c003ba3df4b72c06cf6f8421';
 
 /// See also [reportList].
 @ProviderFor(reportList)
@@ -464,7 +464,7 @@ class _ApproversListProviderElement
   String get type => (origin as ApproversListProvider).type;
 }
 
-String _$eventListHash() => r'3a1fcc9ee5a0575151a753d9461cacd8ae33ef41';
+String _$eventListHash() => r'e25ec6f027daf80f60bb9af9fb2e38565c72e0d8';
 
 /// See also [eventList].
 @ProviderFor(eventList)
@@ -893,6 +893,151 @@ class _GetReportProviderElement
   String get id => (origin as GetReportProvider).id;
   @override
   String get token => (origin as GetReportProvider).token;
+}
+
+String _$getApprovalHash() => r'35910a67479c28a9a836ca9fa4409035836a5026';
+
+/// See also [getApproval].
+@ProviderFor(getApproval)
+const getApprovalProvider = GetApprovalFamily();
+
+/// See also [getApproval].
+class GetApprovalFamily extends Family<AsyncValue<dynamic>> {
+  /// See also [getApproval].
+  const GetApprovalFamily();
+
+  /// See also [getApproval].
+  GetApprovalProvider call(
+    String id,
+    String token,
+  ) {
+    return GetApprovalProvider(
+      id,
+      token,
+    );
+  }
+
+  @override
+  GetApprovalProvider getProviderOverride(
+    covariant GetApprovalProvider provider,
+  ) {
+    return call(
+      provider.id,
+      provider.token,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getApprovalProvider';
+}
+
+/// See also [getApproval].
+class GetApprovalProvider extends AutoDisposeFutureProvider<dynamic> {
+  /// See also [getApproval].
+  GetApprovalProvider(
+    String id,
+    String token,
+  ) : this._internal(
+          (ref) => getApproval(
+            ref as GetApprovalRef,
+            id,
+            token,
+          ),
+          from: getApprovalProvider,
+          name: r'getApprovalProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getApprovalHash,
+          dependencies: GetApprovalFamily._dependencies,
+          allTransitiveDependencies:
+              GetApprovalFamily._allTransitiveDependencies,
+          id: id,
+          token: token,
+        );
+
+  GetApprovalProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+    required this.token,
+  }) : super.internal();
+
+  final String id;
+  final String token;
+
+  @override
+  Override overrideWith(
+    FutureOr<dynamic> Function(GetApprovalRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetApprovalProvider._internal(
+        (ref) => create(ref as GetApprovalRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+        token: token,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<dynamic> createElement() {
+    return _GetApprovalProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetApprovalProvider &&
+        other.id == id &&
+        other.token == token;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetApprovalRef on AutoDisposeFutureProviderRef<dynamic> {
+  /// The parameter `id` of this provider.
+  String get id;
+
+  /// The parameter `token` of this provider.
+  String get token;
+}
+
+class _GetApprovalProviderElement
+    extends AutoDisposeFutureProviderElement<dynamic> with GetApprovalRef {
+  _GetApprovalProviderElement(super.provider);
+
+  @override
+  String get id => (origin as GetApprovalProvider).id;
+  @override
+  String get token => (origin as GetApprovalProvider).token;
 }
 
 String _$getCatagoriesHash() => r'f900c7b7f902d48f92a87b262f64fedae1b1b6c1';

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -168,6 +169,9 @@ Future<List<Reports>> reportList(
           .where((e) => e['status'] == type)
           .map<Reports>((e) => Reports.fromJson(e))
           .toList();
+      Timer(Duration(seconds: 2), () {
+        ref.invalidateSelf();
+      });
       return data;
     } else {
       throw Exception(responseBody['message']);
@@ -261,6 +265,31 @@ Future<dynamic> getReport(GetReportRef ref, String id, String token) async {
   try {
     final response = await http.get(
       Uri.parse('$baseUrl/report/${id}'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${token}"
+      },
+    );
+
+    final responseBody = jsonDecode(response.body);
+    log('responseBody: ${responseBody['data']}');
+
+    if (response.statusCode == 200) {
+      return responseBody['data'];
+    } else {
+      throw Exception(responseBody['message']);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<dynamic> getApproval(GetApprovalRef ref, String id, String token) async {
+  log('id: $id');
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/approval/${id}'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer ${token}"
