@@ -6,6 +6,32 @@ import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
+class AiScores {
+  final int authenticity;
+  final int accuracy;
+  final int compliance;
+  final int completeness;
+  final int relevance;
+
+  AiScores({
+    required this.authenticity,
+    required this.accuracy,
+    required this.compliance,
+    required this.completeness,
+    required this.relevance,
+  });
+
+  factory AiScores.fromJson(Map<String, dynamic> json) {
+    return AiScores(
+      authenticity: json['authenticity'],
+      accuracy: json['accuracy'],
+      compliance: json['compliance'],
+      completeness: json['completeness'],
+      relevance: json['relevance'],
+    );
+  }
+}
+
 class Expenses {
   final String? id;
   final String title;
@@ -16,6 +42,7 @@ class Expenses {
   final String category;
   final String? description;
   final String image;
+  final AiScores? aiScores;
 
   Expenses({
     this.id,
@@ -28,6 +55,7 @@ class Expenses {
     required this.category,
     this.description,
     required this.image,
+    this.aiScores,
   });
 
   factory Expenses.fromJson(Map<String, dynamic> json) {
@@ -47,6 +75,14 @@ class Expenses {
       category: json['category'],
       description: json['description'],
       image: json['image'],
+      aiScores: json['aiScores'] != null
+          ? AiScores.fromJson(json['aiScores'])
+          : AiScores(
+              authenticity: 0,
+              accuracy: 0,
+              compliance: 0,
+              completeness: 0,
+              relevance: 0),
     );
   }
 }
@@ -55,11 +91,13 @@ class ExpensesCard extends StatelessWidget {
   final Expenses expenses;
   final VoidCallback? onSelect;
   final VoidCallback? onTap;
+  final bool? isSelected;
   const ExpensesCard({
     super.key,
     required this.expenses,
     this.onSelect,
     required this.onTap,
+    this.isSelected,
   });
 
   @override
@@ -97,9 +135,14 @@ class ExpensesCard extends StatelessWidget {
               ),
               // status
               InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  onTap: onSelect,
-                  child: SvgPicture.asset(expenses.trailingIconPath)),
+                borderRadius: BorderRadius.circular(8),
+                onTap: onSelect,
+                child: isSelected != null
+                    ? isSelected!
+                        ? SvgPicture.asset(AppIcons.checkOk)
+                        : SvgPicture.asset(AppIcons.checkWait)
+                    : SvgPicture.asset(expenses.trailingIconPath),
+              ),
             ],
           ),
           const SizedBox(
@@ -136,7 +179,7 @@ class ExpensesCard extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

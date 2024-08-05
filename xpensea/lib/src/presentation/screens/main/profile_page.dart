@@ -50,10 +50,15 @@ class ProfilePage extends StatelessWidget {
         const SizedBox(
           height: 28,
         ),
-        SettingCard(
-          settingParams: SettingParams(
-            leadingImagePath: AppIcons.lock,
-            title: 'Change MPIN',
+        InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, '/changeMpin');
+          },
+          child: SettingCard(
+            settingParams: SettingParams(
+              leadingImagePath: AppIcons.lock,
+              title: 'Change MPIN',
+            ),
           ),
         ),
         SettingCard(

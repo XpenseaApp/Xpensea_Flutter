@@ -77,7 +77,9 @@ class HomePage extends StatelessWidget {
       MenuItems("Capture Bill", AppIcons.scanDoc, () {
         navigateTo(context, AppRoutes.captureBill);
       }),
-      MenuItems("Upload Bill", AppIcons.uploadDoc, null),
+      MenuItems("Upload Bill", AppIcons.uploadDoc, () {
+        navigateTo(context, AppRoutes.captureBill);
+      }),
     ];
 
     return Consumer(
@@ -123,6 +125,7 @@ class HomePage extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: EventCard(
+                              id: progressEvents[index].id!,
                               startDate: DateTime.parse(
                                 progressEvents[index]
                                     .startDate

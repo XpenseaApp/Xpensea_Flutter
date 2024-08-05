@@ -17,8 +17,6 @@ class ApproverPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        print(
-            ref.watch(approversListProvider(globals.token, 'approved')).value);
         final List<Reports> approved =
             ref.watch(approversListProvider(globals.token, 'approved')).value ??
                 [];

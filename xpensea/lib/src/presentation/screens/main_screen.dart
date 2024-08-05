@@ -70,6 +70,56 @@ class _MainScreenState extends State<MainScreen> {
     return items;
   }
 
+  void _showModalSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(16.0),
+          height: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Color.fromARGB(255, 121, 0, 29), // Set the button color
+                  minimumSize: Size(double.infinity,
+                      60), // Make button width same as the screen and height 60
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.captureBill);
+                },
+                child: const Text(
+                  'Capture Bill',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Color.fromARGB(255, 121, 0, 29), // Set the button color
+                  minimumSize: Size(double.infinity,
+                      60), // Make button width same as the screen and height 60
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.captureBill);
+                },
+                child: const Text(
+                  'Upload Bill',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      isScrollControlled: true, // Make the modal take full width
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
               // Action for Home page
               break;
             case 1:
-              // Action for Expense page
+              _showModalSheet(context);
               break;
             case 2:
               if (approver) {

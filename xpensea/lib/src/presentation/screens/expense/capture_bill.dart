@@ -56,14 +56,18 @@ class CaptureBillPage extends ConsumerWidget {
                 height: 40,
               ),
               cameraState.controller != null
-                  ? Container(
-                      height: 400,
-                      width: double.infinity,
-                      decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: CameraPreview(cameraState.controller!)))
+                  ? AspectRatio(
+                      aspectRatio:
+                          1 / cameraState.controller!.value.aspectRatio,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8)),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: CameraPreview(cameraState.controller!)),
+                      ),
+                    )
                   : cameraState.error != null
                       ? Text("Error: ${cameraState.error}")
                       : const CircularProgressIndicator(),
@@ -80,25 +84,47 @@ class CaptureBillPage extends ConsumerWidget {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Loading'),
-                        content: const CircularProgressIndicator(),
+                      builder: (context) => Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          width: 120,
+                          height: 120,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              CircularProgressIndicator(),
+                            ],
+                          ),
+                        ),
                       ),
                     );
+
                     try {
                       final image = await cameraState.controller!.takePicture();
                       // Handle captured image
-
                       await Minio.shared
                           .fPutObject('xpensea', image.name, image.path);
-
-                      await Future.delayed(Duration(seconds: 2));
                       print("https://xpensea.s3.ap-south-1.amazonaws.com/" +
                           image.name);
                       imageUrl =
                           "https://xpensea.s3.ap-south-1.amazonaws.com/" +
                               image.name;
+
+                      // Determine location
+                      location = await determinePosition();
+
+                      Navigator.pop(context); // Close the loading dialog
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CreateExpense();
+                      }));
                     } catch (e) {
+                      Navigator.pop(
+                          context); // Close the loading dialog in case of error
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -114,17 +140,8 @@ class CaptureBillPage extends ConsumerWidget {
                           ],
                         ),
                       );
-                    } finally {
-                      Navigator.pop(context); // Close the loading dialog
                     }
                   }
-                  // if (imageUrl.isNotEmpty) {
-                  location = await determinePosition();
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return CreateExpense();
-                  }));
-                  // }
                 },
                 child: SvgPicture.asset(AppIcons.captureIcon),
               ),

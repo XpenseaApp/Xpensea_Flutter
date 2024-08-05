@@ -14,6 +14,7 @@ import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/screens/report/expenses_list_page.dart';
 
 class ReportDetail extends StatelessWidget {
   final String id;
@@ -28,15 +29,71 @@ class ReportDetail extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         List<Expenses> expenses = [];
-        final report = ref.watch(getReportProvider(id, token)).value;
+        final report = ref.watch(getReportProvider(id, null, token)).value;
 
         if (report != null && report.isNotEmpty) {
           log('Report: $report');
           final List<dynamic> expenseList = report['expenses'] ?? [];
           expenses = expenseList.map((e) => Expenses.fromJson(e)).toList();
-          log(expenses.first.id.toString());
+          if (expenses.isNotEmpty) {
+            log(expenses.first.id.toString());
+          }
 
           return Scaffold(
+            floatingActionButton: report['status'] == 'drafted'
+                ? ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppPalette.kPrimaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        enableDrag: true,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 1,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      height: 4,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(2),
+                                      ),
+                                    ),
+                                    Flexible(
+                                        child: ExpensesListPage(
+                                            isDraft: true, id: id)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: IntrinsicWidth(
+                      child: Row(
+                        children: [
+                          Text(
+                            'Add Expense ',
+                            style: AppTextStyle.kSmallBodyR
+                                .copyWith(color: Colors.white),
+                          ),
+                          SvgPicture.asset(AppIcons.edit, color: Colors.white),
+                        ],
+                      ),
+                    ),
+                  )
+                : null,
             body: SafeArea(
               child: Padding(
                 padding:
@@ -46,41 +103,8 @@ class ReportDetail extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          CommonAppBarWback(index: 2),
+                          CommonAppBarWback(index: 0, heading: 'Report'),
                           const SizedBox(height: 16),
-                          // Container(
-                          //   child: Column(
-                          //     children: [
-                          //       SizedBox(
-                          //         height: 40,
-                          //         child: Container(
-                          //           decoration: BoxDecoration(
-                          //             color: AppPalette.kLSelectedColor,
-                          //             borderRadius: BorderRadius.circular(4),
-                          //           ),
-                          //           child: Align(
-                          //             alignment: Alignment.centerLeft,
-                          //             child: Padding(
-                          //               padding:
-                          //                   const EdgeInsets.only(left: 8.0),
-                          //               child: Text(
-                          //                 'Reimbursed',
-                          //                 style: AppTextStyle.kMediumBodyM,
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       Container(
-                          //         alignment: Alignment.centerLeft,
-                          //         child: Text(
-                          //           '   Reimburse Amount : Rs 2000',
-                          //           style: TextStyle(color: Colors.green),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           const SizedBox(height: 10),
                           Container(
                             child: Column(
@@ -180,17 +204,6 @@ class ReportDetail extends StatelessWidget {
                                                       color: AppPalette.kGray3),
                                             ),
                                           ),
-                                          Text(
-                                            'View More',
-                                            style: AppTextStyle.kSmallBodySB
-                                                .copyWith(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                          ),
-                                          const SizedBox(width: 4),
-                                          SvgPicture.asset(
-                                              AppIcons.arrowForward),
                                         ],
                                       ),
                                     ],
@@ -242,6 +255,18 @@ class ReportDetail extends StatelessWidget {
                         childCount: expenses.length,
                       ),
                     ),
+                    if (expenses.isEmpty)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'No expenses found.',
+                            style: AppTextStyle.kSmallBodyR.copyWith(
+                              color: AppPalette.kGray3,
+                            ),
+                          ),
+                        ),
+                      ),
                     SliverToBoxAdapter(
                       child: Column(
                         children: [

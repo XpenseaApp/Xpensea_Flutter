@@ -19,6 +19,13 @@ class EventListPage extends StatelessWidget {
       category: '',
       description: '',
       image: '',
+      aiScores: AiScores(
+        authenticity: 0,
+        accuracy: 0,
+        compliance: 0,
+        completeness: 0,
+        relevance: 0,
+      ),
     ),
     Expenses(
       id: '1',
@@ -31,6 +38,13 @@ class EventListPage extends StatelessWidget {
       category: '',
       description: '',
       image: '',
+      aiScores: AiScores(
+        authenticity: 0,
+        accuracy: 0,
+        compliance: 0,
+        completeness: 0,
+        relevance: 0,
+      ),
     ),
     Expenses(
       id: '1',
@@ -43,6 +57,13 @@ class EventListPage extends StatelessWidget {
       category: '',
       description: '',
       image: '',
+      aiScores: AiScores(
+        authenticity: 0,
+        accuracy: 0,
+        compliance: 0,
+        completeness: 0,
+        relevance: 0,
+      ),
     ),
     Expenses(
       id: '1',
@@ -55,6 +76,13 @@ class EventListPage extends StatelessWidget {
       category: '',
       description: '',
       image: '',
+      aiScores: AiScores(
+        authenticity: 0,
+        accuracy: 0,
+        compliance: 0,
+        completeness: 0,
+        relevance: 0,
+      ),
     ),
   ];
 

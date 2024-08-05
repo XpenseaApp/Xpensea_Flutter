@@ -27,7 +27,7 @@ class ExpensePage extends StatelessWidget {
 
         final List<Expenses> expenses =
             [mappedExpenses, approvedExpenses].expand((x) => x).toList();
-        ;
+
         final List<Expenses> draftExpenses =
             ref.watch(expenseListProvider(globals.token, 'draft')).value ?? [];
 

@@ -6,7 +6,8 @@ import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
 class CommonAppBarWback extends StatelessWidget {
   final int index;
-  const CommonAppBarWback({super.key, required this.index});
+  final String? heading;
+  const CommonAppBarWback({super.key, required this.index, this.heading});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,13 @@ class CommonAppBarWback extends StatelessWidget {
                         ? (approver ? 'Reports' : '')
                         : '',
             style: AppTextStyle.kDisplayTitleM,
+          )
+        else if (heading != null) ...[
+          Text(
+            heading!,
+            style: AppTextStyle.kDisplayTitleM,
           ),
+        ],
         InkWell(
           onTap: () {
             Navigator.pop(context);

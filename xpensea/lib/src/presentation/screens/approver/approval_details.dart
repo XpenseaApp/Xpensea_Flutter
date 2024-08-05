@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,33 @@ import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/screens/report/expenses_list_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class SelectedExpensesNotifier extends StateNotifier<List<String>> {
+  SelectedExpensesNotifier() : super([]);
+
+  void toggleSelect(String id) {
+    if (state.contains(id)) {
+      state = state.where((expenseId) => expenseId != id).toList();
+    } else {
+      state = [...state, id];
+    }
+  }
+
+  void clear() {
+    state = [];
+  }
+
+  bool isSelected(String id) {
+    return state.contains(id);
+  }
+}
+
+final selectedExpensesProvider =
+    StateNotifierProvider<SelectedExpensesNotifier, List<String>>(
+  (ref) => SelectedExpensesNotifier(),
+);
 
 class ApprovalDetails extends StatelessWidget {
   final String id;
@@ -29,12 +57,12 @@ class ApprovalDetails extends StatelessWidget {
       builder: (context, ref, child) {
         List<Expenses> expenses = [];
         final report = ref.watch(getApprovalProvider(id, token)).value;
+        final selectedExpenses = ref.watch(selectedExpensesProvider);
 
         if (report != null && report.isNotEmpty) {
           log('Report: $report');
           final List<dynamic> expenseList = report['expenses'] ?? [];
           expenses = expenseList.map((e) => Expenses.fromJson(e)).toList();
-          log(expenses.first.id.toString());
 
           return Scaffold(
             body: SafeArea(
@@ -48,39 +76,6 @@ class ApprovalDetails extends StatelessWidget {
                         children: [
                           CommonAppBarWback(index: 2),
                           const SizedBox(height: 16),
-                          // Container(
-                          //   child: Column(
-                          //     children: [
-                          //       SizedBox(
-                          //         height: 40,
-                          //         child: Container(
-                          //           decoration: BoxDecoration(
-                          //             color: AppPalette.kLSelectedColor,
-                          //             borderRadius: BorderRadius.circular(4),
-                          //           ),
-                          //           child: Align(
-                          //             alignment: Alignment.centerLeft,
-                          //             child: Padding(
-                          //               padding:
-                          //                   const EdgeInsets.only(left: 8.0),
-                          //               child: Text(
-                          //                 'Reimbursed',
-                          //                 style: AppTextStyle.kMediumBodyM,
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       Container(
-                          //         alignment: Alignment.centerLeft,
-                          //         child: Text(
-                          //           '   Reimburse Amount : Rs 2000',
-                          //           style: TextStyle(color: Colors.green),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           const SizedBox(height: 10),
                           Container(
                             child: Column(
@@ -155,17 +150,20 @@ class ApprovalDetails extends StatelessWidget {
                                                   const EdgeInsets.symmetric(
                                                       vertical: 4),
                                               decoration: BoxDecoration(
-                                                  color: Colors.grey,
-                                                  borderRadius:
-                                                      BorderRadius.circular(4)),
+                                                color: Colors.grey,
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
                                               child: Center(
-                                                  child: Text(
-                                                report['status'] ?? 'Unknown',
-                                                style: AppTextStyle.kSmallBodyR
-                                                    .copyWith(
-                                                  color: Colors.black,
+                                                child: Text(
+                                                  report['status'] ?? 'Unknown',
+                                                  style: AppTextStyle
+                                                      .kSmallBodyR
+                                                      .copyWith(
+                                                    color: Colors.black,
+                                                  ),
                                                 ),
-                                              )),
+                                              ),
                                             ),
                                         ],
                                       ),
@@ -180,17 +178,102 @@ class ApprovalDetails extends StatelessWidget {
                                                       color: AppPalette.kGray3),
                                             ),
                                           ),
-                                          Text(
-                                            'View More',
-                                            style: AppTextStyle.kSmallBodySB
-                                                .copyWith(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                          ),
-                                          const SizedBox(width: 4),
-                                          SvgPicture.asset(
-                                              AppIcons.arrowForward),
+                                          report['status'] == 'pending'
+                                              ? ElevatedButton(
+                                                  onPressed: () async {
+                                                    // Add your approve button logic here
+                                                    final response =
+                                                        await UpdateApproval(
+                                                            id,
+                                                            selectedExpenses,
+                                                            'approve',
+                                                            token,
+                                                            context);
+                                                    log('Response: $response');
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'Approve',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 4),
+                                                      Icon(
+                                                        Icons.check,
+                                                        color: Colors.white,
+                                                        size: 12,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : Container(),
+                                          SizedBox(width: 8),
+                                          report['status'] == 'pending'
+                                              ? ElevatedButton(
+                                                  onPressed: () async {
+                                                    // Add your reject button logic here
+                                                    final response =
+                                                        await UpdateApproval(
+                                                            id,
+                                                            selectedExpenses,
+                                                            'reject',
+                                                            token,
+                                                            context);
+                                                    log('Response: $response');
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor: Colors.red,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'Reject',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 4),
+                                                      Icon(
+                                                        Icons.close,
+                                                        color: Colors.white,
+                                                        size: 12,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : Container(),
                                         ],
                                       ),
                                     ],
@@ -228,6 +311,11 @@ class ApprovalDetails extends StatelessWidget {
                           children: [
                             ExpensesCard(
                               expenses: expenses[index],
+                              onSelect: () {
+                                ref
+                                    .read(selectedExpensesProvider.notifier)
+                                    .toggleSelect(expenses[index].id!);
+                              },
                               onTap: () {
                                 showDialog(
                                   context: context,
@@ -235,6 +323,8 @@ class ApprovalDetails extends StatelessWidget {
                                       id: expenses.elementAtOrNull(index)!.id!),
                                 );
                               },
+                              isSelected: selectedExpenses
+                                  .contains(expenses[index].id!),
                             ),
                             const Divider(),
                           ],

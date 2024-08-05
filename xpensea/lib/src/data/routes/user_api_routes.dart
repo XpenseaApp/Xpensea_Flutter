@@ -4,6 +4,7 @@ import 'package:xpensea/src/data/models/expense.dart';
 
 class ApiService {
   final String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
+  // final String baseUrl = 'https://localhost:3030/api/v1/user';
 
   // Send OTP
   Future<Map<String, dynamic>> sendOtp(String mobile) async {
@@ -144,14 +145,14 @@ class ApiService {
 
   // Change MPIN
   Future<Map<String, dynamic>> changeMpin(
-      String mobile, String mpin, String otp, String token) async {
+      String mobile, String mpin, String oldMpin, String token) async {
     final response = await http.put(
       Uri.parse('$baseUrl/change-mpin'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       },
-      body: jsonEncode({"mobile": mobile, "mpin": mpin, "otp": otp}),
+      body: jsonEncode({"mobile": mobile, "mpin": mpin, "oldmpin": oldMpin}),
     );
     return _handleResponse(response);
   }

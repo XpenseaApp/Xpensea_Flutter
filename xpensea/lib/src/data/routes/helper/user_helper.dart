@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/models/report.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
@@ -13,7 +15,8 @@ import 'package:http/http.dart' as http;
 
 part 'user_helper.g.dart';
 
-const String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
+final String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
+// const String baseUrl = 'https://localhost:3030/api/v1/user';
 
 class Helper {
   final ApiService _apiService = ApiService();
@@ -78,10 +81,6 @@ class Helper {
     }
   }
 
-  // List Controller
-
-  // Get Expense
-
   // Get Report
   Future<Map<String, dynamic>> getReport(String id, String token) async {
     try {
@@ -123,6 +122,81 @@ class Helper {
     } catch (e) {
       return {"success": false, "message": e.toString()};
     }
+  }
+}
+
+// Update Approval
+Future<dynamic> UpdateApproval(String id, List<String> expenses, String action,
+    String token, BuildContext context) async {
+  try {
+    final response = await http.put(
+      Uri.parse('$baseUrl/approval/$id/$action'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode({"expenses": expenses}),
+    );
+
+    final responseBody = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppPalette.kPrimaryColor,
+          content: Text(responseBody['message']),
+        ),
+      );
+      return responseBody['data'];
+    } else {
+      // Show Snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppPalette.kPrimaryColor,
+          content: Text(responseBody['message']),
+        ),
+      );
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+// Update Report
+Future<dynamic> UpdateReport(String id, List<String> expenses, String token,
+    BuildContext context) async {
+  try {
+    final response = await http.put(
+      Uri.parse('$baseUrl/report/$id'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode({"expenses": expenses}),
+    );
+
+    final responseBody = jsonDecode(response.body);
+    log('responseBody: ${responseBody}');
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppPalette.kPrimaryColor,
+          content: Text(responseBody['message']),
+        ),
+      );
+      return responseBody['data'];
+    } else {
+      // Show Snackbar
+      log('responseBody: ${responseBody['message']}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppPalette.kPrimaryColor,
+          content: Text(responseBody['message']),
+        ),
+      );
+    }
+  } catch (e) {
+    throw Exception(e.toString());
   }
 }
 
@@ -249,7 +323,7 @@ Future<Expenses> getExpense(GetExpenseRef ref, String id, String token) async {
 
     final responseBody = jsonDecode(response.body);
 
-    log('responseBody: ${responseBody['data']}');
+    log('responseBody: ${responseBody}');
     if (response.statusCode == 200) {
       return Expenses.fromJson(responseBody['data']);
     } else {
@@ -261,10 +335,13 @@ Future<Expenses> getExpense(GetExpenseRef ref, String id, String token) async {
 }
 
 @riverpod
-Future<dynamic> getReport(GetReportRef ref, String id, String token) async {
+Future<dynamic> getReport(
+    GetReportRef ref, String id, String? isEvent, String token) async {
   try {
+    log('request: ${'$baseUrl/report/${id}${isEvent != null ? "?isEvent=$isEvent" : ""}'}');
     final response = await http.get(
-      Uri.parse('$baseUrl/report/${id}'),
+      Uri.parse(
+          '$baseUrl/report/${id}${isEvent != null ? "?isEvent=$isEvent" : ""}'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer ${token}"
@@ -272,7 +349,9 @@ Future<dynamic> getReport(GetReportRef ref, String id, String token) async {
     );
 
     final responseBody = jsonDecode(response.body);
-    log('responseBody: ${responseBody['data']}');
+    log('responseBody: ${responseBody}');
+
+    log('responseData: ${responseBody['data']}');
 
     if (response.statusCode == 200) {
       return responseBody['data'];
@@ -286,7 +365,7 @@ Future<dynamic> getReport(GetReportRef ref, String id, String token) async {
 
 @riverpod
 Future<dynamic> getApproval(GetApprovalRef ref, String id, String token) async {
-  log('id: $id');
+  // log('id: $id');
   try {
     final response = await http.get(
       Uri.parse('$baseUrl/approval/${id}'),
@@ -297,7 +376,7 @@ Future<dynamic> getApproval(GetApprovalRef ref, String id, String token) async {
     );
 
     final responseBody = jsonDecode(response.body);
-    log('responseBody: ${responseBody['data']}');
+    // log('responseBody: ${responseBody}');
 
     if (response.statusCode == 200) {
       return responseBody['data'];

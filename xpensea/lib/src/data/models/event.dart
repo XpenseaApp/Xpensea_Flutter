@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Event {
+  final String? id;
   final String eventName;
   final int? days;
   final String startDate;
@@ -12,6 +13,7 @@ class Event {
   final String status;
 
   Event({
+    required this.id,
     required this.eventName,
     this.days,
     required this.startDate,
@@ -25,6 +27,7 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
+      id: json['_id'],
       eventName: json['eventName'],
       days: json['days'],
       startDate: json['startDate'],
@@ -39,6 +42,7 @@ class Event {
 
   Map<String, dynamic> toJson() {
     return {
+      '_id': id,
       'eventName': eventName,
       'days': days,
       'startDate': startDate,
@@ -63,6 +67,7 @@ class Event {
     String? status,
   }) {
     return Event(
+      id: id,
       eventName: eventName ?? this.eventName,
       days: days ?? this.days,
       startDate: startDate ?? this.startDate,
@@ -79,6 +84,7 @@ class Event {
 class EventNotifier extends StateNotifier<Event> {
   EventNotifier()
       : super(Event(
+          id: '',
           eventName: '',
           days: 0,
           startDate: '',
@@ -92,6 +98,7 @@ class EventNotifier extends StateNotifier<Event> {
 
   void addEvent(Event event) {
     state = Event(
+      id: event.id,
       eventName: event.eventName,
       days: event.days,
       startDate: event.startDate,
@@ -106,6 +113,7 @@ class EventNotifier extends StateNotifier<Event> {
 
   void removeEvent() {
     state = Event(
+      id: '',
       eventName: '',
       days: 0,
       startDate: '',

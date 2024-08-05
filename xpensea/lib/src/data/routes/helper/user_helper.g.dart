@@ -608,7 +608,7 @@ class _EventListProviderElement
   String get type => (origin as EventListProvider).type;
 }
 
-String _$getExpenseHash() => r'12344b05edaf60277a8fdf21bd9109d4f50b6ee4';
+String _$getExpenseHash() => r'a1c15cd5139eee7b30c88d379869ab0383bd9c34';
 
 /// See also [getExpense].
 @ProviderFor(getExpense)
@@ -753,7 +753,7 @@ class _GetExpenseProviderElement
   String get token => (origin as GetExpenseProvider).token;
 }
 
-String _$getReportHash() => r'a9e15f6f167baf3d18bc45560675c60c83930b92';
+String _$getReportHash() => r'667acef1c539d025d2730721269228339dd0dd0e';
 
 /// See also [getReport].
 @ProviderFor(getReport)
@@ -767,10 +767,12 @@ class GetReportFamily extends Family<AsyncValue<dynamic>> {
   /// See also [getReport].
   GetReportProvider call(
     String id,
+    String? isEvent,
     String token,
   ) {
     return GetReportProvider(
       id,
+      isEvent,
       token,
     );
   }
@@ -781,6 +783,7 @@ class GetReportFamily extends Family<AsyncValue<dynamic>> {
   ) {
     return call(
       provider.id,
+      provider.isEvent,
       provider.token,
     );
   }
@@ -805,11 +808,13 @@ class GetReportProvider extends AutoDisposeFutureProvider<dynamic> {
   /// See also [getReport].
   GetReportProvider(
     String id,
+    String? isEvent,
     String token,
   ) : this._internal(
           (ref) => getReport(
             ref as GetReportRef,
             id,
+            isEvent,
             token,
           ),
           from: getReportProvider,
@@ -821,6 +826,7 @@ class GetReportProvider extends AutoDisposeFutureProvider<dynamic> {
           dependencies: GetReportFamily._dependencies,
           allTransitiveDependencies: GetReportFamily._allTransitiveDependencies,
           id: id,
+          isEvent: isEvent,
           token: token,
         );
 
@@ -832,10 +838,12 @@ class GetReportProvider extends AutoDisposeFutureProvider<dynamic> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.id,
+    required this.isEvent,
     required this.token,
   }) : super.internal();
 
   final String id;
+  final String? isEvent;
   final String token;
 
   @override
@@ -852,6 +860,7 @@ class GetReportProvider extends AutoDisposeFutureProvider<dynamic> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         id: id,
+        isEvent: isEvent,
         token: token,
       ),
     );
@@ -864,13 +873,17 @@ class GetReportProvider extends AutoDisposeFutureProvider<dynamic> {
 
   @override
   bool operator ==(Object other) {
-    return other is GetReportProvider && other.id == id && other.token == token;
+    return other is GetReportProvider &&
+        other.id == id &&
+        other.isEvent == isEvent &&
+        other.token == token;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, isEvent.hashCode);
     hash = _SystemHash.combine(hash, token.hashCode);
 
     return _SystemHash.finish(hash);
@@ -880,6 +893,9 @@ class GetReportProvider extends AutoDisposeFutureProvider<dynamic> {
 mixin GetReportRef on AutoDisposeFutureProviderRef<dynamic> {
   /// The parameter `id` of this provider.
   String get id;
+
+  /// The parameter `isEvent` of this provider.
+  String? get isEvent;
 
   /// The parameter `token` of this provider.
   String get token;
@@ -892,10 +908,12 @@ class _GetReportProviderElement
   @override
   String get id => (origin as GetReportProvider).id;
   @override
+  String? get isEvent => (origin as GetReportProvider).isEvent;
+  @override
   String get token => (origin as GetReportProvider).token;
 }
 
-String _$getApprovalHash() => r'35910a67479c28a9a836ca9fa4409035836a5026';
+String _$getApprovalHash() => r'f73e9d5cfdd5dceca6b9c2b47b0e2ec1396e0687';
 
 /// See also [getApproval].
 @ProviderFor(getApproval)
