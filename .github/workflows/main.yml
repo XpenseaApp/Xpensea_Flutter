@@ -6,7 +6,11 @@ on:
     branches:
       - prod
       - TestNihal
-    
+
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   Android:
     # This job will run on ubuntu virtual machine
