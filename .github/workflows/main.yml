@@ -65,36 +65,36 @@ jobs:
           asset_name: app-release.apk
           asset_content_type: application/vnd.android.package-archive
 
-  Ios:
-    runs-on: macos-latest
-    needs: Android
-    steps:
-      - uses: actions/checkout@v2
+  # Ios:
+  #   runs-on: macos-latest
+  #   needs: Android
+  #   steps:
+  #     - uses: actions/checkout@v2
       
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
+  #     - name: Set up Flutter
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: stable
       
-      - name: Get dependencies
-        run: flutter pub get
-        working-directory: xpensea
+  #     - name: Get dependencies
+  #       run: flutter pub get
+  #       working-directory: xpensea
       
-      - name: Build iOS
-        run: flutter build ipa --release --no-codesign
-        working-directory: xpensea
+  #     - name: Build iOS
+  #       run: flutter build ipa --release --no-codesign
+  #       working-directory: xpensea
 
-      # List contents of the build/ios/ipa directory
-      - name: List contents of build/ios/ipa
-        run: ls -R xpensea/build/ios/
+  #     # List contents of the build/ios/ipa directory
+  #     - name: List contents of build/ios/ipa
+  #       run: ls -R xpensea/build/ios/
 
-      # Upload generated iOS artifacts to the release.
-      - name: Upload iOS to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.Android.outputs.release_upload_url }}
-          asset_path: xpensea/build/ios/ipa/app-release.ipa  # Adjust this path based on the output of the ls command
-          asset_name: app-release.ipa
-          asset_content_type: application/octet-stream
+  #     # Upload generated iOS artifacts to the release.
+  #     - name: Upload iOS to Release
+  #       uses: actions/upload-release-asset@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ needs.Android.outputs.release_upload_url }}
+  #         asset_path: xpensea/build/ios/ipa/app-release.ipa  # Adjust this path based on the output of the ls command
+  #         asset_name: app-release.ipa
+  #         asset_content_type: application/octet-stream

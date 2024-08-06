@@ -61,7 +61,7 @@ class Reports {
           ? json['expenseCount'].toString()
           : json['expenses']?.length.toString() ?? '0',
       date: json['date'] ?? json['reportDate'] ?? 'Unknown Date',
-      leadingIconPath: json['leadingIconPath'] ?? AppIcons.person,
+      leadingIconPath: json['leadingIconPath'] ?? AppIcons.report,
       status: json['status'],
       statusColor: json['status'] == 'approved'
           ? Color.fromARGB(255, 227, 245, 235)
