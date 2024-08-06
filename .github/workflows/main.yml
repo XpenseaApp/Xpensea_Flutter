@@ -30,22 +30,34 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
         working-directory: xpensea
-    
-      
-
-      
       
       # Build apk.
       - name: Build APK
         run: flutter build apk
         working-directory: xpensea
-      
-      # Upload generated apk to the artifacts.
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
+
+      # Create a GitHub release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: release-apk
-          path: xpensea/build/app/outputs/apk/release/app-release.apk
+          tag_name: ${{ github.sha }}
+          release_name: Release ${{ github.sha }}
+          draft: false
+          prerelease: false
+      
+      # Upload generated apk to the release.
+      - name: Upload APK to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: xpensea/build/app/outputs/apk/release/app-release.apk
+          asset_name: app-release.apk
+          asset_content_type: application/vnd.android.package-archive
 
   Ios:
     runs-on: macos-latest
@@ -61,8 +73,17 @@ jobs:
         run: flutter pub get
         working-directory: xpensea
       
-
-      
       - name: Build iOS
         run: flutter build ios --release --no-codesign
         working-directory: xpensea
+
+      # Upload generated iOS artifacts to the release.
+      - name: Upload iOS to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: xpensea/build/ios/ipa/release/app-release.ipa
+          asset_name: app-release.ipa
+          asset_content_type: application/octet-stream
