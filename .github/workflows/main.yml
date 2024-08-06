@@ -26,29 +26,30 @@ jobs:
           channel: 'beta' # 'dev', 'alpha', default to: 'stable'
           # flutter-version: '1.12.x' # you can also specify exact version of flutter
       
-      # Change working directory to xpensea
-      - name: Change working directory to xpensea
-        run: cd xpensea
-
       # Get flutter dependencies.
       - name: Get dependencies
         run: flutter pub get
+        working-directory: xpensea
       
       # Check for any formatting issues in the code.
       - name: Check formatting
         run: flutter format --set-exit-if-changed .
+        working-directory: xpensea
       
       # Statically analyze the Dart code for any errors.
       - name: Analyze code
         run: flutter analyze .
+        working-directory: xpensea
       
       # Run widget tests for our flutter project.
       - name: Run tests
         run: flutter test
+        working-directory: xpensea
       
       # Build apk.
       - name: Build APK
         run: flutter build apk
+        working-directory: xpensea
       
       # Upload generated apk to the artifacts.
       - name: Upload APK
@@ -67,15 +68,14 @@ jobs:
         with:
           channel: stable
       
-      # Change working directory to xpensea
-      - name: Change working directory to xpensea
-        run: cd xpensea
-
       - name: Get dependencies
         run: flutter pub get
+        working-directory: xpensea
       
       - name: Run tests
         run: flutter test
+        working-directory: xpensea
       
       - name: Build iOS
         run: flutter build ios --release --no-codesign
+        working-directory: xpensea
