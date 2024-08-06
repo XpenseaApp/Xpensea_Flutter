@@ -86,7 +86,7 @@ jobs:
 
       # List contents of the build/ios/ipa directory
       - name: List contents of build/ios/ipa
-        run: ls -R xpensea/build/ios/ipa
+        run: ls -R xpensea/build/ios/
 
       # Upload generated iOS artifacts to the release.
       - name: Upload iOS to Release
