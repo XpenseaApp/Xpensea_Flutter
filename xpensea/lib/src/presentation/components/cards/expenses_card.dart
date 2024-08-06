@@ -59,6 +59,11 @@ class Expenses {
   });
 
   factory Expenses.fromJson(Map<String, dynamic> json) {
+    final aiScores =
+        (json['aiScores'] != null && (json['aiScores'] as Map).isNotEmpty)
+            ? AiScores.fromJson(json['aiScores'])
+            : null;
+
     return Expenses(
       id: json['_id'],
       title: json['title'],
@@ -66,23 +71,24 @@ class Expenses {
       date: json['date'],
       status: json['status'],
       leadingIconPath: json['category'] == 'Food'
-          ? AppIcons.expense
-          : json['category'] == 'Travel'
-              ? AppIcons.airplane
-              : AppIcons.person,
+          ? AppIcons.food
+          : json['category'] == 'Shopping'
+              ? AppIcons.shopping
+              : json['category'] == 'Miscellaneous'
+                  ? AppIcons.miscellanenous
+                  : json['category'] == 'Stay&Leisure'
+                      ? AppIcons.stayandleisure
+                      : json['category'] == 'Maintenance'
+                          ? AppIcons.maintenance
+                          : json['category'] == 'Travel'
+                              ? AppIcons.airplane
+                              : AppIcons.person,
       trailingIconPath:
           json['status'] == 'mapped' ? AppIcons.checkOk : AppIcons.checkWait,
       category: json['category'],
       description: json['description'],
       image: json['image'],
-      aiScores: json['aiScores'] != null
-          ? AiScores.fromJson(json['aiScores'])
-          : AiScores(
-              authenticity: 0,
-              accuracy: 0,
-              compliance: 0,
-              completeness: 0,
-              relevance: 0),
+      aiScores: aiScores,
     );
   }
 }

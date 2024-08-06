@@ -109,7 +109,9 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Text(
                   'Upload Bill',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                   
+                    color: Colors.white),
                 ),
               ),
             ],
@@ -123,44 +125,50 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppPalette.kPrimaryColor,
-        foregroundColor: Colors.white,
-        child: const Icon(
-          Icons.add,
-          size: 40,
-        ),
-        onPressed: () {
-          switch (_currentIndex) {
-            case 0:
-              // Action for Home page
-              break;
-            case 1:
-              _showModalSheet(context);
-              break;
-            case 2:
-              if (approver) {
-                // Action for Approver page
-                break;
-              }
-              Navigator.pushNamed(context, AppRoutes.createReport);
-              // Action for Report page
-              break;
-            case 3:
-              if (approver) {
-                Navigator.pushNamed(context, AppRoutes.createReport);
-                // Action for Report page
-                break;
-              }
-              // Action for Profile page
-              break;
-            case 4:
-              // Action for Profile page
-              break;
-          }
-        },
-      ),
+      backgroundColor: Color.fromARGB(255, 250, 250, 250),
+      floatingActionButton: _currentIndex == 1 ||
+              !approver && _currentIndex == 2 ||
+              approver && _currentIndex == 3
+          ? FloatingActionButton(
+              backgroundColor: AppPalette.kPrimaryColor,
+              foregroundColor: Colors.white,
+              child: const Icon(
+                Icons.add,
+                size: 40,
+              ),
+              onPressed: () {
+                switch (_currentIndex) {
+                  case 0:
+                    // Action for Home page
+                    break;
+                  case 1:
+                    _showModalSheet(context);
+                    break;
+                  case 2:
+                    if (approver) {
+                      // Action for Approver page
+                      break;
+                    }
+                    Navigator.pushNamed(context, AppRoutes.createReport);
+                    // Action for Report page
+                    break;
+                  case 3:
+                    if (approver) {
+                      Navigator.pushNamed(context, AppRoutes.createReport);
+                      // Action for Report page
+                      break;
+                    }
+                    // Action for Profile page
+                    break;
+                  case 4:
+                    // Action for Profile page
+                    break;
+                }
+              },
+            )
+          : null,
       body: SafeArea(
+      
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(

@@ -63,7 +63,6 @@ class _OtpPageState extends State<OtpPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedNumber = prefs.getString('number');
     if (savedNumber != null && savedNumber.isNotEmpty) {
-      LoggedIn = true;
       phoneController.text = savedNumber;
       _pageController.jumpToPage(2);
     }
@@ -138,7 +137,7 @@ class _OtpPageState extends State<OtpPage> {
           : false;
       username = response['data']['data']['username'].toString();
       employeeID = response['data']['data']['employeeId'].toString();
-
+      LoggedIn = true;
       Navigator.pushReplacementNamed(context, AppRoutes.mainpage);
       // Save response data in shared preferences
       // SharedPreferences prefs = await SharedPreferences.getInstance();

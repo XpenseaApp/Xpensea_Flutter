@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/cards/setting_card.dart';
+import 'package:xpensea/src/presentation/components/cards/wallet_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/report_problem_dialog.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 
@@ -44,9 +45,13 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 28,
+          height: 14,
         ),
         const Divider(),
+        const SizedBox(
+          height: 14,
+        ),
+        WalletCard(advanceAmount: 50000, amountUsed: 12350),
         const SizedBox(
           height: 28,
         ),

@@ -117,71 +117,78 @@ class ExpenseDialog extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            ScoreCircle(score: expense.aiScores!.authenticity),
-                            Text(
-                              'Authenticity',
-                              style: AppTextStyle.kSmallTitleR.copyWith(
-                                fontSize: 12,
-                                color: Colors.grey,
+                    expense.aiScores != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                children: [
+                                  ScoreCircle(
+                                      score: expense.aiScores!.authenticity),
+                                  Text(
+                                    'Authenticity',
+                                    style: AppTextStyle.kSmallTitleR.copyWith(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            ScoreCircle(score: expense.aiScores!.accuracy),
-                            Text(
-                              'Accuracy',
-                              style: AppTextStyle.kSmallTitleR.copyWith(
-                                fontSize: 12,
-                                color: Colors.grey,
+                              Column(
+                                children: [
+                                  ScoreCircle(
+                                      score: expense.aiScores!.accuracy),
+                                  Text(
+                                    'Accuracy',
+                                    style: AppTextStyle.kSmallTitleR.copyWith(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            ScoreCircle(score: expense.aiScores!.compliance),
-                            Text(
-                              'Compliance',
-                              style: AppTextStyle.kSmallTitleR.copyWith(
-                                fontSize: 12,
-                                color: Colors.grey,
+                              Column(
+                                children: [
+                                  ScoreCircle(
+                                      score: expense.aiScores!.compliance),
+                                  Text(
+                                    'Compliance',
+                                    style: AppTextStyle.kSmallTitleR.copyWith(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            ScoreCircle(score: expense.aiScores!.completeness),
-                            Text(
-                              'Completeness',
-                              style: AppTextStyle.kSmallTitleR.copyWith(
-                                fontSize: 12,
-                                color: Colors.grey,
+                              Column(
+                                children: [
+                                  ScoreCircle(
+                                      score: expense.aiScores!.completeness),
+                                  Text(
+                                    'Completeness',
+                                    style: AppTextStyle.kSmallTitleR.copyWith(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            ScoreCircle(score: expense.aiScores!.relevance),
-                            Text(
-                              'Relevance',
-                              style: AppTextStyle.kSmallTitleR.copyWith(
-                                fontSize: 12,
-                                color: Colors.grey,
+                              Column(
+                                children: [
+                                  ScoreCircle(
+                                      score: expense.aiScores!.relevance),
+                                  Text(
+                                    'Relevance',
+                                    style: AppTextStyle.kSmallTitleR.copyWith(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                            ],
+                          )
+                        : SizedBox.shrink(),
                     const SizedBox(
                       height: 8,
                     ),
