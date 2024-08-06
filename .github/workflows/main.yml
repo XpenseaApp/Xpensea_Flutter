@@ -12,8 +12,9 @@ jobs:
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
     steps:
-      # Setup Java environment in order to build the Android app.
       - uses: actions/checkout@v2
+
+      # Setup Java environment in order to build the Android app.
       - uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
@@ -26,45 +27,55 @@ jobs:
           # flutter-version: '1.12.x' # you can also specify exact version of flutter
       
       # Change working directory to xpensea
-      - name: Change working directory
+      - name: Change working directory to xpensea
         run: cd xpensea
 
       # Get flutter dependencies.
-      - run: flutter pub get
+      - name: Get dependencies
+        run: flutter pub get
       
       # Check for any formatting issues in the code.
-      - run: flutter format --set-exit-if-changed .
+      - name: Check formatting
+        run: flutter format --set-exit-if-changed .
       
       # Statically analyze the Dart code for any errors.
-      - run: flutter analyze .
+      - name: Analyze code
+        run: flutter analyze .
       
       # Run widget tests for our flutter project.
-      - run: flutter test
+      - name: Run tests
+        run: flutter test
       
       # Build apk.
-      - run: flutter build apk
+      - name: Build APK
+        run: flutter build apk
       
       # Upload generated apk to the artifacts.
-      - uses: actions/upload-artifact@v2
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
         with:
           name: release-apk
           path: xpensea/build/app/outputs/apk/release/app-release.apk
 
-
   Ios:
     runs-on: macos-latest
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
       
       # Change working directory to xpensea
-      - name: Change working directory
+      - name: Change working directory to xpensea
         run: cd xpensea
 
-      - run: flutter pub get
-      - run: flutter test
-      - run: flutter build ios --release --no-codesign
+      - name: Get dependencies
+        run: flutter pub get
+      
+      - name: Run tests
+        run: flutter test
+      
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
