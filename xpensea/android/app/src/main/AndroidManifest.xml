@@ -1,10 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
-<<<<<<< HEAD
-=======
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
->>>>>>> 5482c422323b2d5946b10f23088e3e36d855946b
     <application
         android:label="xpensea"
         android:name="${applicationName}"
