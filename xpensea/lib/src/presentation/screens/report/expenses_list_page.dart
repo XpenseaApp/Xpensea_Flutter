@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/report.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
@@ -13,7 +17,9 @@ import 'package:xpensea/src/presentation/components/textfields/search_field.dart
 import 'package:xpensea/src/data/repos/globals.dart' as globals;
 
 class ExpensesListPage extends StatelessWidget {
-  const ExpensesListPage({super.key});
+  final bool? isDraft;
+  final String? id;
+  const ExpensesListPage({super.key, this.isDraft, this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -75,24 +81,78 @@ class ExpensesListPage extends StatelessWidget {
                         expenses: draftExpenses[index],
                         onTap: null,
                         onSelect: () {
+                          Expenses expense = draftExpenses[index];
+                          expense.trailingIconPath = AppIcons.checkOk;
                           ref
                               .read(expensesProvider.notifier)
-                              .addExpense(draftExpenses[index]);
+                              .addExpense(expense);
                         },
                       ),
                     ),
-                    ListView.separated(
-                      itemCount: expenses.length,
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemBuilder: (context, index) => ExpensesCard(
-                        expenses: expenses[index],
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const ExpenseDialog(),
-                          );
-                        },
-                      ),
+                    Column(
+                      children: [
+                        isDraft != null
+                            ? isDraft!
+                                ? ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppPalette.kPrimaryColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      // ref.read(expensesProvider.notifier).removeAllExpense();
+                                      List<String> expenses =
+                                          ref.watch(expensesProvider).map((e) {
+                                        return e.id!;
+                                      }).toList();
+
+                                      final response = await UpdateReport(
+                                          id!, expenses, token, context);
+
+                                      print('response${response.toString()}');
+                                      Navigator.pop(context);
+                                    },
+                                    child: IntrinsicWidth(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Submit',
+                                            style: AppTextStyle.kSmallBodyR
+                                                .copyWith(color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox()
+                            : const SizedBox(),
+                        Flexible(
+                          child: ListView.separated(
+                            itemCount: expenses.length,
+                            separatorBuilder: (context, index) =>
+                                const Divider(),
+                            itemBuilder: (context, index) => ExpensesCard(
+                              expenses: expenses[index],
+                              onSelect: () {
+                                Expenses expense = expenses[index];
+                                expense.trailingIconPath = AppIcons.checkWait;
+                                ref
+                                    .read(expensesProvider.notifier)
+                                    .removeExpense(expense);
+                              },
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => ExpenseDialog(
+                                    id: expenses.elementAtOrNull(index)!.id!,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

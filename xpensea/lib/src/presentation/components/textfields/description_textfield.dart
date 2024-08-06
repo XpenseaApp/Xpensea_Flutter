@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/models/report.dart';
 
@@ -55,6 +56,10 @@ class _DescriptionTextfieldState extends State<DescriptionTextfield> {
                 ref
                     .read(reportProvider.notifier)
                     .updateReportDescription(value);
+
+                break;
+              case 'event':
+                ref.read(eventProvider.notifier).updateEventDescription(value);
                 break;
               default:
                 break;

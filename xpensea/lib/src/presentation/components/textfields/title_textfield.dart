@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/data/models/expense.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/repos/location.dart';
 
 class TitleTextField extends StatelessWidget {
   final String? labelText;
@@ -35,6 +38,9 @@ class TitleTextField extends StatelessWidget {
                     .read(expenseProvider.notifier)
                     .updateExpenseAmount(double.parse(value));
                 break;
+              case 'Event Title':
+                ref.read(eventProvider.notifier).updateEventName(value);
+                break;
 
               default:
                 break;
@@ -47,7 +53,9 @@ class TitleTextField extends StatelessWidget {
                     ? DateFormat('yyyy-MM-dd').format(DateTime.now())
                     : labelText == 'Location'
                         //TODO: add location
-                        ? 'Added Location'
+                        ? location != null
+                            ? '${location!.latitude}, ${location!.longitude}'
+                            : 'Location not available'
                         : labelText,
             labelStyle: AppTextStyle.kSmallTitleR
                 .copyWith(fontSize: 16, color: AppPalette.kGray4),

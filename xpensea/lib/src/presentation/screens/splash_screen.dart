@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 10,
             ),
             const Text(
-              'Expensea',
+              'Xpensea',
               style: AppTextStyle.kDisplayTitleR,
             )
           ],

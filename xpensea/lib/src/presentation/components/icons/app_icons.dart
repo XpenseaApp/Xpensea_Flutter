@@ -32,4 +32,8 @@ class AppIcons {
   static const String iosBack = "assets/svg/ios_back.svg";
   static const String flashOff = "assets/svg/flash_off.svg";
   static const String captureIcon = "assets/svg/capture_icon.svg";
+  static const String food = "assets/svg/food.svg";
+  static const String shopping = "assets/svg/shopping.svg";
+  static const String miscellanenous = "assets/svg/miscellaneous.svg";
+  static const String stayandleisure = "assets/svg/stayandleisure.svg";
 }

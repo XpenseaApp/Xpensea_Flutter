@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
+import 'package:xpensea/src/presentation/routes/routes.dart';
 
 class CommonAppBar extends StatelessWidget {
   final int index;
@@ -13,12 +15,22 @@ class CommonAppBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SvgPicture.asset(AppIcons.starFilled),
-        if (index == 1 || index == 2)
+        if (index > 0)
           Text(
-            index == 1 ? 'Expenses' : 'Reports',
+            index == 1
+                ? 'Expenses'
+                : index == 2
+                    ? (approver ? 'Approval' : 'Reports')
+                    : index == 3
+                        ? (approver ? 'Reports' : '')
+                        : '',
             style: AppTextStyle.kDisplayTitleM,
           ),
-        SvgPicture.asset(AppIcons.notificationBell),
+        InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.debug);
+            },
+            child: SvgPicture.asset(AppIcons.notificationBell)),
       ],
     );
   }

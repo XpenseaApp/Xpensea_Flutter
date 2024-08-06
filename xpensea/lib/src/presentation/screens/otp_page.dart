@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:onscreen_num_keyboard/onscreen_num_keyboard.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
@@ -56,7 +59,18 @@ class _OtpPageState extends State<OtpPage> {
     super.dispose();
   }
 
+  Future<void> CheckNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedNumber = prefs.getString('number');
+    if (savedNumber != null && savedNumber.isNotEmpty) {
+      phoneController.text = savedNumber;
+      _pageController.jumpToPage(2);
+    }
+  }
+
   Future<void> sendOtp() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('number', phoneController.text);
     final response = await _helper.sendOtp(phoneController.text);
     if (response['success']) {
       _pageController.nextPage(
@@ -65,6 +79,7 @@ class _OtpPageState extends State<OtpPage> {
       );
     } else {
       // handle error
+      //TODO: remove after otp backend finished
       print(response['message']);
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
@@ -94,9 +109,35 @@ class _OtpPageState extends State<OtpPage> {
   Future<void> handleMpin() async {
     final response =
         await _helper.mpinHandler(phoneController.text, mpinController.text);
+    if (!response['success']) {
+      showCupertinoDialog(
+          context: context,
+          builder: (context) {
+            final res = response['message'].toString();
+            return CupertinoAlertDialog(
+              title: const Text('Debug'),
+              content: Text(res),
+              actions: [
+                CupertinoDialogAction(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
+    }
+
     if (response['success']) {
       print(response['data']);
-
+      token = response['data']['data']['token'].toString();
+      approver = response['data']['data']['userType'].toString() == 'approver'
+          ? true
+          : false;
+      username = response['data']['data']['username'].toString();
+      employeeID = response['data']['data']['employeeId'].toString();
+      LoggedIn = true;
       Navigator.pushReplacementNamed(context, AppRoutes.mainpage);
       // Save response data in shared preferences
       // SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -130,6 +171,7 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Widget _phoneInputPage() {
+    CheckNumber();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -312,8 +354,8 @@ class _OtpPageState extends State<OtpPage> {
       children: [
         SvgPicture.asset(AppIcons.starFilled),
         const SizedBox(height: 10),
-        const Text(
-          "Create MPIN",
+        Text(
+          LoggedIn ? "Create MPIN" : " MPIN",
           style: AppTextStyle.kDisplayTitleM,
         ),
         const SizedBox(height: 20),

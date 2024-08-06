@@ -18,8 +18,16 @@ class ExpensePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final List<Expenses> expenses =
+        final List<Expenses> mappedExpenses =
             ref.watch(expenseListProvider(globals.token, 'mapped')).value ?? [];
+
+        final List<Expenses> approvedExpenses =
+            ref.watch(expenseListProvider(globals.token, 'accepted')).value ??
+                [];
+
+        final List<Expenses> expenses =
+            [mappedExpenses, approvedExpenses].expand((x) => x).toList();
+
         final List<Expenses> draftExpenses =
             ref.watch(expenseListProvider(globals.token, 'draft')).value ?? [];
 
@@ -74,12 +82,7 @@ class ExpensePage extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ExpensesCard(
                         expenses: expenses[index],
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const ExpenseDialog(),
-                          );
-                        },
+                        onTap: () {},
                       ),
                     ),
                     ListView.separated(

@@ -4,6 +4,7 @@ import 'package:xpensea/src/data/models/expense.dart';
 
 class ApiService {
   final String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
+  // final String baseUrl = 'https://localhost:3030/api/v1/user';
 
   // Send OTP
   Future<Map<String, dynamic>> sendOtp(String mobile) async {
@@ -32,6 +33,7 @@ class ApiService {
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"mobile": mobile, "mpin": mpin}),
     );
+
     return _handleResponse(response);
   }
 
@@ -63,6 +65,19 @@ class ApiService {
     return _handleResponse(response);
   }
 
+  Future<Map<String, dynamic>> createEvent(
+      Map<String, dynamic> eventData, String token) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/event'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode(eventData),
+    );
+    return _handleResponse(response);
+  }
+
   // List Controller
   Future<Map<String, dynamic>> listController(
       String type, int pageNo, String token) async {
@@ -86,6 +101,22 @@ class ApiService {
       },
     );
     return _handleResponse(response);
+  }
+
+  Future<List<String>> getCatagories(String token) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/category'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+    final responseBody = jsonDecode(response.body);
+    List<String> categories = [];
+    for (var category in responseBody['data']) {
+      categories.add(category['title']);
+    }
+    return categories;
   }
 
   // Get Report
@@ -114,14 +145,14 @@ class ApiService {
 
   // Change MPIN
   Future<Map<String, dynamic>> changeMpin(
-      String mobile, String mpin, String otp, String token) async {
+      String mobile, String mpin, String oldMpin, String token) async {
     final response = await http.put(
       Uri.parse('$baseUrl/change-mpin'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       },
-      body: jsonEncode({"mobile": mobile, "mpin": mpin, "otp": otp}),
+      body: jsonEncode({"mobile": mobile, "mpin": mpin, "oldmpin": oldMpin}),
     );
     return _handleResponse(response);
   }

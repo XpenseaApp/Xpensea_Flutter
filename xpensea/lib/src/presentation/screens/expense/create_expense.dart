@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
-import 'package:xpensea/src/data/routes/user_routes.dart';
+import 'package:xpensea/src/data/repos/location.dart';
+import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
@@ -98,6 +99,8 @@ class _CreateExpenseState extends State<CreateExpense> {
                         child: CustomOutLineButton(
                           text: 'Cancel',
                           onPressed: () {
+                            //TODO : Clear all the data
+                            //TODO : Remove image from the server(minio_flutter)
                             Navigator.pop(context);
                           },
                         ),
@@ -109,6 +112,7 @@ class _CreateExpenseState extends State<CreateExpense> {
                           flex: 1,
                           child: SolidButton(
                               onPressed: () async {
+                                // location = await determinePosition();
                                 ref
                                     .read(expenseProvider.notifier)
                                     .updateExpenseTime(
@@ -117,13 +121,20 @@ class _CreateExpenseState extends State<CreateExpense> {
                                     .read(expenseProvider.notifier)
                                     .updateExpenseDate(DateFormat('yyyy-MM-dd')
                                         .format(DateTime.now()));
+                                if (location != null) {
+                                  ref
+                                      .read(expenseProvider.notifier)
+                                      .updateExpenseLocation(
+                                          '${location?.latitude},${location?.longitude}'
+                                          // '12.9716,77.5946'
+                                          );
+                                }
+
                                 ref
                                     .read(expenseProvider.notifier)
-                                    .updateExpenseLocation('Added Location');
-                                ref
-                                    .read(expenseProvider.notifier)
-                                    .updateExpenseImage('Added image url');
+                                    .updateExpenseImage(imageUrl);
                                 print(ref.read(expenseProvider).toJson());
+
                                 final Response = await ApiService()
                                     .createExpense(
                                         ref.read(expenseProvider), token);
@@ -131,6 +142,8 @@ class _CreateExpenseState extends State<CreateExpense> {
                                 if (Response['success']) {
                                   Navigator.pop(context);
                                   Navigator.pop(context);
+
+                                  imageUrl = '';
                                 } else {}
                                 // _pageController.nextPage(
                                 //     duration: const Duration(milliseconds: 300),
