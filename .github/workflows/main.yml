@@ -83,6 +83,10 @@ jobs:
       - name: Build iOS
         run: flutter build ios --release --no-codesign
         working-directory: xpensea
+      
+      # List contents of the build/ios directory
+      - name: List contents of build/ios/iphoneos
+        run: ls -R xpensea/build/ios/iphoneos
 
       # Upload generated iOS artifacts to the release.
       - name: Upload iOS to Release
@@ -91,6 +95,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.Android.outputs.release_upload_url }}
-          asset_path: xpensea/build/ios/ipa/release/app-release.ipa
+          asset_path: xpensea/build/ios/iphoneos/Runner.ipa
           asset_name: app-release.ipa
           asset_content_type: application/octet-stream
+
