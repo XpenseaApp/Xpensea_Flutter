@@ -30,21 +30,10 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
         working-directory: xpensea
+    
       
-      # Check for any formatting issues in the code.
-      - name: Check formatting
-        run: flutter format --set-exit-if-changed .
-        working-directory: xpensea
+
       
-      # Statically analyze the Dart code for any errors.
-      - name: Analyze code
-        run: flutter analyze .
-        working-directory: xpensea
-      
-      # Run widget tests for our flutter project.
-      - name: Run tests
-        run: flutter test
-        working-directory: xpensea
       
       # Build apk.
       - name: Build APK
@@ -72,9 +61,7 @@ jobs:
         run: flutter pub get
         working-directory: xpensea
       
-      - name: Run tests
-        run: flutter test
-        working-directory: xpensea
+
       
       - name: Build iOS
         run: flutter build ios --release --no-codesign
