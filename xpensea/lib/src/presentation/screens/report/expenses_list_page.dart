@@ -93,37 +93,93 @@ class ExpensesListPage extends StatelessWidget {
                       children: [
                         isDraft != null
                             ? isDraft!
-                                ? ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppPalette.kPrimaryColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    onPressed: () async {
-                                      // ref.read(expensesProvider.notifier).removeAllExpense();
-                                      List<String> expenses =
-                                          ref.watch(expensesProvider).map((e) {
-                                        return e.id!;
-                                      }).toList();
-
-                                      final response = await UpdateReport(
-                                          id!, expenses, token, context);
-
-                                      print('response${response.toString()}');
-                                      Navigator.pop(context);
-                                    },
-                                    child: IntrinsicWidth(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Submit',
-                                            style: AppTextStyle.kSmallBodyR
-                                                .copyWith(color: Colors.white),
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppPalette.kPrimaryColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
                                           ),
-                                        ],
+                                        ),
+                                        onPressed: () async {
+                                          // ref.read(expensesProvider.notifier).removeAllExpense();
+                                          List<String> expenses = ref
+                                              .watch(expensesProvider)
+                                              .map((e) {
+                                            return e.id!;
+                                          }).toList();
+
+                                          final response = await UpdateReport(
+                                              id!,
+                                              expenses,
+                                              token,
+                                              'save',
+                                              context);
+
+                                          print(
+                                              'response${response.toString()}');
+                                          Navigator.pop(context);
+                                        },
+                                        child: IntrinsicWidth(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Save',
+                                                style: AppTextStyle.kSmallBodyR
+                                                    .copyWith(
+                                                        color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppPalette.kPrimaryColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          // ref.read(expensesProvider.notifier).removeAllExpense();
+                                          List<String> expenses = ref
+                                              .watch(expensesProvider)
+                                              .map((e) {
+                                            return e.id!;
+                                          }).toList();
+
+                                          final response = await UpdateReport(
+                                              id!,
+                                              expenses,
+                                              token,
+                                              'submit',
+                                              context);
+
+                                          print(
+                                              'response${response.toString()}');
+                                          Navigator.pop(context);
+                                        },
+                                        child: IntrinsicWidth(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Submit',
+                                                style: AppTextStyle.kSmallBodyR
+                                                    .copyWith(
+                                                        color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   )
                                 : const SizedBox()
                             : const SizedBox(),

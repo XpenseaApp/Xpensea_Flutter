@@ -164,10 +164,10 @@ Future<dynamic> UpdateApproval(String id, List<String> expenses, String action,
 
 // Update Report
 Future<dynamic> UpdateReport(String id, List<String> expenses, String token,
-    BuildContext context) async {
+    String type, BuildContext context) async {
   try {
     final response = await http.put(
-      Uri.parse('$baseUrl/report/$id'),
+      Uri.parse('$baseUrl/report/$id?type=$type'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
