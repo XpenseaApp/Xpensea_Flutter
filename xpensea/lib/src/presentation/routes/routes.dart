@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xpensea/src/presentation/screens/approver/approval_details.dart';
+import 'package:xpensea/src/presentation/screens/home/upi_payment.dart';
 import 'package:xpensea/src/presentation/screens/profile/change_mpin.dart';
 import 'package:xpensea/src/presentation/screens/report/report_details.dart';
 import 'package:xpensea/src/presentation/screens/expense/capture_bill.dart';
@@ -32,7 +33,7 @@ class AppRoutes {
       reportDetails: (context) => ReportDetail(id: ''),
       approvalDetails: (context) => ApprovalDetails(id: ''),
       changeMpin: (context) => ChangeMPINPage(),
-      debug: (context) => ChangeMPINPage(),
+      debug: (context) => MainScreen(),
     };
   }
 }
