@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:xpensea/src/data/models/expense.dart';
 
@@ -103,6 +104,20 @@ class ApiService {
     return _handleResponse(response);
   }
 
+  // Get Expense
+  Future<Map<String, dynamic>> getImageAnalysis(
+      String imageUrl, String token) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/image-analysis?imageUrl=$imageUrl'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+    log('message: ${response.body}');
+    return _handleResponse(response);
+  }
+
   Future<List<String>> getCatagories(String token) async {
     final response = await http.get(
       Uri.parse('$baseUrl/category'),
@@ -122,7 +137,7 @@ class ApiService {
   // Get Report
   Future<Map<String, dynamic>> getReport(String id, String token) async {
     final response = await http.get(
-      Uri.parse('$baseUrl/report/$id'),
+      Uri.parse('$baseUrl/report'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"

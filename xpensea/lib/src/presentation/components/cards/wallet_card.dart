@@ -29,7 +29,7 @@ class WalletCard extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               AppPalette.kPrimaryColor,
-              const Color.fromARGB(255, 83, 1, 20),
+              Color.fromARGB(255, 0, 28, 99),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
