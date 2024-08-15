@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,12 +9,14 @@ import 'package:xpensea/src/core/providers/camera_provider.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/data/repos/location.dart';
+import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/events/create_event.dart';
 import 'package:xpensea/src/presentation/screens/expense/create_expense.dart';
 import 'dart:io';
 import 'package:minio_flutter/io.dart';
 import 'package:minio_flutter/minio.dart';
+import 'package:lottie/lottie.dart';
 
 class CaptureBillPage extends ConsumerWidget {
   const CaptureBillPage({super.key});
@@ -95,8 +99,8 @@ class CaptureBillPage extends ConsumerWidget {
                           height: 120,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              CircularProgressIndicator(),
+                            children: [
+                              Lottie.asset('assets/lottie/loader.json'),
                             ],
                           ),
                         ),
@@ -117,11 +121,51 @@ class CaptureBillPage extends ConsumerWidget {
                       // Determine location
                       location = await determinePosition();
 
-                      Navigator.pop(context); // Close the loading dialog
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CreateExpense();
-                      }));
+                      //TODO send image to OAI API
+                      final response =
+                          await ApiService().getImageAnalysis(imageUrl, token);
+
+                      log(response['data']['data']['isExpenseBill'].toString());
+
+                      if (response['data']['data']['isExpenseBill'] == true) {
+                        Navigator.pop(context); // Close the loading dialog
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return CreateExpense();
+                        }));
+                      } else {
+                        Navigator.pop(context); // Close the loading dialog
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Error'),
+                            content: Text('The image is not a bill'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Retry'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return CreateEvent();
+                                  }));
+                                },
+                                child: const Text('Continue with this'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      // Navigator.pop(context); // Close the loading dialog
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context) {
+                      //   return CreateExpense();
+                      // }));
                     } catch (e) {
                       Navigator.pop(
                           context); // Close the loading dialog in case of error

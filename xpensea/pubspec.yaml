@@ -19,12 +19,20 @@ dependencies:
   pinput: ^5.0.0
   riverpod_annotation: ^2.3.5
   shared_preferences: ^2.2.3
-
   http: any
   flutter_dotenv: ^5.1.0
   minio_flutter: ^0.0.1
   geolocator: ^12.0.0
   geolocator_android: 4.5.5  
+  ai_barcode_scanner: ^3.4.3
+
+
+  upi_india: ^3.0.1
+  quantupi: ^0.0.6
+  lottie: ^3.1.2
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -39,6 +47,7 @@ flutter:
 
   assets:
     - assets/svg/
+    - assets/lottie/
     - assets/images/
     - .env
 

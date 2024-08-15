@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppPalette {
-  static const Color kPrimaryColor = Color.fromRGBO(121, 0, 29, 1);
+  static const Color kPrimaryColor = Color.fromRGBO(0, 43, 155, 1);
   static const Color kSeaShell = Color(0xFFFFF7F3);
   static const Color kOrange = Color.fromRGBO(215, 112, 54, 0.11);
   static const Color iconBg = Color.fromRGBO(255, 247, 243, 1);
