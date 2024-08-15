@@ -48,28 +48,50 @@ class ProfilePage extends StatelessWidget {
           height: 14,
         ),
         const Divider(),
-        const SizedBox(
-          height: 14,
-        ),
-        WalletCard(advanceAmount: 50000, amountUsed: 12350),
+        // const SizedBox(
+        //   height: 14,
+        // ),
+        // WalletCard(advanceAmount: 50000, amountUsed: 12350),
         const SizedBox(
           height: 28,
         ),
-        InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, '/changeMpin');
-          },
-          child: SettingCard(
-            settingParams: SettingParams(
-              leadingImagePath: AppIcons.lock,
-              title: 'Change MPIN',
-            ),
+        SettingCard(
+          settingParams: SettingParams(
+            leadingImagePath: AppIcons.lock,
+            title: 'Change MPIN',
+            onTap: () {
+              Navigator.pushNamed(context, '/changeMpin');
+            },
           ),
         ),
         SettingCard(
           settingParams: SettingParams(
             leadingImagePath: AppIcons.warning,
             title: 'Report a problem',
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => const ReportProblemDialog(),
+              );
+            },
+          ),
+        ),
+
+        SettingCard(
+          settingParams: SettingParams(
+            leadingImagePath: AppIcons.lock,
+            title: 'Wallet',
+            onTap: () {
+              // Navigator.pushNamed(context, '/wallet');
+              Navigator.pushNamed(context, '/changeMpin');
+            },
+          ),
+        ),
+
+        SettingCard(
+          settingParams: SettingParams(
+            leadingImagePath: AppIcons.warning,
+            title: 'Policy',
             onTap: () {
               showDialog(
                 context: context,
