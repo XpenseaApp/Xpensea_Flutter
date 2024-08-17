@@ -174,8 +174,10 @@ class ExpensesCard extends StatelessWidget {
                   children: [
                     Text(
                       'View More',
-                      style: AppTextStyle.kSmallBodySB
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.kSmallBodySB.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: const Color.fromARGB(255, 29, 32, 35)),
                     ),
                     const SizedBox(
                       width: 4,

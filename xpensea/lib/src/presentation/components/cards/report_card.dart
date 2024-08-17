@@ -63,16 +63,16 @@ class Reports {
       date: json['date'] ?? json['reportDate'] ?? 'Unknown Date',
       leadingIconPath: json['leadingIconPath'] ?? AppIcons.report,
       status: json['status'],
-      statusColor: json['status'] == 'approved'
-          ? Color.fromARGB(255, 227, 245, 235)
-          : json['status'] == 'rejected'
-              ? const Color.fromARGB(255, 250, 214, 212)
-              : Colors.grey,
+      statusColor: Color.fromARGB(255, 249, 249, 249),
       statusTextColor: json['status'] == 'approved'
-          ? Colors.green
+          ? Color.fromARGB(255, 20, 174, 92)
           : json['status'] == 'rejected'
               ? const Color.fromARGB(255, 224, 13, 0)
-              : Colors.black,
+              : json['status'] == 'reimbursed'
+                  ? const Color.fromARGB(255, 7, 30, 65)
+                  : json['status'] == 'pending'
+                      ? const Color.fromARGB(255, 255, 166, 41)
+                      : Colors.black,
       reportId: json['_id'],
       description: json['description'],
       expenseIds: json['expenses'] != null
@@ -155,6 +155,8 @@ class ReportCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       decoration: BoxDecoration(
                           color: report.statusColor,
+                          border: Border.all(
+                              color: report.statusTextColor ?? Colors.black),
                           borderRadius: BorderRadius.circular(4)),
                       child: Center(
                           child: Text(
@@ -194,8 +196,10 @@ class ReportCard extends StatelessWidget {
                     },
                     child: Text(
                       'View More',
-                      style: AppTextStyle.kSmallBodySB
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.kSmallBodySB.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: const Color.fromARGB(255, 29, 32, 35)),
                     ),
                   ),
                   const SizedBox(

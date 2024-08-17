@@ -11,8 +11,10 @@ import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
 import 'package:xpensea/src/presentation/components/cards/event_card.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
+import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/routes/routes.dart';
+import 'package:xpensea/src/data/repos/globals.dart' as globals;
 
 class MenuItems {
   final String text;
@@ -84,6 +86,13 @@ class HomePage extends StatelessWidget {
 
     return Consumer(
       builder: (context, ref, child) {
+        final List<Reports> draftReports =
+            ref.watch(reportListProvider(globals.token, 'drafted')).value ?? [];
+
+        final List<Reports> draft = [
+          ...draftReports,
+        ];
+
         final List<Event> progressEvents =
             ref.watch(eventListProvider(token, 'progress')).value ?? [];
         // print(progressEvents.first.toJson().toString());
@@ -156,10 +165,11 @@ class HomePage extends StatelessWidget {
             ),
             Expanded(
               child: ListView.separated(
-                itemCount: activities.length,
+                key: PageStorageKey('drafts'),
+                itemCount: draft.length,
                 separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (context, index) => ActivityCard(
-                  activity: activities[index],
+                itemBuilder: (context, index) => ReportCard(
+                  report: draft[index],
                 ),
               ),
             )

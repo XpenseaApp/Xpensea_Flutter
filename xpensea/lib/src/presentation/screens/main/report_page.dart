@@ -22,6 +22,9 @@ class ReportPage extends ConsumerWidget {
     final List<Reports> pendingReports =
         ref.watch(reportListProvider(globals.token, 'pending')).value ?? [];
 
+    final List<Reports> reimbursedReports =
+        ref.watch(reportListProvider(globals.token, 'reimbursed')).value ?? [];
+
     final List<Reports> draftReports =
         ref.watch(reportListProvider(globals.token, 'drafted')).value ?? [];
 
@@ -32,6 +35,7 @@ class ReportPage extends ConsumerWidget {
       ...pendingReports,
       ...approvedReports,
       ...rejectedReports,
+      ...reimbursedReports,
     ];
 
     return DefaultTabController(
