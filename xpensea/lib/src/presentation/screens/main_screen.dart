@@ -5,7 +5,7 @@ import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/appbar/appbar.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/routes/routes.dart';
+import 'package:xpensea/src/presentation/screens/routes/routes.dart';
 import 'package:xpensea/src/presentation/screens/main/approver_page.dart';
 import 'package:xpensea/src/presentation/screens/main/expense_page.dart';
 import 'package:xpensea/src/presentation/screens/main/home_page.dart';
@@ -84,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                      Color.fromARGB(255, 121, 0, 29), // Set the button color
+                      Color.fromARGB(255, 0, 105, 255), // Set the button color
                   minimumSize: Size(double.infinity,
                       60), // Make button width same as the screen and height 60
                 ),
@@ -100,7 +100,7 @@ class _MainScreenState extends State<MainScreen> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                      Color.fromARGB(255, 121, 0, 29), // Set the button color
+                      Color.fromARGB(255, 0, 105, 255), // Set the button color
                   minimumSize: Size(double.infinity,
                       60), // Make button width same as the screen and height 60
                 ),
@@ -109,9 +109,7 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Text(
                   'Upload Bill',
-                  style: TextStyle(
-                   
-                    color: Colors.white),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ],
@@ -168,7 +166,6 @@ class _MainScreenState extends State<MainScreen> {
             )
           : null,
       body: SafeArea(
-      
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(
@@ -181,6 +178,8 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ))),
       bottomNavigationBar: BottomNavigationBar(
+          elevation: 20,
+          backgroundColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           unselectedLabelStyle:
               AppTextStyle.kSmallBodyR.copyWith(color: AppPalette.kGray4),

@@ -12,7 +12,7 @@ import 'package:xpensea/src/presentation/components/cards/event_card.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/routes/routes.dart';
+import 'package:xpensea/src/presentation/screens/routes/routes.dart';
 
 class MenuItems {
   final String text;
@@ -147,7 +147,7 @@ class HomePage extends StatelessWidget {
               height: 40,
             ),
             Text(
-              'Recent Events',
+              'Recent Activities',
               style:
                   AppTextStyle.kMediumBodyM.copyWith(color: AppPalette.kGray3),
             ),

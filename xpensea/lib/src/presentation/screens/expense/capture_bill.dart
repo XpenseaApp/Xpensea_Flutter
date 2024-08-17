@@ -95,8 +95,8 @@ class CaptureBillPage extends ConsumerWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          width: 120,
-                          height: 120,
+                          width: 320,
+                          height: 320,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

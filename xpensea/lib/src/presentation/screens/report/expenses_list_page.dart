@@ -118,7 +118,7 @@ class ExpensesListPage extends StatelessWidget {
                                               id!,
                                               expenses,
                                               token,
-                                              'save',
+                                              'drafted',
                                               context);
 
                                           print(

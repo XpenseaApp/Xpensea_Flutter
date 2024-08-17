@@ -93,10 +93,7 @@ class ProfilePage extends StatelessWidget {
             leadingImagePath: AppIcons.warning,
             title: 'Policy',
             onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) => const ReportProblemDialog(),
-              );
+              Navigator.pushNamed(context, '/policy');
             },
           ),
         ),

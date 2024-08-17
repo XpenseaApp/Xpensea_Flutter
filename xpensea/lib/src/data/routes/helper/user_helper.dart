@@ -172,7 +172,7 @@ Future<dynamic> UpdateReport(String id, List<String> expenses, String token,
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       },
-      body: jsonEncode({"expenses": expenses}),
+      body: jsonEncode({"expenses": expenses, "status": type}),
     );
 
     final responseBody = jsonDecode(response.body);

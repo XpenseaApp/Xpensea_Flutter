@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/routes/routes.dart';
+import 'package:xpensea/src/presentation/screens/routes/routes.dart';
 import 'package:xpensea/src/presentation/screens/approver/approval_details.dart';
 
 class Reports {

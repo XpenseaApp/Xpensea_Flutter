@@ -328,8 +328,12 @@ class ReportDetail extends StatelessWidget {
                                           return e.id!;
                                         }).toList();
 
-                                        final response = await UpdateReport(id!,
-                                            expenses, token, 'submit', context);
+                                        final response = await UpdateReport(
+                                            id!,
+                                            expenses,
+                                            token,
+                                            'pending',
+                                            context);
 
                                         print('response${response.toString()}');
                                         Navigator.pop(context);

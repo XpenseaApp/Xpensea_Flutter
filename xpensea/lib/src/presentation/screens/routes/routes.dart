@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xpensea/src/presentation/screens/approver/approval_details.dart';
 import 'package:xpensea/src/presentation/screens/home/upi_payment.dart';
 import 'package:xpensea/src/presentation/screens/profile/change_mpin.dart';
+import 'package:xpensea/src/presentation/screens/profile/policy.dart';
 import 'package:xpensea/src/presentation/screens/report/report_details.dart';
 import 'package:xpensea/src/presentation/screens/expense/capture_bill.dart';
 import 'package:xpensea/src/presentation/screens/events/create_event.dart';
@@ -20,6 +21,7 @@ class AppRoutes {
   static const String reportDetails = "/ReportDetails";
   static const String approvalDetails = "/ApprovalDetails";
   static const String changeMpin = "/changeMpin";
+  static const String policy = "/policy";
   static const String debug = "/debug";
 
   static Map<String, WidgetBuilder> getRoutes() {
@@ -33,7 +35,8 @@ class AppRoutes {
       reportDetails: (context) => ReportDetail(id: ''),
       approvalDetails: (context) => ApprovalDetails(id: ''),
       changeMpin: (context) => ChangeMPINPage(),
-      debug: (context) => MainScreen(),
+      policy: (context) => PolicyPage(),
+      debug: (context) => SplashScreen(),
     };
   }
 }

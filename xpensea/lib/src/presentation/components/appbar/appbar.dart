@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/routes/routes.dart';
+import 'package:xpensea/src/presentation/screens/routes/routes.dart';
 
 class CommonAppBar extends StatelessWidget {
   final int index;

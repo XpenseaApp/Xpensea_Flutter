@@ -9,7 +9,7 @@ import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
-import '../routes/routes.dart';
+import 'package:xpensea/src/presentation/screens/routes/routes.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 
 class OtpPage extends StatefulWidget {

@@ -26,10 +26,8 @@ dependencies:
   geolocator_android: 4.5.5  
   ai_barcode_scanner: ^3.4.3
 
-
-  upi_india: ^3.0.1
-  quantupi: ^0.0.6
   lottie: ^3.1.2
+  motion: ^1.4.1
 
 
 
