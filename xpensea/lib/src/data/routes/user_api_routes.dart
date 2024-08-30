@@ -146,6 +146,17 @@ class ApiService {
     return _handleResponse(response);
   }
 
+  Future<Map<String, dynamic>> getWallet(String token) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/wallet'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+    return _handleResponse(response);
+  }
+
   // Get Category
   Future<Map<String, dynamic>> getCategory(String token) async {
     final response = await http.get(

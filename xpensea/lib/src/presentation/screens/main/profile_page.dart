@@ -82,8 +82,7 @@ class ProfilePage extends StatelessWidget {
             leadingImagePath: AppIcons.lock,
             title: 'Wallet',
             onTap: () {
-              // Navigator.pushNamed(context, '/wallet');
-              Navigator.pushNamed(context, '/changeMpin');
+              Navigator.pushNamed(context, '/wallet');
             },
           ),
         ),

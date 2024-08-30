@@ -109,6 +109,7 @@ class ExpensesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Color.fromARGB(255, 255, 255, 255),
       margin: const EdgeInsets.only(top: 16, bottom: 8),
       child: Column(
         children: [

@@ -464,7 +464,7 @@ class _ApproversListProviderElement
   String get type => (origin as ApproversListProvider).type;
 }
 
-String _$eventListHash() => r'e25ec6f027daf80f60bb9af9fb2e38565c72e0d8';
+String _$eventListHash() => r'00027edc8c5e65b2f1e1ec608c6a7ad75bb7cd6e';
 
 /// See also [eventList].
 @ProviderFor(eventList)
@@ -1347,6 +1347,262 @@ class _ListControllerProviderElement
   int get pageNo => (origin as ListControllerProvider).pageNo;
   @override
   String get token => (origin as ListControllerProvider).token;
+}
+
+String _$getWalletHash() => r'e5e490d5aaf8ca4d736b675766090662fc88183a';
+
+/// See also [getWallet].
+@ProviderFor(getWallet)
+const getWalletProvider = GetWalletFamily();
+
+/// See also [getWallet].
+class GetWalletFamily extends Family<AsyncValue<Map<String, dynamic>>> {
+  /// See also [getWallet].
+  const GetWalletFamily();
+
+  /// See also [getWallet].
+  GetWalletProvider call(
+    String token,
+  ) {
+    return GetWalletProvider(
+      token,
+    );
+  }
+
+  @override
+  GetWalletProvider getProviderOverride(
+    covariant GetWalletProvider provider,
+  ) {
+    return call(
+      provider.token,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getWalletProvider';
+}
+
+/// See also [getWallet].
+class GetWalletProvider
+    extends AutoDisposeFutureProvider<Map<String, dynamic>> {
+  /// See also [getWallet].
+  GetWalletProvider(
+    String token,
+  ) : this._internal(
+          (ref) => getWallet(
+            ref as GetWalletRef,
+            token,
+          ),
+          from: getWalletProvider,
+          name: r'getWalletProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getWalletHash,
+          dependencies: GetWalletFamily._dependencies,
+          allTransitiveDependencies: GetWalletFamily._allTransitiveDependencies,
+          token: token,
+        );
+
+  GetWalletProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.token,
+  }) : super.internal();
+
+  final String token;
+
+  @override
+  Override overrideWith(
+    FutureOr<Map<String, dynamic>> Function(GetWalletRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetWalletProvider._internal(
+        (ref) => create(ref as GetWalletRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        token: token,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Map<String, dynamic>> createElement() {
+    return _GetWalletProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetWalletProvider && other.token == token;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetWalletRef on AutoDisposeFutureProviderRef<Map<String, dynamic>> {
+  /// The parameter `token` of this provider.
+  String get token;
+}
+
+class _GetWalletProviderElement
+    extends AutoDisposeFutureProviderElement<Map<String, dynamic>>
+    with GetWalletRef {
+  _GetWalletProviderElement(super.provider);
+
+  @override
+  String get token => (origin as GetWalletProvider).token;
+}
+
+String _$getPolicyHash() => r'9f276d9dba33dcaaa71de268f77c34e8be14c387';
+
+/// See also [getPolicy].
+@ProviderFor(getPolicy)
+const getPolicyProvider = GetPolicyFamily();
+
+/// See also [getPolicy].
+class GetPolicyFamily extends Family<AsyncValue<dynamic>> {
+  /// See also [getPolicy].
+  const GetPolicyFamily();
+
+  /// See also [getPolicy].
+  GetPolicyProvider call(
+    String token,
+  ) {
+    return GetPolicyProvider(
+      token,
+    );
+  }
+
+  @override
+  GetPolicyProvider getProviderOverride(
+    covariant GetPolicyProvider provider,
+  ) {
+    return call(
+      provider.token,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getPolicyProvider';
+}
+
+/// See also [getPolicy].
+class GetPolicyProvider extends AutoDisposeFutureProvider<dynamic> {
+  /// See also [getPolicy].
+  GetPolicyProvider(
+    String token,
+  ) : this._internal(
+          (ref) => getPolicy(
+            ref as GetPolicyRef,
+            token,
+          ),
+          from: getPolicyProvider,
+          name: r'getPolicyProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getPolicyHash,
+          dependencies: GetPolicyFamily._dependencies,
+          allTransitiveDependencies: GetPolicyFamily._allTransitiveDependencies,
+          token: token,
+        );
+
+  GetPolicyProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.token,
+  }) : super.internal();
+
+  final String token;
+
+  @override
+  Override overrideWith(
+    FutureOr<dynamic> Function(GetPolicyRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetPolicyProvider._internal(
+        (ref) => create(ref as GetPolicyRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        token: token,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<dynamic> createElement() {
+    return _GetPolicyProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetPolicyProvider && other.token == token;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetPolicyRef on AutoDisposeFutureProviderRef<dynamic> {
+  /// The parameter `token` of this provider.
+  String get token;
+}
+
+class _GetPolicyProviderElement
+    extends AutoDisposeFutureProviderElement<dynamic> with GetPolicyRef {
+  _GetPolicyProviderElement(super.provider);
+
+  @override
+  String get token => (origin as GetPolicyProvider).token;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

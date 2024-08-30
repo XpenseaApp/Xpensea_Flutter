@@ -41,6 +41,7 @@ class ReportDetail extends StatelessWidget {
           }
 
           return Scaffold(
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
             body: SafeArea(
               child: Stack(
                 children: [

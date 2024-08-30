@@ -295,6 +295,7 @@ Future<List<Event>> eventList(
     final responseBody = jsonDecode(response.body);
     if (response.statusCode == 200) {
       List<dynamic> rawData = responseBody['data'];
+      log('rawData: ${rawData}');
       List<Event> data = rawData
           .where((e) => e['status'] == type)
           .map<Event>((e) => Event.fromJson(e))
@@ -435,6 +436,39 @@ Future<List<dynamic>> listController(
       }
     } else {
       throw Exception(response['message']);
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<Map<String, dynamic>> getWallet(GetWalletRef ref, String token) async {
+  final response = await http.get(
+    Uri.parse('$baseUrl/wallet'),
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
+    },
+  );
+  return _handleResponse(response);
+}
+
+@riverpod
+Future<dynamic> getPolicy(GetPolicyRef ref, String token) async {
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/policy'),
+      headers: {"Authorization": "Bearer $token"},
+    );
+
+    final responseBody = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return responseBody['data'];
+    } else {
+      // Show Snackbar
+      throw Exception(responseBody['message']);
     }
   } catch (e) {
     throw Exception(e.toString());

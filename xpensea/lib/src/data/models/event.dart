@@ -11,6 +11,7 @@ class Event {
   final String description;
   final String? location;
   final String status;
+  final String? type;
 
   Event({
     required this.id,
@@ -23,6 +24,7 @@ class Event {
     required this.description,
     this.location,
     required this.status,
+    this.type,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class Event {
       description: json['description'],
       location: json['location'],
       status: json['status'],
+      type: json['type'],
     );
   }
 
@@ -51,6 +54,7 @@ class Event {
       'description': description,
       if (location != '') 'location': location,
       if (status != '') 'status': status,
+      if (type != '') 'type': type,
     };
   }
 
@@ -64,6 +68,7 @@ class Event {
     String? description,
     String? location,
     String? status,
+    String? type,
   }) {
     return Event(
       id: id,
@@ -76,6 +81,7 @@ class Event {
       description: description ?? this.description,
       location: location ?? this.location,
       status: status ?? this.status,
+      type: type ?? this.type,
     );
   }
 }
@@ -93,6 +99,7 @@ class EventNotifier extends StateNotifier<Event> {
           description: '',
           location: '',
           status: '',
+          type: '',
         ));
 
   void addEvent(Event event) {
@@ -107,6 +114,7 @@ class EventNotifier extends StateNotifier<Event> {
       description: event.description,
       location: event.location,
       status: event.status,
+      type: event.type,
     );
   }
 
@@ -122,6 +130,7 @@ class EventNotifier extends StateNotifier<Event> {
       description: '',
       location: '',
       status: '',
+      type: '',
     );
   }
 
@@ -159,6 +168,10 @@ class EventNotifier extends StateNotifier<Event> {
 
   void updateEventStatus(String status) {
     state = state.copyWith(status: status);
+  }
+
+  void updateEventType(String type) {
+    state = state.copyWith(type: type);
   }
 }
 

@@ -9,14 +9,20 @@ import 'package:xpensea/src/presentation/screens/routes/routes.dart';
 
 class EventCard extends StatelessWidget {
   final String id;
+  final String Name;
   final DateTime startDate;
   final DateTime endDate;
+  final String endtime;
+  final String type;
 
   const EventCard({
     super.key,
     required this.id,
+    required this.Name,
     required this.startDate,
     required this.endDate,
+    required this.endtime,
+    required this.type,
   });
 
   double _calculatePercentage() {
@@ -69,7 +75,7 @@ class EventCard extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              'Event Name',
+                              Name,
                               style: AppTextStyle.kLargeBodyB.copyWith(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -87,7 +93,9 @@ class EventCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              'PERSONAL EVENT',
+                              type == 'User'
+                                  ? 'PERSONAL EVENT'
+                                  : 'GLOBAL EVENT',
                               style: AppTextStyle.kSmallBodySB.copyWith(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -192,7 +200,7 @@ class EventCard extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')} ${endDate.hour >= 12 ? 'PM' : 'AM'}',
+                                          '${endtime}',
                                           style: AppTextStyle.kSmallBodySB
                                               .copyWith(
                                             fontSize: 12,

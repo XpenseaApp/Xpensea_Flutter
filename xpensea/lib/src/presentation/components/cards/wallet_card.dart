@@ -1,20 +1,24 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 
 class WalletCard extends StatelessWidget {
-  final double advanceAmount;
-  final double amountUsed;
+  final int advanceAmount;
+  final int amountUsed;
 
   WalletCard({required this.advanceAmount, required this.amountUsed});
 
   @override
   Widget build(BuildContext context) {
-    double amountLeft = advanceAmount - amountUsed;
-    double usedPercentage = (amountUsed / advanceAmount) * 100;
+    double amountLeft = double.parse((advanceAmount - amountUsed).toString());
     double leftPercentage = (amountLeft / advanceAmount) * 100;
+    if (leftPercentage.isNaN) {
+      leftPercentage = 0.0;
+    }
 
     return Card(
       elevation: 10.0,

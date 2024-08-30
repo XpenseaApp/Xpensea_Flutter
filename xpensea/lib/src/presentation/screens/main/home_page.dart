@@ -135,6 +135,7 @@ class HomePage extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: EventCard(
                               id: progressEvents[index].id!,
+                              Name: progressEvents[index].eventName,
                               startDate: DateTime.parse(
                                 progressEvents[index]
                                     .startDate
@@ -145,6 +146,8 @@ class HomePage extends StatelessWidget {
                                     .endDate
                                     .replaceAll(' ', '-'),
                               ),
+                              endtime: progressEvents[index].endTime,
+                              type: progressEvents[index].type ?? 'User',
                             ),
                           ),
                         );
