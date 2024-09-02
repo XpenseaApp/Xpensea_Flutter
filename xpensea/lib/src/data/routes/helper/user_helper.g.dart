@@ -1604,5 +1604,166 @@ class _GetPolicyProviderElement
   @override
   String get token => (origin as GetPolicyProvider).token;
 }
+
+String _$saveLocationHash() => r'c7fdc1021670e549f668d2cf2c0d5b62ec557548';
+
+/// See also [saveLocation].
+@ProviderFor(saveLocation)
+const saveLocationProvider = SaveLocationFamily();
+
+/// See also [saveLocation].
+class SaveLocationFamily extends Family<AsyncValue<dynamic>> {
+  /// See also [saveLocation].
+  const SaveLocationFamily();
+
+  /// See also [saveLocation].
+  SaveLocationProvider call(
+    String eventName,
+    String? eventId,
+    String token,
+  ) {
+    return SaveLocationProvider(
+      eventName,
+      eventId,
+      token,
+    );
+  }
+
+  @override
+  SaveLocationProvider getProviderOverride(
+    covariant SaveLocationProvider provider,
+  ) {
+    return call(
+      provider.eventName,
+      provider.eventId,
+      provider.token,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'saveLocationProvider';
+}
+
+/// See also [saveLocation].
+class SaveLocationProvider extends AutoDisposeFutureProvider<dynamic> {
+  /// See also [saveLocation].
+  SaveLocationProvider(
+    String eventName,
+    String? eventId,
+    String token,
+  ) : this._internal(
+          (ref) => saveLocation(
+            ref as SaveLocationRef,
+            eventName,
+            eventId,
+            token,
+          ),
+          from: saveLocationProvider,
+          name: r'saveLocationProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$saveLocationHash,
+          dependencies: SaveLocationFamily._dependencies,
+          allTransitiveDependencies:
+              SaveLocationFamily._allTransitiveDependencies,
+          eventName: eventName,
+          eventId: eventId,
+          token: token,
+        );
+
+  SaveLocationProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.eventName,
+    required this.eventId,
+    required this.token,
+  }) : super.internal();
+
+  final String eventName;
+  final String? eventId;
+  final String token;
+
+  @override
+  Override overrideWith(
+    FutureOr<dynamic> Function(SaveLocationRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: SaveLocationProvider._internal(
+        (ref) => create(ref as SaveLocationRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        eventName: eventName,
+        eventId: eventId,
+        token: token,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<dynamic> createElement() {
+    return _SaveLocationProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SaveLocationProvider &&
+        other.eventName == eventName &&
+        other.eventId == eventId &&
+        other.token == token;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, eventName.hashCode);
+    hash = _SystemHash.combine(hash, eventId.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin SaveLocationRef on AutoDisposeFutureProviderRef<dynamic> {
+  /// The parameter `eventName` of this provider.
+  String get eventName;
+
+  /// The parameter `eventId` of this provider.
+  String? get eventId;
+
+  /// The parameter `token` of this provider.
+  String get token;
+}
+
+class _SaveLocationProviderElement
+    extends AutoDisposeFutureProviderElement<dynamic> with SaveLocationRef {
+  _SaveLocationProviderElement(super.provider);
+
+  @override
+  String get eventName => (origin as SaveLocationProvider).eventName;
+  @override
+  String? get eventId => (origin as SaveLocationProvider).eventId;
+  @override
+  String get token => (origin as SaveLocationProvider).token;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

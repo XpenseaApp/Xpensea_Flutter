@@ -13,7 +13,6 @@ import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/events/create_event.dart';
 import 'package:xpensea/src/presentation/screens/expense/create_expense.dart';
-import 'dart:io';
 import 'package:minio_flutter/io.dart';
 import 'package:minio_flutter/minio.dart';
 import 'package:lottie/lottie.dart';
@@ -111,11 +110,12 @@ class CaptureBillPage extends ConsumerWidget {
                       final image = await cameraState.controller!.takePicture();
                       // Handle captured image
                       await Minio.shared
-                          .fPutObject('xpensea', image.name, image.path);
-                      print("https://xpensea.s3.ap-south-1.amazonaws.com/" +
-                          image.name);
+                          .fPutObject('xpenseastorage', image.name, image.path);
+                      print(
+                          "https://xpenseastorage.s3.ap-south-1.amazonaws.com/" +
+                              image.name);
                       imageUrl =
-                          "https://xpensea.s3.ap-south-1.amazonaws.com/" +
+                          "https://xpenseastorage.s3.ap-south-1.amazonaws.com/" +
                               image.name;
 
                       // Determine location

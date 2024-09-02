@@ -76,10 +76,10 @@ class HomePage extends StatelessWidget {
       MenuItems("Create Events", AppIcons.event, () {
         navigateTo(context, AppRoutes.createEvent);
       }),
-      MenuItems("Capture Bill", AppIcons.scanDoc, () {
+      MenuItems("Upload Bill", AppIcons.scanDoc, () {
         navigateTo(context, AppRoutes.captureBill);
       }),
-      MenuItems("Upload Bill", AppIcons.uploadDoc, () {
+      MenuItems("Pay Bill", AppIcons.uploadDoc, () {
         navigateTo(context, AppRoutes.captureBill);
       }),
     ];

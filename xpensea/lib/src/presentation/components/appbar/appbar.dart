@@ -1,9 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/routes/routes.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class CommonAppBar extends StatelessWidget {
   final int index;
@@ -11,27 +18,53 @@ class CommonAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SvgPicture.asset(AppIcons.starFilled),
-        if (index > 0)
-          Text(
-            index == 1
-                ? 'Expenses'
-                : index == 2
-                    ? (approver ? 'Approval' : 'Reports')
-                    : index == 3
-                        ? (approver ? 'Reports' : '')
-                        : '',
-            style: AppTextStyle.kDisplayTitleM,
-          ),
-        InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, AppRoutes.debug);
-            },
-            child: SvgPicture.asset(AppIcons.notificationBell)),
-      ],
+    var response = {
+      'status': 100,
+      'message': 'No response',
+      'data': {
+        'latitude': 0.0,
+        'longitude': 0.0,
+        'address': 'No address found',
+      },
+    };
+    return Consumer(
+      builder: (context, ref, child) {
+        if (isTracking) {
+          response = ref.watch(SaveLocationProvider('Work', '', token)).value;
+          log('Response: ${Response}');
+        }
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset(AppIcons.starFilled),
+            if (index > 0)
+              Text(
+                index == 1
+                    ? 'Expenses'
+                    : index == 2
+                        ? (approver ? 'Approval' : 'Reports')
+                        : index == 3
+                            ? (approver ? 'Reports' : '')
+                            : '',
+                style: AppTextStyle.kDisplayTitleM,
+              ),
+            Row(
+              children: [
+                response['status'] != 200 && !isTracking
+                    ? SizedBox.shrink()
+                    : GlowingProgressIndicator(
+                        child: Icon(Icons.location_on),
+                      ),
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.debug);
+                    },
+                    child: SvgPicture.asset(AppIcons.notificationBell)),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

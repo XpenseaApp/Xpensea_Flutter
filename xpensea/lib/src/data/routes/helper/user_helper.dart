@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/models/report.dart';
+import 'package:xpensea/src/data/repos/location.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
@@ -472,6 +473,55 @@ Future<dynamic> getPolicy(GetPolicyRef ref, String token) async {
     }
   } catch (e) {
     throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<dynamic> saveLocation(SaveLocationRef ref, String eventName,
+    String? eventId, String token) async {
+  try {
+    final location = await determinePosition();
+
+    // Define the request body
+    final requestBody = {
+      "eventName": eventName,
+      "location": "${location.latitude},${location.longitude}",
+    };
+
+    // Add eventId to the request body if it's provided
+    if (eventId != null && eventId.isNotEmpty) {
+      requestBody["eventId"] = eventId;
+    }
+
+    // Convert request body to JSON string
+    final jsonBody = jsonEncode(requestBody);
+
+    // Make the HTTP POST request to save the location
+    final response = await http.post(
+      Uri.parse(baseUrl + '/location'),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonBody,
+    );
+    // Decode the response body
+    final responseBody = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      // Show success message using SnackBar
+
+      Timer(const Duration(minutes: 5), () {
+        ref.invalidateSelf();
+      });
+      return responseBody;
+    } else {
+      // Show error message using SnackBar
+      return _handleResponse(response);
+    }
+  } catch (e) {
+    // Handle any exceptions that occur during the request
+    log('error: ${e.toString()}');
   }
 }
 
