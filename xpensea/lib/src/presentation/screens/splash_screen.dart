@@ -59,18 +59,18 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: AppPalette.kPrimaryColor,
       body: Stack(
         children: [
-          // Animated wavy swirl background
-          AnimatedBuilder(
-            animation: _swirlAnimation,
-            builder: (context, child) {
-              return CustomPaint(
-                size: MediaQuery.of(context).size,
-                painter: WavySwirlPainter(
-                  _swirlAnimation.value,
-                ),
-              );
-            },
-          ),
+          // // Animated wavy swirl background
+          // AnimatedBuilder(
+          //   animation: _swirlAnimation,
+          //   builder: (context, child) {
+          //     return CustomPaint(
+          //       size: MediaQuery.of(context).size,
+          //       painter: WavySwirlPainter(
+          //         _swirlAnimation.value,
+          //       ),
+          //     );
+          //   },
+          // ),
           Center(
             child: FadeTransition(
               opacity: _fadeAnimation,

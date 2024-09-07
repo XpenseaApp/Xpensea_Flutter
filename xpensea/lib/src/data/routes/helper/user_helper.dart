@@ -16,8 +16,9 @@ import 'package:http/http.dart' as http;
 
 part 'user_helper.g.dart';
 
-final String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
-// const String baseUrl = 'https://localhost:3030/api/v1/user';
+final String baseUrl =
+    'https://xpensea--backend-393541516579.asia-south1.run.app/api/v1/user';
+// const String baseUrl = 'https://192.168.29.144:3030/api/v1/user';
 
 class Helper {
   final ApiService _apiService = ApiService();
@@ -30,7 +31,7 @@ class Helper {
       return {"success": false, "message": e.toString()};
     }
   }
-
+  
   // Verify User
   Future<Map<String, dynamic>> verifyUser(String mobile, String otp) async {
     try {

@@ -4,8 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:xpensea/src/data/models/expense.dart';
 
 class ApiService {
-  final String baseUrl = 'https://dev-api.xpensea.com/api/v1/user';
-  // final String baseUrl = 'https://localhost:3030/api/v1/user';
+  final String baseUrl =
+      'https://xpensea--backend-393541516579.asia-south1.run.app/api/v1/user';
+  // final String baseUrl = 'https://192.168.29.144:3030/api/v1/user';
 
   // Send OTP
   Future<Map<String, dynamic>> sendOtp(String mobile) async {

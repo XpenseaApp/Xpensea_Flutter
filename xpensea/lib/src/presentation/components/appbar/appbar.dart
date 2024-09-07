@@ -18,20 +18,19 @@ class CommonAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var response = {
+    Map<String, dynamic> response = {
       'status': 100,
       'message': 'No response',
-      'data': {
-        'latitude': 0.0,
-        'longitude': 0.0,
-        'address': 'No address found',
-      },
+      'data': {},
     };
     return Consumer(
       builder: (context, ref, child) {
         if (isTracking) {
-          response = ref.watch(SaveLocationProvider('Work', '', token)).value;
-          log('Response: ${Response}');
+          response =
+              ref.watch(SaveLocationProvider('Work', '', token)).value == null
+                  ? response
+                  : ref.watch(SaveLocationProvider('Work', '', token)).value;
+          log('Response: ${response.toString()}');
         }
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

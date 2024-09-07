@@ -18,6 +18,7 @@ class ExpenseDialog extends StatelessWidget {
         final expenseAsyncValue = ref.watch(getExpenseProvider(id, token));
 
         return Dialog(
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           insetPadding: const EdgeInsets.all(12),
           child: Container(
