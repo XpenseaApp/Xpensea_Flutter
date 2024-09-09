@@ -250,7 +250,21 @@ class _OtpPageState extends State<OtpPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SvgPicture.asset(AppIcons.starFilled),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset(AppIcons.starFilled),
+            IconButton(
+              onPressed: () {
+                _pageController.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
+          ],
+        ),
         const SizedBox(height: 10),
         const Text(
           "Enter your OTP",
@@ -352,7 +366,21 @@ class _OtpPageState extends State<OtpPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SvgPicture.asset(AppIcons.starFilled),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset(AppIcons.starFilled),
+            IconButton(
+              onPressed: () {
+                _pageController.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              icon: const Icon(Icons.arrow_back_ios_new),
+            ),
+          ],
+        ),
         const SizedBox(height: 10),
         Text(
           LoggedIn ? "Create MPIN" : " MPIN",
@@ -450,7 +478,21 @@ class _OtpPageState extends State<OtpPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SvgPicture.asset(AppIcons.starFilled),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset(AppIcons.starFilled),
+            IconButton(
+              onPressed: () {
+                _pageController.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
+          ],
+        ),
         const SizedBox(height: 10),
         const Text(
           "Enter MPIN",

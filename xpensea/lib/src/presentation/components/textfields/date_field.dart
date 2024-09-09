@@ -78,9 +78,12 @@ class _CustomDateFieldState extends ConsumerState<CustomDateField> {
         switch (hintText) {
           case 'Start date':
             if (isEditable) {
+              ref.read(eventProvider.notifier).updateEventStatus("scheduled");
               ref
                   .read(eventProvider.notifier)
                   .updateEventStartDate(dateController.text);
+            } else {
+              ref.read(eventProvider.notifier).updateEventStatus("progress");
             }
             break;
           case 'End date':
