@@ -13,12 +13,14 @@ import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/appbar/appbar_backbutton.dart';
 
 class PolicyPage extends StatelessWidget {
+  const PolicyPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
         final data = ref.watch(GetPolicyProvider(token)).value;
-        log('DATA: ' + data.toString());
+        log('DATA: $data');
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -29,7 +31,7 @@ class PolicyPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CommonAppBarWback(index: 0, heading: 'Policy'),
+                        const CommonAppBarWback(index: 0, heading: 'Policy'),
                         const SizedBox(height: 24),
                         buildPolicySection(
                             'Policy Details', data['policyDetails']),
@@ -64,7 +66,7 @@ class PolicyPage extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -72,7 +74,7 @@ class PolicyPage extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           body,
-          style: TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14),
         ),
       ],
     );

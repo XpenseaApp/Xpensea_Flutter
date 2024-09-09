@@ -46,7 +46,7 @@ final selectedExpensesProvider =
 class ApprovalDetails extends StatelessWidget {
   final String id;
 
-  ApprovalDetails({Key? key, required this.id}) : super(key: key);
+  const ApprovalDetails({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class ApprovalDetails extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          CommonAppBarWback(index: 2),
+                          const CommonAppBarWback(index: 2),
                           const SizedBox(height: 16),
                           const SizedBox(height: 10),
                           Container(
@@ -87,11 +87,11 @@ class ApprovalDetails extends StatelessWidget {
                                       color: AppPalette.kLSelectedColor,
                                       borderRadius: BorderRadius.circular(4),
                                     ),
-                                    child: Align(
+                                    child: const Align(
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 8.0),
+                                            EdgeInsets.only(left: 8.0),
                                         child: Text(
                                           'Details',
                                           style: AppTextStyle.kMediumBodyM,
@@ -202,7 +202,7 @@ class ApprovalDetails extends StatelessWidget {
                                                               4),
                                                     ),
                                                   ),
-                                                  child: Row(
+                                                  child: const Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
@@ -226,7 +226,7 @@ class ApprovalDetails extends StatelessWidget {
                                                   ),
                                                 )
                                               : Container(),
-                                          SizedBox(width: 8),
+                                          const SizedBox(width: 8),
                                           report['status'] == 'pending'
                                               ? ElevatedButton(
                                                   onPressed: () async {
@@ -250,7 +250,7 @@ class ApprovalDetails extends StatelessWidget {
                                                               4),
                                                     ),
                                                   ),
-                                                  child: Row(
+                                                  child: const Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
@@ -293,10 +293,10 @@ class ApprovalDetails extends StatelessWidget {
                           color: AppPalette.kLSelectedColor,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Align(
+                        child: const Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                            padding: EdgeInsets.only(left: 8.0),
                             child: Text(
                               'Expenses',
                               style: AppTextStyle.kMediumBodyM,
@@ -342,10 +342,10 @@ class ApprovalDetails extends StatelessWidget {
                               color: AppPalette.kLSelectedColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
+                                padding: EdgeInsets.only(left: 8.0),
                                 child: Text(
                                   'Description',
                                   style: AppTextStyle.kMediumBodyM,
@@ -354,7 +354,7 @@ class ApprovalDetails extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
+                          const Text(
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                             style: AppTextStyle.kSmallBodyR,
                           ),
@@ -365,10 +365,10 @@ class ApprovalDetails extends StatelessWidget {
                               color: AppPalette.kLSelectedColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
+                                padding: EdgeInsets.only(left: 8.0),
                                 child: Text(
                                   'Comment by Approver',
                                   style: AppTextStyle.kMediumBodyM,
@@ -377,7 +377,7 @@ class ApprovalDetails extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
+                          const Text(
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                             style: AppTextStyle.kSmallBodyR,
                           ),
@@ -388,10 +388,10 @@ class ApprovalDetails extends StatelessWidget {
                               color: AppPalette.kLSelectedColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
+                                padding: EdgeInsets.only(left: 8.0),
                                 child: Text(
                                   'Comment by Finance team',
                                   style: AppTextStyle.kMediumBodyM,
@@ -400,7 +400,7 @@ class ApprovalDetails extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
+                          const Text(
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                             style: AppTextStyle.kSmallBodyR,
                           ),
@@ -414,7 +414,7 @@ class ApprovalDetails extends StatelessWidget {
             ),
           );
         } else {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),

@@ -10,7 +10,6 @@ import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
 import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
 import 'package:xpensea/src/presentation/components/textfields/regular_textfield.dart';
-import 'package:xpensea/src/presentation/components/textfields/title_textfield.dart';
 import 'package:xpensea/src/presentation/screens/report/expenses_list_page.dart';
 
 class PreviewReport extends StatelessWidget {

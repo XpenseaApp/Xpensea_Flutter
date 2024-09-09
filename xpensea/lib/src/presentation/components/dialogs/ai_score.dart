@@ -7,12 +7,12 @@ class ScoreCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 50,
       height: 50,
       child: Center(
         child: score == 0
-            ? Icon(
+            ? const Icon(
                 Icons.close,
                 color: Colors.red,
                 size: 24,
@@ -31,7 +31,7 @@ class ScoreCircle extends StatelessWidget {
                   Center(
                     child: Text(
                       '$score',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),

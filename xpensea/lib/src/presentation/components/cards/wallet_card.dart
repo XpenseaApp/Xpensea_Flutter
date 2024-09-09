@@ -10,7 +10,7 @@ class WalletCard extends StatelessWidget {
   final int advanceAmount;
   final int amountUsed;
 
-  WalletCard({required this.advanceAmount, required this.amountUsed});
+  const WalletCard({super.key, required this.advanceAmount, required this.amountUsed});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class WalletCard extends StatelessWidget {
         padding: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
+            colors: const [
               AppPalette.kPrimaryColor,
               Color.fromARGB(255, 0, 28, 99),
             ],

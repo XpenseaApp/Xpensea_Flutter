@@ -112,11 +112,9 @@ class CaptureBillPage extends ConsumerWidget {
                       await Minio.shared
                           .fPutObject('xpenseastorage', image.name, image.path);
                       print(
-                          "https://xpenseastorage.s3.ap-south-1.amazonaws.com/" +
-                              image.name);
+                          "https://xpenseastorage.s3.ap-south-1.amazonaws.com/${image.name}");
                       imageUrl =
-                          "https://xpenseastorage.s3.ap-south-1.amazonaws.com/" +
-                              image.name;
+                          "https://xpenseastorage.s3.ap-south-1.amazonaws.com/${image.name}";
 
                       // Determine location
                       location = await determinePosition();
@@ -131,7 +129,7 @@ class CaptureBillPage extends ConsumerWidget {
                         Navigator.pop(context); // Close the loading dialog
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return CreateExpense();
+                          return const CreateExpense();
                         }));
                       } else {
                         Navigator.pop(context); // Close the loading dialog
@@ -139,7 +137,7 @@ class CaptureBillPage extends ConsumerWidget {
                           context: context,
                           builder: (context) => AlertDialog(
                             title: const Text('Error'),
-                            content: Text('The image is not a bill'),
+                            content: const Text('The image is not a bill'),
                             actions: [
                               TextButton(
                                 onPressed: () {
@@ -152,7 +150,7 @@ class CaptureBillPage extends ConsumerWidget {
                                   Navigator.pop(context);
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return CreateEvent();
+                                    return const CreateExpense();
                                   }));
                                 },
                                 child: const Text('Continue with this'),

@@ -84,8 +84,8 @@ class _MainScreenState extends State<MainScreen> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                      Color.fromARGB(255, 0, 105, 255), // Set the button color
-                  minimumSize: Size(double.infinity,
+                      const Color.fromARGB(255, 0, 105, 255), // Set the button color
+                  minimumSize: const Size(double.infinity,
                       60), // Make button width same as the screen and height 60
                 ),
                 onPressed: () {
@@ -100,8 +100,8 @@ class _MainScreenState extends State<MainScreen> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                      Color.fromARGB(255, 0, 105, 255), // Set the button color
-                  minimumSize: Size(double.infinity,
+                      const Color.fromARGB(255, 0, 105, 255), // Set the button color
+                  minimumSize: const Size(double.infinity,
                       60), // Make button width same as the screen and height 60
                 ),
                 onPressed: () {
@@ -123,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 250, 250, 250),
+      backgroundColor: const Color.fromARGB(255, 250, 250, 250),
       floatingActionButton: _currentIndex == 1 ||
               !approver && _currentIndex == 2 ||
               approver && _currentIndex == 3

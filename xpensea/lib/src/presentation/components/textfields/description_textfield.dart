@@ -12,8 +12,7 @@ class DescriptionTextfield extends StatefulWidget {
   final String? type;
 
   const DescriptionTextfield(
-      {Key? key, this.isEditable, this.hintText, required this.type})
-      : super(key: key);
+      {super.key, this.isEditable, this.hintText, required this.type});
 
   static final _border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(4.0), // Rounded corners

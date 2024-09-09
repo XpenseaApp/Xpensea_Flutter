@@ -15,7 +15,7 @@ class ChangeMPINPage extends StatelessWidget {
   final TextEditingController oldMPINController = TextEditingController();
   final TextEditingController newMPINController = TextEditingController();
 
-  ChangeMPINPage({Key? key}) : super(key: key);
+  ChangeMPINPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ChangeMPINPage extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    CommonAppBarWback(index: 0, heading: 'Change MPIN'),
+                    const CommonAppBarWback(index: 0, heading: 'Change MPIN'),
                     const SizedBox(height: 16),
                     Center(
                       heightFactor: 2.5,
@@ -67,7 +67,7 @@ class ChangeMPINPage extends StatelessWidget {
 
                                 if (oldMPIN.isEmpty || newMPIN.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       backgroundColor: AppPalette.kPrimaryColor,
                                       content:
                                           Text('Please fill in all fields'),
@@ -83,7 +83,7 @@ class ChangeMPINPage extends StatelessWidget {
                                 final Response = await ApiService().changeMpin(
                                     savedNumber!, newMPIN, oldMPIN, token);
                                 log('Old MPIN: $oldMPIN, New MPIN: $newMPIN');
-                                log('Response: ${Response}');
+                                log('Response: $Response');
                                 // Clear the text fields
                                 oldMPINController.clear();
                                 newMPINController.clear();
@@ -95,9 +95,6 @@ class ChangeMPINPage extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: Text('Submit',
-                                  style: AppTextStyle.kSmallBodySB
-                                      .copyWith(color: Colors.white)),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppPalette.kPrimaryColor,
                                 padding: const EdgeInsets.symmetric(
@@ -106,6 +103,9 @@ class ChangeMPINPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
+                              child: Text('Submit',
+                                  style: AppTextStyle.kSmallBodySB
+                                      .copyWith(color: Colors.white)),
                             ),
                           ],
                         ),

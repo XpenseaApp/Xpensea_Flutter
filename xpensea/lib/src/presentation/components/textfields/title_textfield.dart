@@ -6,7 +6,6 @@ import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
-import 'package:xpensea/src/data/repos/location.dart';
 
 class TitleTextField extends StatelessWidget {
   final String? labelText;

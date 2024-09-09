@@ -12,7 +12,7 @@ import 'package:xpensea/src/presentation/components/textfields/description_textf
 import 'package:xpensea/src/presentation/components/textfields/title_textfield.dart';
 
 class BasicEventDetailPage extends StatefulWidget {
-  const BasicEventDetailPage({Key? key}) : super(key: key);
+  const BasicEventDetailPage({super.key});
 
   @override
   _BasicEventDetailPageState createState() => _BasicEventDetailPageState();
@@ -29,13 +29,13 @@ class _BasicEventDetailPageState extends State<BasicEventDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
-              TitleTextField(
+              const TitleTextField(
                 labelText: 'Event Title',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Row(
@@ -72,14 +72,14 @@ class _BasicEventDetailPageState extends State<BasicEventDetailPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               CustomDateField(
                 hintText: 'Start date',
                 isEditable: !isChecked,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               CustomDateField(
@@ -87,23 +87,23 @@ class _BasicEventDetailPageState extends State<BasicEventDetailPage> {
                 isdate: false,
                 isEditable: !isChecked,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              CustomDateField(
+              const CustomDateField(
                 hintText: 'End date',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              CustomDateField(
+              const CustomDateField(
                 hintText: 'End time',
                 isdate: false,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              DescriptionTextfield(
+              const DescriptionTextfield(
                 type: 'event',
               ),
             ],

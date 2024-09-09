@@ -28,7 +28,7 @@ class BasicDetailPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        RegularTextfield(
+        const RegularTextfield(
           hintText: 'Report Title',
         ),
         const SizedBox(

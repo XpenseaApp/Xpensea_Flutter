@@ -18,7 +18,7 @@ class ExpenseDialog extends StatelessWidget {
         final expenseAsyncValue = ref.watch(getExpenseProvider(id, token));
 
         return Dialog(
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           insetPadding: const EdgeInsets.all(12),
           child: Container(
@@ -189,7 +189,7 @@ class ExpenseDialog extends StatelessWidget {
                               ),
                             ],
                           )
-                        : SizedBox.shrink(),
+                        : const SizedBox.shrink(),
                     const SizedBox(
                       height: 8,
                     ),
@@ -244,10 +244,10 @@ class ExpenseDialog extends StatelessWidget {
                     ),
                   ],
                 ),
-                loading: () => Center(
+                loading: () => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                error: (error, stackTrace) => Center(
+                error: (error, stackTrace) => const Center(
                   child: Text('Error loading expense data'),
                 ),
               ),

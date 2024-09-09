@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
-import 'package:xpensea/src/data/repos/location.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
@@ -46,14 +44,17 @@ class _CreateExpenseState extends State<CreateExpense> {
     };
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        return Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+ @override
+Widget build(BuildContext context) {
+  return Consumer(
+    builder: (context, ref, child) {
+      return Scaffold(
+        resizeToAvoidBottomInset: true, // Ensures layout resizes when keyboard opens
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: SingleChildScrollView(
+              // Makes the content scrollable when the keyboard appears
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -64,32 +65,35 @@ class _CreateExpenseState extends State<CreateExpense> {
                       SvgPicture.asset(AppIcons.notificationBell),
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   Text(
                     getPageText(),
                     style: AppTextStyle.kDisplayTitleM,
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Expanded(
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.6, // Limit the page view height
                     child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: pages.length,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _currentPage = index;
-                          });
-                        },
-                        itemBuilder: (_, index) => pages[index]),
+                      controller: _pageController,
+                      itemCount: pages.length,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      },
+                      itemBuilder: (_, index) => pages[index],
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-          bottomNavigationBar: BottomAppBar(
+        ),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust padding when keyboard appears
+          ),
+          child: BottomAppBar(
             color: Colors.transparent,
             child: _currentPage == 0
                 ? Row(
@@ -99,67 +103,47 @@ class _CreateExpenseState extends State<CreateExpense> {
                         child: CustomOutLineButton(
                           text: 'Cancel',
                           onPressed: () {
-                            //TODO : Clear all the data
-                            //TODO : Remove image from the server(minio_flutter)
                             Navigator.pop(context);
                           },
                         ),
                       ),
-                      const SizedBox(
-                        width: 12,
-                      ),
+                      const SizedBox(width: 12),
                       Expanded(
-                          flex: 1,
-                          child: SolidButton(
-                              onPressed: () async {
-                                // location = await determinePosition();
-                                ref
-                                    .read(expenseProvider.notifier)
-                                    .updateExpenseTime(
-                                        DateTime.now().toString());
-                                ref
-                                    .read(expenseProvider.notifier)
-                                    .updateExpenseDate(DateFormat('yyyy-MM-dd')
-                                        .format(DateTime.now()));
-                                if (location != null) {
-                                  ref
-                                      .read(expenseProvider.notifier)
-                                      .updateExpenseLocation(
-                                          '${location?.latitude},${location?.longitude}'
-                                          // '12.9716,77.5946'
-                                          );
-                                }
+                        flex: 1,
+                        child: SolidButton(
+                          onPressed: () async {
+                            ref.read(expenseProvider.notifier).updateExpenseTime(DateTime.now().toString());
+                            ref.read(expenseProvider.notifier).updateExpenseDate(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+                            if (location != null) {
+                              ref.read(expenseProvider.notifier).updateExpenseLocation('${location?.latitude},${location?.longitude}');
+                            }
+                            ref.read(expenseProvider.notifier).updateExpenseImage(imageUrl);
+                            print(ref.read(expenseProvider).toJson());
 
-                                ref
-                                    .read(expenseProvider.notifier)
-                                    .updateExpenseImage(imageUrl);
-                                print(ref.read(expenseProvider).toJson());
-
-                                final Response = await ApiService()
-                                    .createExpense(
-                                        ref.read(expenseProvider), token);
-                                print(Response);
-                                if (Response['success']) {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-
-                                  imageUrl = '';
-                                } else {}
-                                // _pageController.nextPage(
-                                //     duration: const Duration(milliseconds: 300),
-                                //     curve: Curves.easeIn);
-                              },
-                              text: 'Add Expense'))
+                            final response = await ApiService().createExpense(ref.read(expenseProvider), token);
+                            print(response);
+                            if (response['success']) {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              imageUrl = '';
+                            }
+                          },
+                          text: 'Add Expense',
+                        ),
+                      ),
                     ],
                   )
                 : SolidButton(
                     onPressed: () {
                       //TODO: Add expense to server
                     },
-                    text: 'Add Expense'),
+                    text: 'Add Expense',
+                  ),
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
+
 }

@@ -39,7 +39,7 @@ class AppRoutes {
       changeMpin: (context) => ChangeMPINPage(),
       policy: (context) => PolicyPage(),
       wallet: (context) => WalletPage(),
-      debug: (context) => SplashScreen(),
+      debug: (context) => const SplashScreen(),
     };
   }
 }

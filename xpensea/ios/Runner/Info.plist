@@ -14,10 +14,20 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>xpensea</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need access to your location to provide location-based services while using the app.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>We need access to your location at all times to provide continuous location-based services.</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone for recording audio in the app.</string>
+	<key>FLTEnableImpeller</key>
+  	<false />
+	<key>NSCameraUsageDescription</key>
+<string>We need access to your camera to take photos for profile creation</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>

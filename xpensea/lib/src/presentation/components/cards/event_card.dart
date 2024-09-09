@@ -251,7 +251,7 @@ class EventCard extends StatelessWidget {
                 flex: 1, // Bottom 1/4th section
                 child: ElevatedButton(
                   onPressed: () async {
-                    print("report " + report.toString());
+                    print("report $report");
                     await Navigator.pushNamed(
                       context,
                       AppRoutes.reportDetails,

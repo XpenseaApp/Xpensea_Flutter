@@ -27,9 +27,7 @@ class CommonAppBar extends StatelessWidget {
       builder: (context, ref, child) {
         if (isTracking) {
           response =
-              ref.watch(SaveLocationProvider('Work', '', token)).value == null
-                  ? response
-                  : ref.watch(SaveLocationProvider('Work', '', token)).value;
+              ref.watch(SaveLocationProvider('Work', '', token)).value ?? response;
           log('Response: ${response.toString()}');
         }
         return Row(
@@ -50,9 +48,9 @@ class CommonAppBar extends StatelessWidget {
             Row(
               children: [
                 response['status'] != 200 && !isTracking
-                    ? SizedBox.shrink()
+                    ? const SizedBox.shrink()
                     : GlowingProgressIndicator(
-                        child: Icon(Icons.location_on),
+                        child: const Icon(Icons.location_on),
                       ),
                 InkWell(
                     onTap: () {
