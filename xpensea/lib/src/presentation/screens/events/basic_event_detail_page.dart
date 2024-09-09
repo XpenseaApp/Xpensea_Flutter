@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -50,6 +52,15 @@ class _BasicEventDetailPageState extends State<BasicEventDetailPage> {
                           ref
                               .read(eventProvider.notifier)
                               .updateEventStartTime(DateTime.now().toString());
+
+                          ref
+                              .read(eventProvider.notifier)
+                              .updateEventStatus("progress");
+                          log('event status: ${ref.read(eventProvider).status}');
+                        } else {
+                          ref
+                              .read(eventProvider.notifier)
+                              .updateEventStatus("scheduled");
                         }
                       });
                     },

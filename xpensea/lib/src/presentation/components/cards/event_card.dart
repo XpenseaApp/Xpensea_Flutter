@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart'; // Add intl for date/time parsing
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
@@ -27,15 +29,38 @@ class EventCard extends StatelessWidget {
 
   double _calculatePercentage() {
     final now = DateTime.now();
+    final endTimeDateTime = _parseEndTime(endDate, endtime);
+
     if (now.isBefore(startDate)) {
       return 0;
-    } else if (now.isAfter(endDate)) {
+    } else if (now.isAfter(endTimeDateTime)) {
       return 100;
     } else {
-      final totalDuration = endDate.difference(startDate).inMinutes;
+      final totalDuration = endTimeDateTime.difference(startDate).inMinutes;
       final elapsedDuration = now.difference(startDate).inMinutes;
       return (elapsedDuration / totalDuration) * 100;
     }
+  }
+
+  DateTime _parseEndTime(DateTime endDate, String endtime) {
+    // Combine endDate with endtime to get the full DateTime object
+    final formattedEndTime =
+        DateFormat('hh:mm a').parse(endtime); // Parse the time
+    return DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+      formattedEndTime.hour,
+      formattedEndTime.minute,
+    );
+  }
+
+  int _getTimeLeftInMinutes() {
+    final now = DateTime.now();
+    final endTimeDateTime = _parseEndTime(endDate, endtime);
+    final differenceInMinutes = endTimeDateTime.difference(now).inMinutes;
+    return differenceInMinutes.clamp(
+        0, endTimeDateTime.difference(startDate).inMinutes);
   }
 
   @override
@@ -126,7 +151,7 @@ class EventCard extends StatelessWidget {
                             color: Colors.grey,
                           ),
                           Text(
-                            '${(endDate.difference(DateTime.now()).inMinutes).clamp(0, endDate.difference(startDate).inMinutes)}min',
+                            '${_getTimeLeftInMinutes()} min',
                             style: AppTextStyle.kSmallBodySB.copyWith(
                               fontWeight: FontWeight.w500,
                               fontSize: 12,
@@ -200,7 +225,7 @@ class EventCard extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${endtime}',
+                                          endtime,
                                           style: AppTextStyle.kSmallBodySB
                                               .copyWith(
                                             fontSize: 12,
