@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
         runSpacing: 8,
         children: List.generate(
           menuCards.length,
-          (index) => Container(
+          (index) => SizedBox(
             width: shouldWrap
                 ? (constraints.maxWidth / 2) - 16  // Wrap and set width for 2 items per row
                 : (constraints.maxWidth / menuCards.length) - 16, // Fit all in one line
@@ -167,7 +167,7 @@ class HomePage extends StatelessWidget {
                         );
                       }),
                     )
-                  : SizedBox.shrink(),
+                  : const SizedBox.shrink(),
             ),
             const SizedBox(
               height: 40,
@@ -182,7 +182,7 @@ class HomePage extends StatelessWidget {
             ),
             Expanded(
               child: ListView.separated(
-                key: PageStorageKey('drafts'),
+                key: const PageStorageKey('drafts'),
                 itemCount: draft.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context, index) => ReportCard(

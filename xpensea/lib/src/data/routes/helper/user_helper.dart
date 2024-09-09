@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 
 part 'user_helper.g.dart';
 
-final String baseUrl =
+const String baseUrl =
     'https://xpensea--backend-393541516579.asia-south1.run.app/api/v1/user';
 // const String baseUrl = 'https://192.168.29.144:3030/api/v1/user';
 
@@ -45,9 +45,6 @@ class Helper {
   Future<Map<String, dynamic>> mpinHandler(String mobile, String mpin) async {
     try {
       final result = await _apiService.mpinHandler(mobile, mpin);
-      if (result == null) {
-        return {"success": false, "message": "Error: Received null response"};
-      }
       return result;
     } catch (e) {
       return {"success": false, "message": e.toString()};
@@ -178,7 +175,7 @@ Future<dynamic> UpdateReport(String id, List<String> expenses, String token,
     );
 
     final responseBody = jsonDecode(response.body);
-    log('responseBody: ${responseBody}');
+    log('responseBody: $responseBody');
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -245,7 +242,7 @@ Future<List<Reports>> reportList(
           .where((e) => e['status'] == type)
           .map<Reports>((e) => Reports.fromJson(e))
           .toList();
-      Timer(Duration(seconds: 2), () {
+      Timer(const Duration(seconds: 2), () {
         ref.invalidateSelf();
       });
       return data;
@@ -297,7 +294,7 @@ Future<List<Event>> eventList(
     final responseBody = jsonDecode(response.body);
     if (response.statusCode == 200) {
       List<dynamic> rawData = responseBody['data'];
-      log('rawData: ${rawData}');
+      log('rawData: $rawData');
       List<Event> data = rawData
           .where((e) => e['status'] == type)
           .map<Event>((e) => Event.fromJson(e))
@@ -317,16 +314,16 @@ Future<List<Event>> eventList(
 Future<Expenses> getExpense(GetExpenseRef ref, String id, String token) async {
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/expense/${id}'),
+      Uri.parse('$baseUrl/expense/$id'),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ${token}"
+        "Authorization": "Bearer $token"
       },
     );
 
     final responseBody = jsonDecode(response.body);
 
-    log('responseBody: ${responseBody}');
+    log('responseBody: $responseBody');
     if (response.statusCode == 200) {
       return Expenses.fromJson(responseBody['data']);
     } else {
@@ -341,18 +338,18 @@ Future<Expenses> getExpense(GetExpenseRef ref, String id, String token) async {
 Future<dynamic> getReport(
     GetReportRef ref, String id, String? isEvent, String token) async {
   try {
-    log('request: ${'$baseUrl/report/${id}${isEvent != null ? "?isEvent=$isEvent" : ""}'}');
+    log('request: ${'$baseUrl/report/$id${isEvent != null ? "?isEvent=$isEvent" : ""}'}');
     final response = await http.get(
       Uri.parse(
-          '$baseUrl/report/${id}${isEvent != null ? "?isEvent=$isEvent" : ""}'),
+          '$baseUrl/report/$id${isEvent != null ? "?isEvent=$isEvent" : ""}'),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ${token}"
+        "Authorization": "Bearer $token"
       },
     );
 
     final responseBody = jsonDecode(response.body);
-    log('responseBody: ${responseBody}');
+    log('responseBody: $responseBody');
 
     log('responseData: ${responseBody['data']}');
 
@@ -371,10 +368,10 @@ Future<dynamic> getApproval(GetApprovalRef ref, String id, String token) async {
   // log('id: $id');
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/approval/${id}'),
+      Uri.parse('$baseUrl/approval/$id'),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ${token}"
+        "Authorization": "Bearer $token"
       },
     );
 
@@ -499,7 +496,7 @@ Future<dynamic> saveLocation(SaveLocationRef ref, String eventName,
 
     // Make the HTTP POST request to save the location
     final response = await http.post(
-      Uri.parse(baseUrl + '/location'),
+      Uri.parse('$baseUrl/location'),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token",

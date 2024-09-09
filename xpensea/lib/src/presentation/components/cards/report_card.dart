@@ -63,9 +63,9 @@ class Reports {
       date: json['date'] ?? json['reportDate'] ?? 'Unknown Date',
       leadingIconPath: json['leadingIconPath'] ?? AppIcons.report,
       status: json['status'],
-      statusColor: Color.fromARGB(255, 249, 249, 249),
+      statusColor: const Color.fromARGB(255, 249, 249, 249),
       statusTextColor: json['status'] == 'approved'
-          ? Color.fromARGB(255, 20, 174, 92)
+          ? const Color.fromARGB(255, 20, 174, 92)
           : json['status'] == 'rejected'
               ? const Color.fromARGB(255, 224, 13, 0)
               : json['status'] == 'reimbursed'

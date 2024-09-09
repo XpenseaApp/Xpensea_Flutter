@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/presentation/screens/routes/routes.dart';
-import 'package:xpensea/src/data/repos/globals.dart' as globals;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:motion/motion.dart';
 

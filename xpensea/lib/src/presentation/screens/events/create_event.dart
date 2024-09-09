@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
@@ -11,7 +10,6 @@ import 'package:xpensea/src/presentation/components/buttons/outline_button.dart'
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/events/basic_event_detail_page.dart';
-import 'package:xpensea/src/presentation/screens/events/event_list_page.dart';
 import 'package:xpensea/src/presentation/screens/events/success_event_page.dart';
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});

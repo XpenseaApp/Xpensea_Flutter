@@ -78,7 +78,7 @@ class ReportPage extends ConsumerWidget {
             child: TabBarView(
               children: [
                 ListView.separated(
-                  key: PageStorageKey('drafts'),
+                  key: const PageStorageKey('drafts'),
                   itemCount: draft.length,
                   separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) => ReportCard(
@@ -86,7 +86,7 @@ class ReportPage extends ConsumerWidget {
                   ),
                 ),
                 ListView.separated(
-                  key: PageStorageKey('history'),
+                  key: const PageStorageKey('history'),
                   itemCount: history.length,
                   separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) => ReportCard(

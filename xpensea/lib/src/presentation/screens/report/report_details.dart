@@ -20,7 +20,7 @@ import 'package:xpensea/src/presentation/screens/report/expenses_list_page.dart'
 class ReportDetail extends StatelessWidget {
   final String id;
 
-  ReportDetail({Key? key, required this.id}) : super(key: key);
+  const ReportDetail({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class ReportDetail extends StatelessWidget {
           }
 
           return Scaffold(
-            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             body: SafeArea(
               child: Stack(
                 children: [
@@ -53,7 +53,7 @@ class ReportDetail extends StatelessWidget {
                         SliverToBoxAdapter(
                           child: Column(
                             children: [
-                              CommonAppBarWback(index: 0, heading: 'Report'),
+                              const CommonAppBarWback(index: 0, heading: 'Report'),
                               const SizedBox(height: 16),
                               const SizedBox(height: 10),
                               Container(
@@ -67,10 +67,10 @@ class ReportDetail extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(4),
                                         ),
-                                        child: Align(
+                                        child: const Align(
                                           alignment: Alignment.centerLeft,
                                           child: Padding(
-                                            padding: const EdgeInsets.only(
+                                            padding: EdgeInsets.only(
                                                 left: 8.0),
                                             child: Text(
                                               'Details',
@@ -180,10 +180,10 @@ class ReportDetail extends StatelessWidget {
                               color: AppPalette.kLSelectedColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
+                                padding: EdgeInsets.only(left: 8.0),
                                 child: Text(
                                   'Expenses',
                                   style: AppTextStyle.kMediumBodyM,
@@ -236,10 +236,10 @@ class ReportDetail extends StatelessWidget {
                                   color: AppPalette.kLSelectedColor,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: Align(
+                                child: const Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
+                                    padding: EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       'Description',
                                       style: AppTextStyle.kMediumBodyM,
@@ -248,7 +248,7 @@ class ReportDetail extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Text(
+                              const Text(
                                 'Lorem ipsum dolor sit amet, cona qui officia deserunt mollit anim id est laborum.',
                                 style: AppTextStyle.kSmallBodyR,
                               ),
@@ -259,10 +259,10 @@ class ReportDetail extends StatelessWidget {
                                   color: AppPalette.kLSelectedColor,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: Align(
+                                child: const Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
+                                    padding: EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       'Comment by Approver',
                                       style: AppTextStyle.kMediumBodyM,
@@ -271,7 +271,7 @@ class ReportDetail extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Text(
+                              const Text(
                                 'Lorem ipsum dolor sit amet, consecteroident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                                 style: AppTextStyle.kSmallBodyR,
                               ),
@@ -282,10 +282,10 @@ class ReportDetail extends StatelessWidget {
                                   color: AppPalette.kLSelectedColor,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: Align(
+                                child: const Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
+                                    padding: EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       'Comment by Finance team',
                                       style: AppTextStyle.kMediumBodyM,
@@ -294,7 +294,7 @@ class ReportDetail extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Text(
+                              const Text(
                                 'Lorem ipsum dolor sit amet, consecteroident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                                 style: AppTextStyle.kSmallBodyR,
                               ),
@@ -353,7 +353,7 @@ class ReportDetail extends StatelessWidget {
                                         enableDrag: true,
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return Container(
+                                          return SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -407,13 +407,13 @@ class ReportDetail extends StatelessWidget {
                             ),
                           ],
                         )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),
           );
         } else {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),

@@ -44,7 +44,7 @@ class BasicExpenseDetailPage extends StatelessWidget {
                 SizedBox(height: 12),
                 TitleTextField(labelText: 'Expense Title'),
                 SizedBox(height: 12),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: SimpleDropdownWidget(
                       hint: 'Expense Category', items: expenseCategories),

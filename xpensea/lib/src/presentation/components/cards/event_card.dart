@@ -200,7 +200,7 @@ class EventCard extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${endtime}',
+                                          endtime,
                                           style: AppTextStyle.kSmallBodySB
                                               .copyWith(
                                             fontSize: 12,
@@ -226,7 +226,7 @@ class EventCard extends StatelessWidget {
                 flex: 1, // Bottom 1/4th section
                 child: ElevatedButton(
                   onPressed: () async {
-                    print("report " + report.toString());
+                    print("report $report");
                     await Navigator.pushNamed(
                       context,
                       AppRoutes.reportDetails,

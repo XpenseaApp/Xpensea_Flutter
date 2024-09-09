@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
-import 'package:xpensea/src/data/models/report.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';

@@ -13,11 +13,11 @@ class CustomDateField extends ConsumerStatefulWidget {
   final bool? isEditable;
   final bool? isdate;
   const CustomDateField({
-    Key? key,
+    super.key,
     this.hintText = 'Date',
     this.isEditable = true,
     this.isdate = true,
-  }) : super(key: key);
+  });
 
   static final _border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(4.0), // Rounded corners

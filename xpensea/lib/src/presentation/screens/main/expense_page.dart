@@ -78,7 +78,7 @@ class ExpensePage extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     ListView.separated(
-                      itemCount: expenses!.length,
+                      itemCount: expenses.length,
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ExpensesCard(
                         expenses: expenses[index],
