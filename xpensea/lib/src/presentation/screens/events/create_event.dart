@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
@@ -160,6 +161,7 @@ class _CreateEventState extends State<CreateEvent> {
 
                       if (respose['success']) {
                         ref.read(eventProvider.notifier).removeEvent();
+                        ref.invalidate(eventListProvider);
                         Navigator.pop(context);
                       } else {
                         showDialog(
