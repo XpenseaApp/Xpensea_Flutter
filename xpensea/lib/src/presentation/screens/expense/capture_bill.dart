@@ -152,7 +152,7 @@ class CaptureBillPage extends ConsumerWidget {
                                   Navigator.pop(context);
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return CreateEvent();
+                                    return CreateExpense();
                                   }));
                                 },
                                 child: const Text('Continue with this'),

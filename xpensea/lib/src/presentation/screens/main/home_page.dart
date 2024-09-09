@@ -106,20 +106,34 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 28,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Wrap(
-                spacing: 8,
-                children: List.generate(
-                  menuCards.length,
-                  (index) => MenuCard(
-                    text: menuCards[index].text,
-                    iconPath: menuCards[index].iconPath,
-                    onTap: menuCards[index].onTap,
-                  ),
-                ),
-              ),
+           Align(
+  alignment: Alignment.center,
+  child: LayoutBuilder(
+    builder: (context, constraints) {
+      // Ensure we don't wrap if there are 3 or fewer items
+      bool shouldWrap = menuCards.length > 3;
+
+      return Wrap(
+        alignment: WrapAlignment.center,
+        spacing: 8,
+        runSpacing: 8,
+        children: List.generate(
+          menuCards.length,
+          (index) => Container(
+            width: shouldWrap
+                ? (constraints.maxWidth / 2) - 16  // Wrap and set width for 2 items per row
+                : (constraints.maxWidth / menuCards.length) - 16, // Fit all in one line
+            child: MenuCard(
+              text: menuCards[index].text,
+              iconPath: menuCards[index].iconPath,
+              onTap: menuCards[index].onTap,
             ),
+          ),
+        ),
+      );
+    },
+  ),
+),
             const SizedBox(
               height: 16,
             ),

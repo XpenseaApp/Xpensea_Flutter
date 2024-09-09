@@ -32,7 +32,10 @@ class MenuCard extends StatelessWidget {
             ),
             Text(
               text,
-              style: AppTextStyle.kSmallBodySB,
+              style: AppTextStyle.kSmallBodySB.copyWith(
+                fontSize: 10,
+              ),
+              
             )
           ],
         ),
