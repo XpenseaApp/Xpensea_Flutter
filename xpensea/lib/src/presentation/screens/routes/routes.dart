@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xpensea/src/presentation/screens/approver/approval_details.dart';
+import 'package:xpensea/src/presentation/screens/home/notification_page.dart';
 import 'package:xpensea/src/presentation/screens/home/upi_payment.dart';
 import 'package:xpensea/src/presentation/screens/profile/change_mpin.dart';
 import 'package:xpensea/src/presentation/screens/profile/policy.dart';
@@ -24,6 +25,7 @@ class AppRoutes {
   static const String changeMpin = "/changeMpin";
   static const String policy = "/policy";
   static const String wallet = "/wallet";
+  static const String notification = "/notification";
   static const String debug = "/debug";
 
   static Map<String, WidgetBuilder> getRoutes() {
@@ -39,6 +41,7 @@ class AppRoutes {
       changeMpin: (context) => ChangeMPINPage(),
       policy: (context) => const PolicyPage(),
       wallet: (context) => const WalletPage(),
+      notification: (context) => const NotificationPage(),
       debug: (context) => const SplashScreen(),
     };
   }

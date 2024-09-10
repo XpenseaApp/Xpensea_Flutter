@@ -27,6 +27,7 @@ class _ReportProblemDialogState extends State<ReportProblemDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       insetPadding: const EdgeInsets.all(12),
       child: Container(
