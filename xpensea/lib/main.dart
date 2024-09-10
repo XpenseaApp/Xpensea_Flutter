@@ -27,7 +27,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Initialize the plugin.
+    /// Initialize the pligin
 
     //test token
     // globals.token =
