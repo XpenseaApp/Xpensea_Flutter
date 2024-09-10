@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,11 +10,8 @@ import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 
 import 'package:xpensea/src/presentation/components/appbar/appbar_backbutton.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
-import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/screens/report/expenses_list_page.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SelectedExpensesNotifier extends StateNotifier<List<String>> {
   SelectedExpensesNotifier() : super([]);

@@ -34,11 +34,11 @@ class AppRoutes {
       createEvent: (context) => const CreateEvent(),
       createReport: (context) => const CreateReport(),
       captureBill: (context) => const CaptureBillPage(),
-      reportDetails: (context) => ReportDetail(id: ''),
-      approvalDetails: (context) => ApprovalDetails(id: ''),
+      reportDetails: (context) => const ReportDetail(id: ''),
+      approvalDetails: (context) => const ApprovalDetails(id: ''),
       changeMpin: (context) => ChangeMPINPage(),
-      policy: (context) => PolicyPage(),
-      wallet: (context) => WalletPage(),
+      policy: (context) => const PolicyPage(),
+      wallet: (context) => const WalletPage(),
       debug: (context) => const SplashScreen(),
     };
   }

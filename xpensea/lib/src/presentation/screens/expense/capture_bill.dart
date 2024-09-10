@@ -11,7 +11,6 @@ import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/data/repos/location.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
-import 'package:xpensea/src/presentation/screens/events/create_event.dart';
 import 'package:xpensea/src/presentation/screens/expense/create_expense.dart';
 import 'package:minio_flutter/io.dart';
 import 'package:minio_flutter/minio.dart';

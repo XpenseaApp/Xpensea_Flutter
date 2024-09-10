@@ -5,8 +5,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
-import 'package:xpensea/src/data/models/expense.dart';
-import 'package:xpensea/src/data/models/report.dart';
 import 'package:xpensea/src/data/repos/location.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/data/models/event.dart';

@@ -4,7 +4,6 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
-import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/ai_score.dart';
 
 class ExpenseDialog extends StatelessWidget {

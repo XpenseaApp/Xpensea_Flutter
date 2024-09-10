@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +8,6 @@ import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/cards/activity_card.dart';
 import 'package:xpensea/src/presentation/components/cards/event_card.dart';
-import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/cards/menu_card.dart';
 import 'package:xpensea/src/presentation/components/cards/report_card.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';

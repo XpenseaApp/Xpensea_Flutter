@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/event.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
-import 'package:xpensea/src/presentation/components/checkbox/custom_checkbox.dart';
 import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
 import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
 import 'package:xpensea/src/presentation/components/textfields/title_textfield.dart';

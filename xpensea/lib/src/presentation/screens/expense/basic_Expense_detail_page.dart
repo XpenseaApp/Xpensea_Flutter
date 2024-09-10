@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
-import 'package:xpensea/src/presentation/components/checkbox/custom_checkbox.dart';
 import 'package:xpensea/src/presentation/components/dropdown/single_dropdown.dart';
-import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
 import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
 import 'package:xpensea/src/presentation/components/textfields/title_textfield.dart';
 

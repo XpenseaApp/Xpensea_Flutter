@@ -5,7 +5,6 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
-import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/dialogs/filter_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/components/textfields/search_field.dart';
