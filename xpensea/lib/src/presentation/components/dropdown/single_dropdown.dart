@@ -6,7 +6,7 @@ import 'package:xpensea/src/data/models/expense.dart';
 class SimpleDropdownWidget extends StatefulWidget {
   final List<String>? items;
   final String? hint;
-  SimpleDropdownWidget({super.key, this.items, this.hint});
+  const SimpleDropdownWidget({super.key, this.items, this.hint});
 
   static final _border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(4.0), // Rounded corners
@@ -21,8 +21,8 @@ class SimpleDropdownWidget extends StatefulWidget {
 class _SimpleDropdownWidgetState extends State<SimpleDropdownWidget> {
   @override
   Widget build(BuildContext context) {
-    String? _selected;
-    final List<String> _approvers =
+    String? selected;
+    final List<String> approvers =
         widget.items ?? ['John Doe', 'Jane Smith', 'Alex Johnson'];
     return Consumer(
       builder: (context, ref, child) {
@@ -33,11 +33,11 @@ class _SimpleDropdownWidgetState extends State<SimpleDropdownWidget> {
             enabledBorder: SimpleDropdownWidget._border,
             focusedBorder: SimpleDropdownWidget._border,
           ),
-          value: _selected,
-          hint: Text(' ${widget.hint}') ?? Text('Approver'),
+          value: selected,
+          hint: Text(' ${widget.hint}') ?? const Text('Approver'),
           onChanged: (String? newValue) {
             setState(() {
-              _selected = newValue;
+              selected = newValue;
             });
 
             switch (widget.hint) {
@@ -52,7 +52,7 @@ class _SimpleDropdownWidgetState extends State<SimpleDropdownWidget> {
                 break;
             }
           },
-          items: _approvers.map<DropdownMenuItem<String>>((String value) {
+          items: approvers.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),

@@ -5,7 +5,6 @@ import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
-import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/dialogs/filter_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/components/textfields/search_field.dart';
@@ -18,8 +17,16 @@ class ExpensePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final List<Expenses> expenses =
+        final List<Expenses> mappedExpenses =
             ref.watch(expenseListProvider(globals.token, 'mapped')).value ?? [];
+
+        final List<Expenses> approvedExpenses =
+            ref.watch(expenseListProvider(globals.token, 'accepted')).value ??
+                [];
+
+        final List<Expenses> expenses =
+            [mappedExpenses, approvedExpenses].expand((x) => x).toList();
+
         final List<Expenses> draftExpenses =
             ref.watch(expenseListProvider(globals.token, 'draft')).value ?? [];
 
@@ -70,16 +77,11 @@ class ExpensePage extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     ListView.separated(
-                      itemCount: expenses!.length,
+                      itemCount: expenses.length,
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) => ExpensesCard(
                         expenses: expenses[index],
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const ExpenseDialog(),
-                          );
-                        },
+                        onTap: () {},
                       ),
                     ),
                     ListView.separated(

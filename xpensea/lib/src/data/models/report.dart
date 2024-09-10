@@ -23,14 +23,14 @@ class Report {
 
   factory Report.fromJson(Map<String, dynamic> json) {
     return Report(
-      title: json['title'],
-      reportDate: json['reportDate'],
-      description: json['description'],
-      location: json['location'],
-      type: json['type'],
-      event: json['event'],
-      status: json['status'],
-      expenses: List<String>.from(json['expenses']),
+      title: json['title'] ?? '',
+      reportDate: json['reportDate'] ?? '',
+      description: json['description'] ?? '',
+      location: json['location'] ?? '',
+      type: json['type'] ?? '',
+      event: json['event'] ?? '',
+      status: json['status'] ?? '',
+      expenses: List<String>.from(json['expenses'] ?? []),
     );
   }
 
@@ -42,7 +42,7 @@ class Report {
       'location': location,
       'type': type,
       if (event != '') 'event': event,
-      'status': status,
+      if (status != '') 'status': status,
       'expenses': expenses,
     };
   }
@@ -137,10 +137,8 @@ class ReportNotifier extends StateNotifier<Report> {
     state = state.copyWith(status: status);
   }
 
-  void updateReportExpenses(String expenses) {
-    if (!state.expenses.contains(expenses)) {
-      state = state.copyWith(expenses: [...state.expenses, expenses]);
-    }
+  void updateReportExpenses(List<String> expenses) {
+    state = state.copyWith(expenses: expenses);
   }
 }
 

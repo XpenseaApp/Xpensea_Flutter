@@ -1,0 +1,100 @@
+name: Flutter CI
+
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - prod
+      - TestNihal
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  Android:
+    # This job will run on ubuntu virtual machine
+    runs-on: ubuntu-latest
+    outputs:
+      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - uses: actions/checkout@v2
+
+      # Setup Java environment in order to build the Android app.
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '12'
+      
+      # Setup the flutter environment.
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'beta' # 'dev', 'alpha', default to: 'stable'
+          # flutter-version: '1.12.x' # you can also specify exact version of flutter
+      
+      # Get flutter dependencies.
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: xpensea
+      
+      # Build apk.
+      - name: Build APK
+        run: flutter build apk
+        working-directory: xpensea
+
+      # Create a GitHub release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: release-${{ github.run_id }}
+          release_name: Release ${{ github.run_id }}
+          draft: false
+          prerelease: false
+      
+      # Upload generated apk to the release.
+      - name: Upload APK to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: xpensea/build/app/outputs/apk/release/app-release.apk
+          asset_name: app-release.apk
+          asset_content_type: application/vnd.android.package-archive
+
+  # Ios:
+  #   runs-on: macos-latest
+  #   needs: Android
+  #   steps:
+  #     - uses: actions/checkout@v2
+      
+  #     - name: Set up Flutter
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: stable
+      
+  #     - name: Get dependencies
+  #       run: flutter pub get
+  #       working-directory: xpensea
+      
+  #     - name: Build iOS
+  #       run: flutter build ipa --release --no-codesign
+  #       working-directory: xpensea
+
+  #     # List contents of the build/ios/ipa directory
+  #     - name: List contents of build/ios/ipa
+  #       run: ls -R xpensea/build/ios/
+
+  #     # Upload generated iOS artifacts to the release.
+  #     - name: Upload iOS to Release
+  #       uses: actions/upload-release-asset@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ needs.Android.outputs.release_upload_url }}
+  #         asset_path: xpensea/build/ios/ipa/app-release.ipa  # Adjust this path based on the output of the ls command
+  #         asset_name: app-release.ipa
+  #         asset_content_type: application/octet-stream

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
 
 class CustomCheckBox extends StatefulWidget {
   final String label;
@@ -22,6 +23,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           onChanged: (bool? value) {
             setState(() {
               isChecked = value ?? false;
+              eventCheckbox = isChecked;
             });
           },
         ),

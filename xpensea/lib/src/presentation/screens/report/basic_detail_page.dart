@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/presentation/components/textfields/date_field.dart';
 import 'package:xpensea/src/presentation/components/textfields/description_textfield.dart';
@@ -28,13 +27,15 @@ class BasicDetailPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        RegularTextfield(
+        const RegularTextfield(
           hintText: 'Report Title',
         ),
         const SizedBox(
           height: 20,
         ),
-        const CustomDateField(),
+        const CustomDateField(
+          hintText: 'Report Date',
+        ),
         const SizedBox(
           height: 20,
         ),

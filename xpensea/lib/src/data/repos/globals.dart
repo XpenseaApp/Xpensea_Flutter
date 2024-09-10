@@ -2,5 +2,14 @@
 
 library data;
 
+import 'package:geolocator/geolocator.dart';
+
 String token = '';
-// Rest of your code goes here
+bool approver = false;
+String imageUrl = '';
+Position? location;
+bool eventCheckbox = false;
+bool LoggedIn = false;
+String username = 'Username';
+String employeeID = 'employeeID';
+bool isTracking = true;
