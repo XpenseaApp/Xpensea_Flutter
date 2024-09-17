@@ -42,6 +42,7 @@ class Expenses {
   final String? description;
   final String image;
   final AiScores? aiScores;
+  final String? location;
 
   Expenses({
     this.id,
@@ -55,6 +56,7 @@ class Expenses {
     this.description,
     required this.image,
     this.aiScores,
+    this.location,
   });
 
   factory Expenses.fromJson(Map<String, dynamic> json) {
@@ -88,6 +90,7 @@ class Expenses {
       description: json['description'],
       image: json['image'],
       aiScores: aiScores,
+      location: json['location'],
     );
   }
 }

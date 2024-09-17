@@ -24,8 +24,8 @@ class CommonAppBar extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         if (isTracking) {
-          response =
-              ref.watch(SaveLocationProvider('Work', '', token)).value ?? response;
+          response = ref.watch(SaveLocationProvider('Work', '', token)).value ??
+              response;
           log('Response: ${response.toString()}');
         }
         return Row(
@@ -52,7 +52,7 @@ class CommonAppBar extends StatelessWidget {
                       ),
                 InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.debug);
+                      Navigator.pushNamed(context, AppRoutes.notification);
                     },
                     child: SvgPicture.asset(AppIcons.notificationBell)),
               ],

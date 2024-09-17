@@ -16,37 +16,43 @@ class PolicyPage extends StatelessWidget {
         final data = ref.watch(GetPolicyProvider(token)).value;
         log('DATA: $data');
         return Scaffold(
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CommonAppBarWback(index: 0, heading: 'Policy'),
-                        const SizedBox(height: 24),
-                        buildPolicySection(
-                            'Policy Details', data['policyDetails']),
-                        const SizedBox(height: 24),
-                        buildPolicySection('Accuracy', data['accuracy']),
-                        const SizedBox(height: 24),
-                        buildPolicySection(
-                            'Authenticity', data['authenticity']),
-                        const SizedBox(height: 24),
-                        buildPolicySection('Compliance', data['compliance']),
-                        const SizedBox(height: 24),
-                        buildPolicySection('Relevance', data['relevance']),
-                        const SizedBox(height: 24),
-                        buildPolicySection(
-                            'Completeness', data['completeness']),
-                        const SizedBox(height: 24),
+              child: data != null
+                  ? CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CommonAppBarWback(
+                                  index: 0, heading: 'Policy'),
+                              const SizedBox(height: 24),
+                              buildPolicySection(
+                                  'Policy Details', data['policyDetails']),
+                              const SizedBox(height: 24),
+                              buildPolicySection('Accuracy', data['accuracy']),
+                              const SizedBox(height: 24),
+                              buildPolicySection(
+                                  'Authenticity', data['authenticity']),
+                              const SizedBox(height: 24),
+                              buildPolicySection(
+                                  'Compliance', data['compliance']),
+                              const SizedBox(height: 24),
+                              buildPolicySection(
+                                  'Relevance', data['relevance']),
+                              const SizedBox(height: 24),
+                              buildPolicySection(
+                                  'Completeness', data['completeness']),
+                              const SizedBox(height: 24),
+                            ],
+                          ),
+                        ),
                       ],
-                    ),
-                  ),
-                ],
-              ),
+                    )
+                  : const Center(child: CircularProgressIndicator()),
             ),
           ),
         );

@@ -209,36 +209,35 @@ class ExpenseDialog extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        const Text('image'),
+                        const Text('Location: '),
                         const SizedBox(
                           width: 8,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Flower Market',
-                              style: AppTextStyle.kLargeBodySB.copyWith(
-                                fontSize: 15,
-                                color: Colors.grey,
+                        expense.location != null
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    expense.location!,
+                                    style: AppTextStyle.kLargeBodySB.copyWith(
+                                      fontSize: 15,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Not Found",
+                                    style: AppTextStyle.kLargeBodySB.copyWith(
+                                      fontSize: 15,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            Text(
-                              '404, Aluva',
-                              style: AppTextStyle.kLargeBodySB.copyWith(
-                                fontSize: 15,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(
-                              'Ernakulam',
-                              style: AppTextStyle.kLargeBodySB.copyWith(
-                                fontSize: 15,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ],
