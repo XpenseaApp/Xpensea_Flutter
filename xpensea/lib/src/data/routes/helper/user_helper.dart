@@ -29,7 +29,7 @@ class Helper {
       return {"success": false, "message": e.toString()};
     }
   }
-  
+
   // Verify User
   Future<Map<String, dynamic>> verifyUser(String mobile, String otp) async {
     try {

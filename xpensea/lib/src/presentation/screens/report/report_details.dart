@@ -10,6 +10,7 @@ import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 
 import 'package:xpensea/src/presentation/components/appbar/appbar_backbutton.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
+import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/cards/expenses_card.dart';
 import 'package:xpensea/src/presentation/components/dialogs/expense_dialoge.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
@@ -29,13 +30,19 @@ class ReportDetail extends StatelessWidget {
       builder: (context, ref, child) {
         List<Expenses> expenses = [];
         final report = ref.watch(getReportProvider(id, null, token)).value;
+        final expensesNotifier = ref.watch(expensesProvider);
 
         if (report != null && report.isNotEmpty) {
           log('Report: $report');
           final List<dynamic> expenseList = report['expenses'] ?? [];
           expenses = expenseList.map((e) => Expenses.fromJson(e)).toList();
-          if (expenses.isNotEmpty) {
-            log(expenses.first.id.toString());
+
+          // Combine expenses from report and provider if drafted
+          if (report['status'] == 'drafted') {
+            final notifierExpenses = expensesNotifier;
+            final combinedExpenses = [...expenses, ...notifierExpenses];
+            expenses =
+                combinedExpenses.toSet().toList(); // Remove duplicates if any
           }
 
           return Scaffold(
@@ -51,7 +58,8 @@ class ReportDetail extends StatelessWidget {
                         SliverToBoxAdapter(
                           child: Column(
                             children: [
-                              const CommonAppBarWback(index: 0, heading: 'Report'),
+                              const CommonAppBarWback(
+                                  index: 0, heading: 'Report'),
                               const SizedBox(height: 16),
                               const SizedBox(height: 10),
                               Container(
@@ -68,8 +76,7 @@ class ReportDetail extends StatelessWidget {
                                         child: const Align(
                                           alignment: Alignment.centerLeft,
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 8.0),
+                                            padding: EdgeInsets.only(left: 8.0),
                                             child: Text(
                                               'Details',
                                               style: AppTextStyle.kMediumBodyM,
@@ -87,8 +94,8 @@ class ReportDetail extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              SvgPicture.asset(AppIcons
-                                                  .airplane), // Replace with a relevant icon
+                                              SvgPicture.asset(
+                                                  AppIcons.airplane),
                                               const SizedBox(width: 12),
                                               Expanded(
                                                 child: Column(
@@ -129,20 +136,22 @@ class ReportDetail extends StatelessWidget {
                                                   padding: const EdgeInsets
                                                       .symmetric(vertical: 4),
                                                   decoration: BoxDecoration(
-                                                      color: Colors.grey,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4)),
+                                                    color: Colors.grey,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
                                                   child: Center(
-                                                      child: Text(
-                                                    report['status'] ??
-                                                        'Unknown',
-                                                    style: AppTextStyle
-                                                        .kSmallBodyR
-                                                        .copyWith(
-                                                      color: Colors.black,
+                                                    child: Text(
+                                                      report['status'] ??
+                                                          'Unknown',
+                                                      style: AppTextStyle
+                                                          .kSmallBodyR
+                                                          .copyWith(
+                                                        color: Colors.black,
+                                                      ),
                                                     ),
-                                                  )),
+                                                  ),
                                                 ),
                                             ],
                                           ),
@@ -155,8 +164,8 @@ class ReportDetail extends StatelessWidget {
                                                   style: AppTextStyle
                                                       .kSmallTitleR
                                                       .copyWith(
-                                                          color: AppPalette
-                                                              .kGray3),
+                                                    color: AppPalette.kGray3,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -227,6 +236,59 @@ class ReportDetail extends StatelessWidget {
                         SliverToBoxAdapter(
                           child: Column(
                             children: [
+                              report['status'] != 'drafted'
+                                  ? SizedBox.shrink()
+                                  : SolidButton(
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          enableDrag: true,
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  1,
+                                              child: Material(
+                                                // Adding Material here to provide the needed Material structure
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Container(
+                                                          height: 4,
+                                                          width: 40,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        2),
+                                                          ),
+                                                        ),
+                                                        Flexible(
+                                                          child:
+                                                              ExpensesListPage(
+                                                            isDraft: true,
+                                                            id: id,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      text: 'Add Expense'),
                               const SizedBox(height: 20),
                               Container(
                                 height: 40,
@@ -316,88 +378,41 @@ class ReportDetail extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
-                                        0.35,
+                                        0.43,
                                     child: CustomOutLineButton(
+                                        text: 'Save Draft',
+                                        onPressed: () async {
+                                          final response = await UpdateReport(
+                                              id!,
+                                              expenses
+                                                  .map((e) => e.id)
+                                                  .whereType<String>()
+                                                  .toList(),
+                                              token,
+                                              'drafted',
+                                              context);
+                                          log('Response: $response');
+                                          ref.invalidate(getReportProvider);
+                                          ref.watch(expensesProvider).clear();
+                                        }),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.43,
+                                    child: SolidButton(
                                       text: 'Submit',
                                       onPressed: () async {
-                                        // ref.read(expensesProvider.notifier).removeAllExpense();
-                                        List<String> expenses = ref
-                                            .watch(expensesProvider)
-                                            .map((e) {
-                                          return e.id!;
-                                        }).toList();
-
                                         final response = await UpdateReport(
                                             id!,
-                                            expenses,
+                                            expenses
+                                                .map((e) => e.id)
+                                                .whereType<String>()
+                                                .toList(),
                                             token,
                                             'pending',
                                             context);
-
-                                        print('response${response.toString()}');
-                                        Navigator.pop(context);
+                                        log('Response: $response');
                                       },
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppPalette.kPrimaryColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        enableDrag: true,
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                1,
-                                            child: Center(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Container(
-                                                      height: 4,
-                                                      width: 40,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.grey,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                      ),
-                                                    ),
-                                                    Flexible(
-                                                        child: ExpensesListPage(
-                                                            isDraft: true,
-                                                            id: id)),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: IntrinsicWidth(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Add Expense ',
-                                            style: AppTextStyle.kSmallBodyR
-                                                .copyWith(color: Colors.white),
-                                          ),
-                                          SvgPicture.asset(AppIcons.edit,
-                                              color: Colors.white),
-                                        ],
-                                      ),
                                     ),
                                   ),
                                 ],
@@ -405,15 +420,17 @@ class ReportDetail extends StatelessWidget {
                             ),
                           ],
                         )
-                      : const SizedBox.shrink(),
+                      : Container(),
                 ],
               ),
             ),
           );
         } else {
           return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
+            body: SafeArea(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           );
         }

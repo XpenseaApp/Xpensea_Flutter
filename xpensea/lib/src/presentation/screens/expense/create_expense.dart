@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
 import 'package:xpensea/src/data/models/expense.dart';
 import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/repos/location.dart';
 import 'package:xpensea/src/data/routes/user_api_routes.dart';
 import 'package:xpensea/src/presentation/components/buttons/outline_button.dart';
 import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
@@ -145,6 +146,12 @@ class _CreateExpenseState extends State<CreateExpense> {
                                     .read(expenseProvider.notifier)
                                     .updateExpenseLocation(
                                         '${location?.latitude},${location?.longitude}');
+
+                                final address = await getAddressFromLatLng(
+                                    location!.latitude, location!.longitude);
+                                ref
+                                    .read(expenseProvider.notifier)
+                                    .updateExpenseAddress(address);
                               }
                               ref
                                   .read(expenseProvider.notifier)

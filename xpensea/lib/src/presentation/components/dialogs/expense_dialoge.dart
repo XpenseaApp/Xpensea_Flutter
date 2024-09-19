@@ -210,36 +210,18 @@ class ExpenseDialog extends StatelessWidget {
                     Row(
                       children: [
                         const Text('Location: '),
-                        const SizedBox(
-                          width: 8,
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            expense.location ?? 'Not Found',
+                            style: AppTextStyle.kLargeBodySB.copyWith(
+                              fontSize: 15,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ),
-                        expense.location != null
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    expense.location!,
-                                    style: AppTextStyle.kLargeBodySB.copyWith(
-                                      fontSize: 15,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Not Found",
-                                    style: AppTextStyle.kLargeBodySB.copyWith(
-                                      fontSize: 15,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              ),
                       ],
-                    ),
+                    )
                   ],
                 ),
                 loading: () => const Center(
