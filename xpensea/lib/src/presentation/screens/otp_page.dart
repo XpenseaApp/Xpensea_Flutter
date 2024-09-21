@@ -107,26 +107,43 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Future<void> handleMpin() async {
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false, // Prevent dialog from closing by tapping outside
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(), // Loading spinner
+        );
+      },
+    );
+
     final response =
         await _helper.mpinHandler(phoneController.text, mpinController.text);
+
+    // Dismiss the loading dialog
+    Navigator.pop(context);
+
     if (!response['success']) {
       showCupertinoDialog(
-          context: context,
-          builder: (context) {
-            final res = response['message'].toString();
-            return CupertinoAlertDialog(
-              title: const Text('Debug'),
-              content: Text(res),
-              actions: [
-                CupertinoDialogAction(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          });
+        context: context,
+        builder: (context) {
+          final res = response['message'].toString();
+          return CupertinoAlertDialog(
+            title: const Text('Debug'),
+            content: Text(res),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
 
     if (response['success']) {
@@ -139,10 +156,6 @@ class _OtpPageState extends State<OtpPage> {
       employeeID = response['data']['data']['employeeId'].toString();
       LoggedIn = true;
       Navigator.pushReplacementNamed(context, AppRoutes.mainpage);
-      // Save response data in shared preferences
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // await prefs.setString('response_data', response['data']);
-      // await prefs.setString('mobile', phoneController.text);
     } else {
       // handle error
       print(response['message']);

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
@@ -104,34 +103,36 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 28,
             ),
-           Align(
-  alignment: Alignment.center,
-  child: LayoutBuilder(
-    builder: (context, constraints) {
-      // Ensure we don't wrap if there are 3 or fewer items
-      bool shouldWrap = menuCards.length > 3;
+            Align(
+              alignment: Alignment.center,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // Ensure we don't wrap if there are 3 or fewer items
+                  bool shouldWrap = menuCards.length > 3;
 
-      return Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 8,
-        runSpacing: 8,
-        children: List.generate(
-          menuCards.length,
-          (index) => SizedBox(
-            width: shouldWrap
-                ? (constraints.maxWidth / 2) - 16  // Wrap and set width for 2 items per row
-                : (constraints.maxWidth / menuCards.length) - 16, // Fit all in one line
-            child: MenuCard(
-              text: menuCards[index].text,
-              iconPath: menuCards[index].iconPath,
-              onTap: menuCards[index].onTap,
+                  return Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: List.generate(
+                      menuCards.length,
+                      (index) => SizedBox(
+                        width: shouldWrap
+                            ? (constraints.maxWidth / 2) -
+                                16 // Wrap and set width for 2 items per row
+                            : (constraints.maxWidth / menuCards.length) -
+                                16, // Fit all in one line
+                        child: MenuCard(
+                          text: menuCards[index].text,
+                          iconPath: menuCards[index].iconPath,
+                          onTap: menuCards[index].onTap,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ),
-      );
-    },
-  ),
-),
             const SizedBox(
               height: 16,
             ),
@@ -141,7 +142,9 @@ class HomePage extends StatelessWidget {
                   ? Row(
                       children: List.generate(progressEvents.length, (index) {
                         return SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.8,
+                          width: progressEvents.length <= 1
+                              ? MediaQuery.of(context).size.width * 0.925
+                              : MediaQuery.of(context).size.width * 0.8,
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),

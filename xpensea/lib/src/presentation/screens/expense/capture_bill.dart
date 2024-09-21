@@ -29,6 +29,7 @@ class CaptureBillPage extends ConsumerWidget {
     );
     final cameraState = ref.watch(cameraProvider);
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),

@@ -11,6 +11,7 @@ import 'package:xpensea/src/presentation/components/buttons/solid_button.dart';
 import 'package:xpensea/src/presentation/components/icons/app_icons.dart';
 import 'package:xpensea/src/presentation/screens/events/basic_event_detail_page.dart';
 import 'package:xpensea/src/presentation/screens/events/success_event_page.dart';
+
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
 
@@ -47,7 +48,9 @@ class _CreateEventState extends State<CreateEvent> {
     return Consumer(
       builder: (context, ref, child) {
         return Scaffold(
-          resizeToAvoidBottomInset: true, // To prevent content from being hidden by the keyboard
+          backgroundColor: Colors.white,
+          resizeToAvoidBottomInset:
+              true, // To prevent content from being hidden by the keyboard
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -74,7 +77,8 @@ class _CreateEventState extends State<CreateEvent> {
                       height: 16,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.6, // Limit the height
+                      height: MediaQuery.of(context).size.height *
+                          0.6, // Limit the height
                       child: PageView.builder(
                         controller: _pageController,
                         itemCount: pages.length,
@@ -93,7 +97,9 @@ class _CreateEventState extends State<CreateEvent> {
           ),
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust for the keyboard
+              bottom: MediaQuery.of(context)
+                  .viewInsets
+                  .bottom, // Adjust for the keyboard
             ),
             child: BottomAppBar(
               color: Colors.transparent,
@@ -126,10 +132,12 @@ class _CreateEventState extends State<CreateEvent> {
                   : SolidButton(
                       onPressed: () async {
                         // Handle the date logic here
-                        final startTimeString = ref.read(eventProvider).startDate;
+                        final startTimeString =
+                            ref.read(eventProvider).startDate;
                         final endTimeString = ref.read(eventProvider).endDate;
 
-                        DateTime? startTime = DateTime.tryParse(startTimeString);
+                        DateTime? startTime =
+                            DateTime.tryParse(startTimeString);
                         DateTime? endTime = DateTime.tryParse(endTimeString);
 
                         if (startTime != null && endTime != null) {
@@ -152,7 +160,9 @@ class _CreateEventState extends State<CreateEvent> {
                                     ));
                             return;
                           }
-                          ref.read(eventProvider.notifier).updateEventDays(days);
+                          ref
+                              .read(eventProvider.notifier)
+                              .updateEventDays(days);
                         } else {
                           print(
                               "Invalid date format: startTime=$startTimeString, endTime=$endTimeString");
@@ -160,14 +170,14 @@ class _CreateEventState extends State<CreateEvent> {
 
                         print(ref.read(eventProvider).toJson());
 
-                        final response = await ApiService()
-                            .createEvent(ref.read(eventProvider).toJson(), token);
+                        final response = await ApiService().createEvent(
+                            ref.read(eventProvider).toJson(), token);
                         print(response);
 
                         if (response['success']) {
                           ref.read(eventProvider.notifier).removeEvent();
                           ref.invalidate(eventListProvider);
-                        Navigator.pop(context);
+                          Navigator.pop(context);
                         } else {
                           showDialog(
                               context: context,
