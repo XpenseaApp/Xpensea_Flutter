@@ -33,7 +33,7 @@ class ReportDetail extends StatelessWidget {
         final expensesNotifier = ref.watch(expensesProvider);
 
         if (report != null && report.isNotEmpty) {
-          log('Report: $report');
+          log('Report : $report');
           final List<dynamic> expenseList = report['expenses'] ?? [];
           expenses = expenseList.map((e) => Expenses.fromJson(e)).toList();
 
@@ -376,10 +376,12 @@ class ReportDetail extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.43,
-                                    child: CustomOutLineButton(
+                                  // If eventStatus is 'progress', show only "Save Draft" with full width
+                                  if (report['eventStatus'] == 'progress')
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.9, // Full width for Save Draft
+                                      child: CustomOutLineButton(
                                         text: 'Save Draft',
                                         onPressed: () async {
                                           final response = await UpdateReport(
@@ -394,27 +396,75 @@ class ReportDetail extends StatelessWidget {
                                           log('Response: $response');
                                           ref.invalidate(getReportProvider);
                                           ref.watch(expensesProvider).clear();
-                                        }),
-                                  ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.43,
-                                    child: SolidButton(
-                                      text: 'Submit',
-                                      onPressed: () async {
-                                        final response = await UpdateReport(
-                                            id!,
-                                            expenses
-                                                .map((e) => e.id)
-                                                .whereType<String>()
-                                                .toList(),
-                                            token,
-                                            'pending',
-                                            context);
-                                        log('Response: $response');
-                                      },
+                                        },
+                                      ),
                                     ),
-                                  ),
+
+                                  // If eventStatus is 'completed', show only "Submit" with full width
+                                  if (report['eventStatus'] == 'done')
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.9, // Full width for Submit
+                                      child: SolidButton(
+                                        text: 'Submit',
+                                        onPressed: () async {
+                                          final response = await UpdateReport(
+                                              id!,
+                                              expenses
+                                                  .map((e) => e.id)
+                                                  .whereType<String>()
+                                                  .toList(),
+                                              token,
+                                              'pending',
+                                              context);
+                                          log('Response: $response');
+                                        },
+                                      ),
+                                    ),
+
+                                  // If eventStatus is null, show both "Save Draft" and "Submit" with half width
+                                  if (report['eventStatus'] == null) ...[
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.43,
+                                      child: CustomOutLineButton(
+                                        text: 'Save Draft',
+                                        onPressed: () async {
+                                          final response = await UpdateReport(
+                                              id!,
+                                              expenses
+                                                  .map((e) => e.id)
+                                                  .whereType<String>()
+                                                  .toList(),
+                                              token,
+                                              'drafted',
+                                              context);
+                                          log('Response: $response');
+                                          ref.invalidate(getReportProvider);
+                                          ref.watch(expensesProvider).clear();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.43,
+                                      child: SolidButton(
+                                        text: 'Submit',
+                                        onPressed: () async {
+                                          final response = await UpdateReport(
+                                              id!,
+                                              expenses
+                                                  .map((e) => e.id)
+                                                  .whereType<String>()
+                                                  .toList(),
+                                              token,
+                                              'pending',
+                                              context);
+                                          log('Response: $response');
+                                        },
+                                      ),
+                                    ),
+                                  ]
                                 ],
                               ),
                             ),
