@@ -9,11 +9,11 @@ class ApiService {
   // final String baseUrl = 'https://192.168.29.144:3030/api/v1/user';
 
   // Send OTP
-  Future<Map<String, dynamic>> sendOtp(String mobile) async {
+  Future<Map<String, dynamic>> sendOtp(String email) async {
     final response = await http.post(
       Uri.parse('$baseUrl/send-otp'),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"mobile": mobile}),
+      body: jsonEncode({"email": email}),
     );
     return _handleResponse(response);
   }
@@ -23,7 +23,8 @@ class ApiService {
     final response = await http.post(
       Uri.parse('$baseUrl/verify'),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"mobile": mobile, "otp": otp}),
+      // body: jsonEncode({"mobile": mobile, "otp": otp}),
+      body: jsonEncode({"email": mobile, "otp": otp}),
     );
     return _handleResponse(response);
   }
@@ -33,7 +34,7 @@ class ApiService {
     final response = await http.post(
       Uri.parse('$baseUrl/mpin'),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"mobile": mobile, "mpin": mpin}),
+      body: jsonEncode({"email": mobile, "mpin": mpin}),
     );
 
     return _handleResponse(response);

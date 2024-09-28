@@ -1,15 +1,15 @@
-// ignore_for_file: prefer_const_constructors
-
-
 import 'package:flutter/material.dart';
 import 'package:xpensea/src/core/theme/palette.dart';
 import 'package:xpensea/src/core/theme/text_style.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 
 class WalletCard extends StatelessWidget {
   final int advanceAmount;
   final int amountUsed;
 
-  const WalletCard({super.key, required this.advanceAmount, required this.amountUsed});
+  const WalletCard(
+      {super.key, required this.advanceAmount, required this.amountUsed});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class WalletCard extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.account_balance,
-                      color: Colors.yellowAccent,
+                      color: Colors.grey[200],
                       size: 22.0,
                     ),
                     SizedBox(width: 8.0),
@@ -86,7 +86,7 @@ class WalletCard extends StatelessWidget {
                   '₹${advanceAmount.toStringAsFixed(2)}',
                   style: AppTextStyle.kMediumBodyM.copyWith(
                     fontSize: 16.0,
-                    color: Colors.yellowAccent,
+                    color: Colors.grey[200],
                   ),
                 ),
               ],
@@ -127,6 +127,55 @@ class WalletCard extends StatelessWidget {
               backgroundColor: Colors.white.withOpacity(0.2),
               valueColor: AlwaysStoppedAnimation<Color>(Colors.greenAccent),
               minHeight: 6.0,
+            ),
+            SizedBox(height: 15.0),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      TextEditingController amountController =
+                          TextEditingController();
+                      return AlertDialog(
+                        title: Text('Request Advance'),
+                        content: TextField(
+                          controller: amountController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'Enter amount (₹)',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context); // Close the dialog
+                            },
+                            child: Text('Cancel'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              // You can add the logic to handle the advance request here
+                              String enteredAmount = amountController.text;
+                              postTransaction(
+                                  userId, userId, enteredAmount, token);
+
+                              Navigator.pop(context); // Close the dialog
+                            },
+                            child: Text('Submit'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white, // Black text
+                ),
+                child: Text('Request Advance'),
+              ),
             ),
             SizedBox(height: 15.0),
           ],

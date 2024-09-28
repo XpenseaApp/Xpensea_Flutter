@@ -85,8 +85,7 @@ class ApprovalDetails extends StatelessWidget {
                                     child: const Align(
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 8.0),
+                                        padding: EdgeInsets.only(left: 8.0),
                                         child: Text(
                                           'Details',
                                           style: AppTextStyle.kMediumBodyM,
@@ -185,6 +184,8 @@ class ApprovalDetails extends StatelessWidget {
                                                             token,
                                                             context);
                                                     log('Response: $response');
+                                                    ref.invalidate(
+                                                        getApprovalProvider);
                                                   },
                                                   style:
                                                       ElevatedButton.styleFrom(

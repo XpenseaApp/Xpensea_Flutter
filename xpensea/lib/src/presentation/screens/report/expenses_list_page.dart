@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -88,57 +87,6 @@ class ExpensesListPage extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        isDraft != null
-                            ? isDraft!
-                                ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              AppPalette.kPrimaryColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          // ref.read(expensesProvider.notifier).removeAllExpense();
-                                          List<String> expenses = ref
-                                              .watch(expensesProvider)
-                                              .map((e) {
-                                            return e.id!;
-                                          }).toList();
-
-                                          final response = await UpdateReport(
-                                              id!,
-                                              expenses,
-                                              token,
-                                              'drafted',
-                                              context);
-
-                                          print(
-                                              'response${response.toString()}');
-                                          Navigator.pop(context);
-                                        },
-                                        child: IntrinsicWidth(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Save',
-                                                style: AppTextStyle.kSmallBodyR
-                                                    .copyWith(
-                                                        color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox()
-                            : const SizedBox(),
                         Flexible(
                           child: ListView.separated(
                             itemCount: expenses.length,

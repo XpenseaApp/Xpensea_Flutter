@@ -101,7 +101,7 @@ class ProfilePage extends StatelessWidget {
         InkWell(
           onTap: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.remove('number');
+            prefs.setBool('isLoggedin', false);
             LoggedIn = false;
             Navigator.pushNamed(context, '/otp');
           },

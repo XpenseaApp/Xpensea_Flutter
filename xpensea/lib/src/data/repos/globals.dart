@@ -5,6 +5,7 @@ library data;
 import 'package:geolocator/geolocator.dart';
 
 String token = '';
+String userId = '';
 bool approver = false;
 String imageUrl = '';
 Position? location;

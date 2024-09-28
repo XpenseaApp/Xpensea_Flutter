@@ -22,9 +22,9 @@ class Helper {
   final ApiService _apiService = ApiService();
 
   // Send OTP
-  Future<Map<String, dynamic>> sendOtp(String mobile) async {
+  Future<Map<String, dynamic>> sendOtp(String email) async {
     try {
-      return await _apiService.sendOtp(mobile);
+      return await _apiService.sendOtp(email);
     } catch (e) {
       return {"success": false, "message": e.toString()};
     }
@@ -193,6 +193,48 @@ Future<dynamic> UpdateReport(String id, List<String> expenses, String token,
       );
     }
   } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+// Post Transaction
+Future<dynamic> postTransaction(
+    String senderId, String receiverId, String amount, String token) async {
+  try {
+    // Prepare the URL with the baseUrl
+    final Uri url = Uri.parse('$baseUrl/transaction');
+
+    // Prepare the request body
+    final Map<String, dynamic> body = {
+      "requestedBy": {"sender": senderId, "receiver": receiverId},
+      "amount": amount
+    };
+
+    // Send the POST request
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonEncode(body),
+    );
+
+    // Parse the response
+    final responseBody = jsonDecode(response.body);
+    log('responseBody: $responseBody');
+
+    // Handle the response
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return responseBody['data'];
+    } else {
+      log('Error: ${responseBody['message']}');
+
+      return null;
+    }
+  } catch (e) {
+    log('Exception: $e');
+
     throw Exception(e.toString());
   }
 }

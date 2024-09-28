@@ -24,6 +24,7 @@ class _OtpPageState extends State<OtpPage> {
   final Helper _helper = Helper();
 
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
   final TextEditingController mpinController = TextEditingController();
 
@@ -59,38 +60,90 @@ class _OtpPageState extends State<OtpPage> {
     super.dispose();
   }
 
-  Future<void> CheckNumber() async {
+  Future<void> CheckLoggedIn() async {
+    print("CheckLoggedIn called"); // Debug log
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedNumber = prefs.getString('number');
-    if (savedNumber != null && savedNumber.isNotEmpty) {
-      phoneController.text = savedNumber;
+    print("SharedPreferences instance retrieved"); // Debug log
+
+    bool? isLoggedin = prefs.getBool('isLoggedin');
+    print("isLoggedin value: $isLoggedin"); // Debug log
+
+    if (isLoggedin != null) {
+      LoggedIn = isLoggedin;
+      print("LoggedIn status set to: $LoggedIn"); // Debug log
+    }
+
+    if (LoggedIn) {
+      print("User is logged in, retrieving email"); // Debug log
+
+      // Retrieve email from SharedPreferences
+      String? savedEmail = prefs.getString('email');
+      print("Retrieved email: $savedEmail"); // Debug log
+
+      // Set emailController text if savedEmail is not null
+      if (savedEmail != null) {
+        emailController.text = savedEmail;
+        print("Set emailController.text to: $savedEmail"); // Debug log
+      }
+
+      // Navigate to page 2
       _pageController.jumpToPage(2);
+    } else {
+      print("User is not logged in"); // Debug log
     }
   }
 
   Future<void> sendOtp() async {
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false, // Prevents dialog from being dismissed by clicking outside
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 16),
+                Text("Sending OTP..."), // You can customize the message
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('number', phoneController.text);
-    final response = await _helper.sendOtp(phoneController.text);
+    await prefs.setString('email', emailController.text);
+    // final response = await _helper.sendOtp(phoneController.text);
+    final response = await _helper.sendOtp(emailController.text);
+
+    // After OTP is sent, close the dialog
+    Navigator.of(context).pop(); // Close the loading dialog
+
     if (response['success']) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     } else {
-      // handle error
+      // Handle error
       //TODO: remove after otp backend finished
       print(response['message']);
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
+      // _pageController.nextPage(
+      //   duration: const Duration(milliseconds: 300),
+      //   curve: Curves.easeInOut,
+      // );
     }
   }
 
   Future<void> verifyOtp() async {
     final response =
-        await _helper.verifyUser(phoneController.text, otpController.text);
+        await _helper.verifyUser(emailController.text, otpController.text);
     if (response['success']) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
@@ -99,10 +152,27 @@ class _OtpPageState extends State<OtpPage> {
     } else {
       // handle error
       print(response['message']);
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+      showAdaptiveDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text('Error'),
+            content: Text(response['message'].toString()),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
       );
+      // _pageController.nextPage(
+      //   duration: const Duration(milliseconds: 300),
+      //   curve: Curves.easeInOut,
+      // );
     }
   }
 
@@ -120,7 +190,7 @@ class _OtpPageState extends State<OtpPage> {
     );
 
     final response =
-        await _helper.mpinHandler(phoneController.text, mpinController.text);
+        await _helper.mpinHandler(emailController.text, mpinController.text);
 
     // Dismiss the loading dialog
     Navigator.pop(context);
@@ -131,7 +201,7 @@ class _OtpPageState extends State<OtpPage> {
         builder: (context) {
           final res = response['message'].toString();
           return CupertinoAlertDialog(
-            title: const Text('Debug'),
+            title: const Text('Error'),
             content: Text(res),
             actions: [
               CupertinoDialogAction(
@@ -147,7 +217,11 @@ class _OtpPageState extends State<OtpPage> {
     }
 
     if (response['success']) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isLoggedin', true);
+      LoggedIn = true;
       print(response['data']);
+      userId = response['data']['data']['_id'].toString();
       token = response['data']['data']['token'].toString();
       approver = response['data']['data']['userType'].toString() == 'approver'
           ? true
@@ -163,6 +237,12 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    CheckLoggedIn();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -172,7 +252,8 @@ class _OtpPageState extends State<OtpPage> {
             controller: _pageController,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              _phoneInputPage(),
+              // _phoneInputPage(),
+              _emailInputPage(),
               _otpInputPage(),
               _createMPinPage(),
               _mPinInputPage(),
@@ -183,8 +264,49 @@ class _OtpPageState extends State<OtpPage> {
     );
   }
 
+  Widget _emailInputPage() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SvgPicture.asset(AppIcons.starFilled), // Replace with an existing icon
+        const SizedBox(height: 10),
+        const Text(
+          "Enter your Email ID",
+          style: AppTextStyle.kDisplayTitleM,
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Email ID',
+            hintText: 'Enter your email address',
+          ),
+          onChanged: (value) {
+            print('Email: $value');
+          },
+          onSubmitted: (value) {
+            print('Email Submitted: $value');
+          },
+        ),
+        const SizedBox(height: 20),
+        const Text(
+          "We will send you a verification email to this address",
+          style: AppTextStyle.kSmallTitleR,
+        ),
+        const Spacer(),
+        SolidButton(
+          text: 'SEND EMAIL',
+          onPressed:
+              sendOtp, // Define this function to send the verification email
+        ),
+      ],
+    );
+  }
+
   Widget _phoneInputPage() {
-    CheckNumber();
+    CheckLoggedIn();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -292,9 +414,9 @@ class _OtpPageState extends State<OtpPage> {
             defaultPinTheme: defaultPinTheme,
             keyboardType: TextInputType.none,
             separatorBuilder: (index) => const SizedBox(width: 8),
-            validator: (value) {
-              return value == '2222' ? null : 'Pin is incorrect';
-            },
+            // validator: (value) {
+            //   return value == '2222' ? null : '';
+            // },
             hapticFeedbackType: HapticFeedbackType.lightImpact,
             onCompleted: (pin) {
               debugPrint('onCompleted: $pin');
@@ -396,7 +518,8 @@ class _OtpPageState extends State<OtpPage> {
         ),
         const SizedBox(height: 10),
         Text(
-          LoggedIn ? "Create MPIN" : " MPIN",
+          // LoggedIn ? "Create MPIN" :
+          " MPIN",
           style: AppTextStyle.kDisplayTitleM,
         ),
         const SizedBox(height: 20),
