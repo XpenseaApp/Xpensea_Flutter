@@ -400,11 +400,10 @@ class ReportDetail extends StatelessWidget {
                                       ),
                                     ),
 
-                                  // If eventStatus is 'completed', show only "Submit" with full width
                                   if (report['eventStatus'] == 'done')
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
-                                          0.9, // Full width for Submit
+                                          0.9,
                                       child: SolidButton(
                                         text: 'Submit',
                                         onPressed: () async {
@@ -418,11 +417,11 @@ class ReportDetail extends StatelessWidget {
                                               'pending',
                                               context);
                                           log('Response: $response');
+                                          ref.invalidate(getReportProvider);
                                         },
                                       ),
                                     ),
 
-                                  // If eventStatus is null, show both "Save Draft" and "Submit" with half width
                                   if (report['eventStatus'] == null) ...[
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
@@ -461,6 +460,7 @@ class ReportDetail extends StatelessWidget {
                                               'pending',
                                               context);
                                           log('Response: $response');
+                                          ref.invalidate(getReportProvider);
                                         },
                                       ),
                                     ),

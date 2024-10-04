@@ -202,7 +202,7 @@ Future<dynamic> postTransaction(
     String senderId, String receiverId, String amount, String token) async {
   try {
     // Prepare the URL with the baseUrl
-    final Uri url = Uri.parse('$baseUrl/transaction');
+    final Uri url = Uri.parse('$baseUrl/advance-payment');
 
     // Prepare the request body
     final Map<String, dynamic> body = {
@@ -344,6 +344,31 @@ Future<List<Event>> eventList(
       log(responseBody['message']);
       List<Event> data = [];
       return data;
+    }
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+@riverpod
+Future<List<dynamic>> notificationList(
+    NotificationListRef ref, String token) async {
+  try {
+    final response = await http
+        .get(Uri.parse('$baseUrl/list?type=notifications'), headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
+    });
+
+    final responseBody = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      List<dynamic> rawData = responseBody['data'];
+      log('rawDataaaa: $rawData');
+
+      List<dynamic> data = rawData.toList();
+      return data;
+    } else {
+      throw Exception(responseBody['message']);
     }
   } catch (e) {
     throw Exception(e.toString());

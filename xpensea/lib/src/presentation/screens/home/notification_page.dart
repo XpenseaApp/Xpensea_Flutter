@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:xpensea/src/data/repos/globals.dart';
+import 'package:xpensea/src/data/routes/helper/user_helper.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -6,73 +11,64 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Dummy notification data
-    final List<Map<String, dynamic>> unreadNotifications = [
-      {
-        'subject': 'New Promotion',
-        'content': 'Get 50% off on your next purchase',
-        'updatedAt': DateTime.now(),
-      },
-      {
-        'subject': 'Limited Time Offer',
-        'content': 'Free shipping on orders above \$100',
-        'updatedAt': DateTime.now().subtract(Duration(hours: 2)),
-      }
-    ];
+    // final List<Map<String, dynamic>> unreadNotifications = [
+    //   {
+    //     'subject': 'New Promotion',
+    //     'content': 'Get 50% off on your next purchase',
+    //     'updatedAt': DateTime.now(),
+    //   },
+    //   {
+    //     'subject': 'Limited Time Offer',
+    //     'content': 'Free shipping on orders above \$100',
+    //     'updatedAt': DateTime.now().subtract(Duration(hours: 2)),
+    //   }
+    // ];
 
-    final List<Map<String, dynamic>> readNotifications = [
-      {
-        'subject': 'System Update',
-        'content': 'Your system has been updated successfully',
-        'updatedAt': DateTime.now().subtract(Duration(days: 1)),
+    // final List<Map<String, dynamic>> readNotifications = [
+    //   {
+    //     'subject': 'System Update',
+    //     'content': 'Your system has been updated successfully',
+    //     'updatedAt': DateTime.now().subtract(Duration(days: 1)),
+    //   },
+    //   {
+    //     'subject': 'Reminder',
+    //     'content': 'Don’t forget to complete your purchase',
+    //     'updatedAt': DateTime.now().subtract(Duration(days: 2)),
+    //   }
+    // ];
+    return Consumer(
+      builder: (context, ref, child) {
+        final List notifications =
+            ref.watch(notificationListProvider(token)).value ?? [];
+        log('Notifications: $notifications');
+        return Scaffold(
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          appBar: AppBar(
+            title: const Text('Notifications'),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Display unread notifications
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: notifications.length,
+                  itemBuilder: (context, index) {
+                    final notification = notifications[index];
+                    return _buildNotificationCard(
+                      readed: notification['isRead'],
+                      subject: notification['content']['title'],
+                      content: notification['content']['description'],
+                      dateTime: DateTime.parse(notification['updatedAt']),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
       },
-      {
-        'subject': 'Reminder',
-        'content': 'Don’t forget to complete your purchase',
-        'updatedAt': DateTime.now().subtract(Duration(days: 2)),
-      }
-    ];
-
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      appBar: AppBar(
-        title: const Text('Notifications'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Display unread notifications
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: unreadNotifications.length,
-              itemBuilder: (context, index) {
-                final notification = unreadNotifications[index];
-                return _buildNotificationCard(
-                  readed: false,
-                  subject: notification['subject'],
-                  content: notification['content'],
-                  dateTime: notification['updatedAt'],
-                );
-              },
-            ),
-            // Display read notifications
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: readNotifications.length,
-              itemBuilder: (context, index) {
-                final notification = readNotifications[index];
-                return _buildNotificationCard(
-                  readed: true,
-                  subject: notification['subject'],
-                  content: notification['content'],
-                  dateTime: notification['updatedAt'],
-                );
-              },
-            ),
-          ],
-        ),
-      ),
     );
   }
 

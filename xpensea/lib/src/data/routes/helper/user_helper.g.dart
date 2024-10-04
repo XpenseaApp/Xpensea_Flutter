@@ -173,7 +173,7 @@ class _ExpenseListProviderElement
   String get type => (origin as ExpenseListProvider).type;
 }
 
-String _$reportListHash() => r'c3194f55606e5058c003ba3df4b72c06cf6f8421';
+String _$reportListHash() => r'9b4f70478353e596b8366de223ecc212878fbf6b';
 
 /// See also [reportList].
 @ProviderFor(reportList)
@@ -464,7 +464,7 @@ class _ApproversListProviderElement
   String get type => (origin as ApproversListProvider).type;
 }
 
-String _$eventListHash() => r'00027edc8c5e65b2f1e1ec608c6a7ad75bb7cd6e';
+String _$eventListHash() => r'1135ce95e69c3e0d3f755380409a58d52830ed43';
 
 /// See also [eventList].
 @ProviderFor(eventList)
@@ -608,7 +608,137 @@ class _EventListProviderElement
   String get type => (origin as EventListProvider).type;
 }
 
-String _$getExpenseHash() => r'a1c15cd5139eee7b30c88d379869ab0383bd9c34';
+String _$notificationListHash() => r'3293c02f2eba1dfcdb76b1a9a6bc989d49d473b6';
+
+/// See also [notificationList].
+@ProviderFor(notificationList)
+const notificationListProvider = NotificationListFamily();
+
+/// See also [notificationList].
+class NotificationListFamily extends Family<AsyncValue<List<dynamic>>> {
+  /// See also [notificationList].
+  const NotificationListFamily();
+
+  /// See also [notificationList].
+  NotificationListProvider call(
+    String token,
+  ) {
+    return NotificationListProvider(
+      token,
+    );
+  }
+
+  @override
+  NotificationListProvider getProviderOverride(
+    covariant NotificationListProvider provider,
+  ) {
+    return call(
+      provider.token,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'notificationListProvider';
+}
+
+/// See also [notificationList].
+class NotificationListProvider
+    extends AutoDisposeFutureProvider<List<dynamic>> {
+  /// See also [notificationList].
+  NotificationListProvider(
+    String token,
+  ) : this._internal(
+          (ref) => notificationList(
+            ref as NotificationListRef,
+            token,
+          ),
+          from: notificationListProvider,
+          name: r'notificationListProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$notificationListHash,
+          dependencies: NotificationListFamily._dependencies,
+          allTransitiveDependencies:
+              NotificationListFamily._allTransitiveDependencies,
+          token: token,
+        );
+
+  NotificationListProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.token,
+  }) : super.internal();
+
+  final String token;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<dynamic>> Function(NotificationListRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: NotificationListProvider._internal(
+        (ref) => create(ref as NotificationListRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        token: token,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<dynamic>> createElement() {
+    return _NotificationListProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is NotificationListProvider && other.token == token;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin NotificationListRef on AutoDisposeFutureProviderRef<List<dynamic>> {
+  /// The parameter `token` of this provider.
+  String get token;
+}
+
+class _NotificationListProviderElement
+    extends AutoDisposeFutureProviderElement<List<dynamic>>
+    with NotificationListRef {
+  _NotificationListProviderElement(super.provider);
+
+  @override
+  String get token => (origin as NotificationListProvider).token;
+}
+
+String _$getExpenseHash() => r'cabe4824521e7f7d134d212da861de1c1112a283';
 
 /// See also [getExpense].
 @ProviderFor(getExpense)
@@ -753,7 +883,7 @@ class _GetExpenseProviderElement
   String get token => (origin as GetExpenseProvider).token;
 }
 
-String _$getReportHash() => r'667acef1c539d025d2730721269228339dd0dd0e';
+String _$getReportHash() => r'8349739ce62da156f9abf11f3b414f419788ad58';
 
 /// See also [getReport].
 @ProviderFor(getReport)
@@ -913,7 +1043,7 @@ class _GetReportProviderElement
   String get token => (origin as GetReportProvider).token;
 }
 
-String _$getApprovalHash() => r'f73e9d5cfdd5dceca6b9c2b47b0e2ec1396e0687';
+String _$getApprovalHash() => r'e35f3586964bbbc2d2d5a23f2cd87d7bf226d16f';
 
 /// See also [getApproval].
 @ProviderFor(getApproval)
@@ -1605,7 +1735,7 @@ class _GetPolicyProviderElement
   String get token => (origin as GetPolicyProvider).token;
 }
 
-String _$saveLocationHash() => r'c7fdc1021670e549f668d2cf2c0d5b62ec557548';
+String _$saveLocationHash() => r'e11c10349606864ecbc6dcaee2839c47c34d040a';
 
 /// See also [saveLocation].
 @ProviderFor(saveLocation)

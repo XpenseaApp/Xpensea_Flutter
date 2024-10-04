@@ -138,6 +138,7 @@ class WalletCard extends StatelessWidget {
                       TextEditingController amountController =
                           TextEditingController();
                       return AlertDialog(
+                        backgroundColor: Colors.white,
                         title: Text('Request Advance'),
                         content: TextField(
                           controller: amountController,

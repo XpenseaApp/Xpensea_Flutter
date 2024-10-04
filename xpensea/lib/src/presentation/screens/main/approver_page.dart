@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,6 +30,7 @@ class ApproverPage extends StatelessWidget {
 
         final List<Reports> all =
             [approved, rejected, pending].expand((x) => x).toList();
+        log('All reports: ${all.map((e) => '${e.amount} ${e.id}').toList()}');
 
         return DefaultTabController(
           length: 4, // Updated from 2 to 4

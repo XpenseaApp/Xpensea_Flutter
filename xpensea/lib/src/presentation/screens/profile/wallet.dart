@@ -63,6 +63,7 @@ class WalletPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 var expense =
                                     data['data']['data']['expenses'][index];
+                                log('Expense: $expense');
 
                                 return Padding(
                                   padding:
@@ -81,18 +82,37 @@ class WalletPage extends StatelessWidget {
                                         ),
                                       ),
                                       title: Text(
-                                        expense['title'],
+                                        expense['_id'],
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      subtitle: Text(
-                                        "Amount: ₹${expense['amount']}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey,
-                                        ),
+                                      subtitle: Row(
+                                        children: [
+                                          // Show an upward green triangle for credit and a downward red triangle for debit
+                                          Icon(
+                                            expense['mode'] == 'credit'
+                                                ? Icons.arrow_upward
+                                                : Icons.arrow_downward,
+                                            color: expense['mode'] == 'credit'
+                                                ? Colors.green
+                                                : Colors.red,
+                                            size: 14, // Adjust size as needed
+                                          ),
+                                          SizedBox(
+                                              width:
+                                                  5), // Add some space between the icon and text
+                                          Text(
+                                            expense['mode'] == 'credit'
+                                                ? "Amount: ₹${expense['amount']}"
+                                                : "Amount: ₹ -${expense['amount']}",
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       trailing: const Icon(
                                         Icons.arrow_forward_ios,

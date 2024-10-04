@@ -132,12 +132,27 @@ class _OtpPageState extends State<OtpPage> {
       );
     } else {
       // Handle error
-      //TODO: remove after otp backend finished
-      print(response['message']);
-      // _pageController.nextPage(
-      //   duration: const Duration(milliseconds: 300),
-      //   curve: Curves.easeInOut,
-      // );
+      print(response[
+          'message']); // For debugging, you might want to log the error message
+
+      // Show error dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Login Failed"),
+            content: Text(response['message']), // Display the error message
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the error dialog
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

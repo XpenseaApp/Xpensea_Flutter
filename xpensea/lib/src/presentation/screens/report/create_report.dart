@@ -58,6 +58,7 @@ class _CreateReportState extends State<CreateReport> {
     return Consumer(
       builder: (context, ref, child) {
         return Scaffold(
+          backgroundColor: Colors.white,
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
