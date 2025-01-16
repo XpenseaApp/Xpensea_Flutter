@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 part 'user_helper.g.dart';
 
 const String baseUrl =
-    'https://xpensea--backend-393541516579.asia-south1.run.app/api/v1/user';
+    'https://xpensea-backend-189792861103.us-central1.run.app/api/v1/user';
 // const String baseUrl = 'https://192.168.29.144:3030/api/v1/user';
 
 class Helper {
@@ -278,6 +278,7 @@ Future<List<Reports>> reportList(
     final responseBody = jsonDecode(response.body);
     if (response.statusCode == 200) {
       List<dynamic> rawData = responseBody['data'];
+      log('data: $rawData');
       List<Reports> data = rawData
           .where((e) => e['status'] == type)
           .map<Reports>((e) => Reports.fromJson(e))

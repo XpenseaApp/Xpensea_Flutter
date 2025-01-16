@@ -21,7 +21,7 @@ class ExpensePage extends StatelessWidget {
             ref.watch(expenseListProvider(globals.token, 'mapped')).value ?? [];
 
         final List<Expenses> approvedExpenses =
-            ref.watch(expenseListProvider(globals.token, 'accepted')).value ??
+            ref.watch(expenseListProvider(globals.token, 'approved')).value ??
                 [];
 
         final List<Expenses> expenses =

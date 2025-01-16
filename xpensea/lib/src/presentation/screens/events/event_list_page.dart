@@ -18,7 +18,7 @@ class EventListPage extends StatelessWidget {
       status: 'mapped',
       category: '',
       description: '',
-      image: '',
+      image: [],
       aiScores: AiScores(
         authenticity: 0,
         accuracy: 0,
@@ -37,7 +37,7 @@ class EventListPage extends StatelessWidget {
       status: 'mapped',
       category: '',
       description: '',
-      image: '',
+      image: [],
       aiScores: AiScores(
         authenticity: 0,
         accuracy: 0,
@@ -56,7 +56,7 @@ class EventListPage extends StatelessWidget {
       status: 'mapped',
       category: '',
       description: '',
-      image: '',
+      image: [],
       aiScores: AiScores(
         authenticity: 0,
         accuracy: 0,
@@ -75,7 +75,7 @@ class EventListPage extends StatelessWidget {
       status: 'mapped',
       category: '',
       description: '',
-      image: '',
+      image: [],
       aiScores: AiScores(
         authenticity: 0,
         accuracy: 0,

@@ -5,7 +5,7 @@ import 'package:xpensea/src/data/models/expense.dart';
 
 class ApiService {
   final String baseUrl =
-      'https://xpensea--backend-393541516579.asia-south1.run.app/api/v1/user';
+      'https://xpensea-backend-189792861103.us-central1.run.app/api/v1/user';
   // final String baseUrl = 'https://192.168.29.144:3030/api/v1/user';
 
   // Send OTP

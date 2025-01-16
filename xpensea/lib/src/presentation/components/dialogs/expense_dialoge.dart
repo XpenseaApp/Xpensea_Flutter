@@ -73,45 +73,50 @@ class ExpenseDialog extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4, horizontal: 8),
-                      decoration: BoxDecoration(
-                        color: AppPalette.kGray5,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        children: [
-                          Image.network(
-                            expense.image != ''
-                                ? expense.image
-                                : 'https://via.placeholder.com/150',
-                            width: 50,
-                            height: 50,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'ImgQR25245-11/02/2024',
-                                style: AppTextStyle.kLargeBodySB.copyWith(
-                                  fontSize: 15,
-                                  color: Colors.black,
+                    GestureDetector(
+                      onTap: () {
+                        _showFullScreenImage(context, expense.image);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: AppPalette.kGray5,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.network(
+                              expense.image != ''
+                                  ? expense.image.first
+                                  : 'https://via.placeholder.com/150',
+                              width: 50,
+                              height: 50,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'ImgQR25245-11/02/2024',
+                                  style: AppTextStyle.kLargeBodySB.copyWith(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '92kb',
-                                style: AppTextStyle.kLargeBodySB.copyWith(
-                                  fontSize: 15,
-                                  color: Colors.grey,
+                                Text(
+                                  '92kb',
+                                  style: AppTextStyle.kLargeBodySB.copyWith(
+                                    fontSize: 15,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -235,6 +240,31 @@ class ExpenseDialog extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  void _showFullScreenImage(BuildContext context, List<String> imageUrls) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              image: DecorationImage(
+                image: NetworkImage(imageUrls.isNotEmpty
+                    ? imageUrls.first
+                    : 'https://via.placeholder.com/150'),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

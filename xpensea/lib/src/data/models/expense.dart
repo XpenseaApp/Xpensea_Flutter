@@ -9,7 +9,7 @@ class Expense {
   final String address;
   final String category;
   final String description;
-  final String image;
+  final List<String> image;
 
   Expense({
     required this.title,
@@ -60,7 +60,7 @@ class Expense {
     String? address,
     String? category,
     String? description,
-    String? image,
+    List<String>? image,
   }) {
     return Expense(
       title: title ?? this.title,
@@ -87,7 +87,7 @@ class ExpenseNotifier extends StateNotifier<Expense> {
           address: '',
           category: '',
           description: '',
-          image: '',
+          image: [],
         ));
 
   void addExpense(Expense expense) {
@@ -114,7 +114,7 @@ class ExpenseNotifier extends StateNotifier<Expense> {
       address: '',
       category: '',
       description: '',
-      image: '',
+      image: [],
     );
   }
 
@@ -151,7 +151,7 @@ class ExpenseNotifier extends StateNotifier<Expense> {
   }
 
   void updateExpenseImage(String image) {
-    state = state.copyWith(image: image);
+    state = state.copyWith(image: [...state.image, image]);
   }
 }
 

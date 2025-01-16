@@ -40,7 +40,7 @@ class Expenses {
   late String trailingIconPath;
   final String category;
   final String? description;
-  final String image;
+  final List<String> image;
   final AiScores? aiScores;
   final String? location;
 
@@ -88,7 +88,7 @@ class Expenses {
           json['status'] == 'mapped' ? AppIcons.checkOk : AppIcons.checkWait,
       category: json['category'],
       description: json['description'],
-      image: json['image'],
+      image: json['image'].map<String>((e) => e.toString()).toList(),
       aiScores: aiScores,
       location: json['location'],
     );
